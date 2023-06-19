@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37078E6F2A40727200292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E6E2A40727200292BE8 /* chillparah.swift */; };
+		37078E712A40728100292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E702A40728100292BE8 /* chillparah.swift */; };
+		37078E732A40728F00292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E722A40728F00292BE8 /* chillparah.swift */; };
+		37078E762A4072C900292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E752A4072C900292BE8 /* chillparah.swift */; };
+		37078E782A4072D800292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E772A4072D800292BE8 /* chillparah.swift */; };
+		37078E7A2A4072E300292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E792A4072E300292BE8 /* chillparah.swift */; };
+		37078E7C2A40730100292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E7B2A40730100292BE8 /* chillparah.swift */; };
+		37078E7E2A40731000292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E7D2A40731000292BE8 /* chillparah.swift */; };
+		37078E802A40732100292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E7F2A40732100292BE8 /* chillparah.swift */; };
+		37078E822A40733400292BE8 /* chillparah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E812A40733400292BE8 /* chillparah.swift */; };
 		37C29B992A400F0E001C2335 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C29B982A400F0E001C2335 /* AppDelegate.swift */; };
 		37C29B9B2A400F0E001C2335 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 37C29B9A2A400F0E001C2335 /* GameScene.sks */; };
 		37C29B9D2A400F0E001C2335 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 37C29B9C2A400F0E001C2335 /* Actions.sks */; };
@@ -18,6 +28,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37078E6E2A40727200292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E702A40728100292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E722A40728F00292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E752A4072C900292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E772A4072D800292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E792A4072E300292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E7B2A40730100292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E7D2A40731000292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E7F2A40732100292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
+		37078E812A40733400292BE8 /* chillparah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chillparah.swift; sourceTree = "<group>"; };
 		37C29B952A400F0E001C2335 /* 2DGameExploration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2DGameExploration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37C29B982A400F0E001C2335 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37C29B9A2A400F0E001C2335 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -43,6 +63,7 @@
 		37078E5F2A406C0F00292BE8 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				37078E6E2A40727200292BE8 /* chillparah.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -50,6 +71,7 @@
 		37078E602A406C2C00292BE8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				37078E702A40728100292BE8 /* chillparah.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -78,6 +100,7 @@
 		37078E632A406CBA00292BE8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				37078E772A4072D800292BE8 /* chillparah.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -95,6 +118,7 @@
 		37078E652A406CF000292BE8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				37078E7F2A40732100292BE8 /* chillparah.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -110,6 +134,7 @@
 		37078E672A406D5300292BE8 /* GameMath */ = {
 			isa = PBXGroup;
 			children = (
+				37078E812A40733400292BE8 /* chillparah.swift */,
 			);
 			path = GameMath;
 			sourceTree = "<group>";
@@ -117,6 +142,7 @@
 		37078E682A406E0D00292BE8 /* Title Music */ = {
 			isa = PBXGroup;
 			children = (
+				37078E792A4072E300292BE8 /* chillparah.swift */,
 			);
 			path = "Title Music";
 			sourceTree = "<group>";
@@ -124,6 +150,7 @@
 		37078E692A406E1D00292BE8 /* In Game Music */ = {
 			isa = PBXGroup;
 			children = (
+				37078E7B2A40730100292BE8 /* chillparah.swift */,
 			);
 			path = "In Game Music";
 			sourceTree = "<group>";
@@ -131,6 +158,7 @@
 		37078E6A2A406E2700292BE8 /* Sound Effects */ = {
 			isa = PBXGroup;
 			children = (
+				37078E7D2A40731000292BE8 /* chillparah.swift */,
 			);
 			path = "Sound Effects";
 			sourceTree = "<group>";
@@ -138,6 +166,7 @@
 		37078E6C2A406F1B00292BE8 /* Level 2 */ = {
 			isa = PBXGroup;
 			children = (
+				37078E722A40728F00292BE8 /* chillparah.swift */,
 			);
 			path = "Level 2";
 			sourceTree = "<group>";
@@ -145,6 +174,7 @@
 		37078E6D2A406F2300292BE8 /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
+				37078E752A4072C900292BE8 /* chillparah.swift */,
 			);
 			path = "Level 3";
 			sourceTree = "<group>";
@@ -256,9 +286,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37078E7E2A40731000292BE8 /* chillparah.swift in Sources */,
+				37078E762A4072C900292BE8 /* chillparah.swift in Sources */,
 				37C29B9F2A400F0E001C2335 /* GameScene.swift in Sources */,
 				37C29BA12A400F0E001C2335 /* GameViewController.swift in Sources */,
+				37078E822A40733400292BE8 /* chillparah.swift in Sources */,
+				37078E782A4072D800292BE8 /* chillparah.swift in Sources */,
+				37078E712A40728100292BE8 /* chillparah.swift in Sources */,
+				37078E7A2A4072E300292BE8 /* chillparah.swift in Sources */,
 				37C29B992A400F0E001C2335 /* AppDelegate.swift in Sources */,
+				37078E7C2A40730100292BE8 /* chillparah.swift in Sources */,
+				37078E6F2A40727200292BE8 /* chillparah.swift in Sources */,
+				37078E732A40728F00292BE8 /* chillparah.swift in Sources */,
+				37078E802A40732100292BE8 /* chillparah.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
