@@ -40,6 +40,115 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37078E5F2A406C0F00292BE8 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		37078E602A406C2C00292BE8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		37078E612A406C4500292BE8 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				37078E622A406C7400292BE8 /* Level 1 */,
+				37078E6C2A406F1B00292BE8 /* Level 2 */,
+				37078E6D2A406F2300292BE8 /* Level 3 */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		37078E622A406C7400292BE8 /* Level 1 */ = {
+			isa = PBXGroup;
+			children = (
+				37C29B9A2A400F0E001C2335 /* GameScene.sks */,
+				37C29B9C2A400F0E001C2335 /* Actions.sks */,
+				37C29B9E2A400F0E001C2335 /* GameScene.swift */,
+				37C29BA02A400F0E001C2335 /* GameViewController.swift */,
+			);
+			path = "Level 1";
+			sourceTree = "<group>";
+		};
+		37078E632A406CBA00292BE8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		37078E642A406CD000292BE8 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				37078E682A406E0D00292BE8 /* Title Music */,
+				37078E692A406E1D00292BE8 /* In Game Music */,
+				37078E6A2A406E2700292BE8 /* Sound Effects */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		37078E652A406CF000292BE8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		37078E662A406D0500292BE8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				37C29BA52A400F0F001C2335 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		37078E672A406D5300292BE8 /* GameMath */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GameMath;
+			sourceTree = "<group>";
+		};
+		37078E682A406E0D00292BE8 /* Title Music */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Title Music";
+			sourceTree = "<group>";
+		};
+		37078E692A406E1D00292BE8 /* In Game Music */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "In Game Music";
+			sourceTree = "<group>";
+		};
+		37078E6A2A406E2700292BE8 /* Sound Effects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Sound Effects";
+			sourceTree = "<group>";
+		};
+		37078E6C2A406F1B00292BE8 /* Level 2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Level 2";
+			sourceTree = "<group>";
+		};
+		37078E6D2A406F2300292BE8 /* Level 3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Level 3";
+			sourceTree = "<group>";
+		};
 		37C29B8C2A400F0E001C2335 = {
 			isa = PBXGroup;
 			children = (
@@ -59,13 +168,16 @@
 		37C29B972A400F0E001C2335 /* 2DGameExploration */ = {
 			isa = PBXGroup;
 			children = (
+				37078E5F2A406C0F00292BE8 /* Entities */,
+				37078E602A406C2C00292BE8 /* Components */,
+				37078E612A406C4500292BE8 /* Scenes */,
+				37078E632A406CBA00292BE8 /* UI */,
+				37078E642A406CD000292BE8 /* Audio */,
+				37078E652A406CF000292BE8 /* Utilities */,
+				37078E662A406D0500292BE8 /* Assets */,
+				37078E672A406D5300292BE8 /* GameMath */,
 				37C29B982A400F0E001C2335 /* AppDelegate.swift */,
-				37C29B9A2A400F0E001C2335 /* GameScene.sks */,
-				37C29B9C2A400F0E001C2335 /* Actions.sks */,
-				37C29B9E2A400F0E001C2335 /* GameScene.swift */,
-				37C29BA02A400F0E001C2335 /* GameViewController.swift */,
 				37C29BA22A400F0E001C2335 /* Main.storyboard */,
-				37C29BA52A400F0F001C2335 /* Assets.xcassets */,
 				37C29BA72A400F0F001C2335 /* LaunchScreen.storyboard */,
 			);
 			path = 2DGameExploration;
