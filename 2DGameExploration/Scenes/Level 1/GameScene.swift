@@ -9,80 +9,79 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    let disk = SKSpriteNode(imageNamed: "disk")
+    let knob = SKSpriteNode(imageNamed: "knob")
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    
+    let joystickYPos = CGFloat(150)
+    
+    var lastUpdateTime: TimeInterval = 0
+
+    var diskRadius: CGFloat {
+        CGFloat(disk.size.width / 2.0) // 130 / 2 : CONVERT PIXEL TO POINT!!
+    }
+    
+    var isPressed: Bool = false
     
     override func didMove(to view: SKView) {
+        disk.position = CGPoint(x: screenWidth/2, y: joystickYPos)
+        disk.alpha = 0.3
+        disk.addChild(knob)
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        knob.position = CGPoint(x: 0, y: 0)
+        addChild(disk)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for touch in touches {
+            let location = touch.location(in: self)
+            let diskLocation = touch.location(in: disk)
+            let knobLocation = touch.location(in: knob)
+            
+            disk.position = location
+            
+            disk.alpha = 1
+            print(diskLocation)
+            print(knobLocation)
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        for touch in touches {
+            let location = touch.location(in: self)
+            let knobLocation = touch.location(in: knob)
+            let diskLocation = touch.location(in: disk)
+            
+            let angle: CGFloat = atan2(diskLocation.y, diskLocation.x) // solusi pertama arctan(y/x)
+            let radiusTemp = sqrt(pow(diskLocation.y, 2) + pow(diskLocation.x, 2))
+
+            if disk.contains(location) {
+                self.isPressed = true
+            }
+
+            if self.isPressed {
+                if radiusTemp < diskRadius {
+                    knob.position = diskLocation
+                } else {
+                    knob.position = diskLocation
+                    disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
+                }
+            }
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        let moveDisk = SKAction.move(to: CGPoint(x: screenWidth/2, y: joystickYPos), duration: 0.08)
+        let moveKnob = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.08)
+        knob.run(moveKnob)
+        disk.run(moveDisk)
+        self.isPressed = false
+        disk.alpha = 0.3
+        
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-    }
+    override func update(_ currentTime: TimeInterval) {}
 }
