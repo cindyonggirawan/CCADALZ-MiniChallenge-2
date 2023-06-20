@@ -25,42 +25,44 @@ class GameScene: SKScene {
     
     var isPressed: Bool = false
     
+    var player: SKSpriteNode!
+    
     override func didMove(to view: SKView) {
         disk.position = CGPoint(x: screenWidth/2, y: joystickYPos)
         disk.alpha = 0.3
         disk.addChild(knob)
+        knob.zPosition = 2
         
         knob.position = CGPoint(x: 0, y: 0)
         addChild(disk)
+        
+        player = childNode(withName: "player") as? SKSpriteNode
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch in touches {
             let location = touch.location(in: self)
-            let diskLocation = touch.location(in: disk)
-            let knobLocation = touch.location(in: knob)
+            let _ = touch.location(in: disk) // diskLocation
+            let _ = touch.location(in: knob) // knobLocation
             
             disk.position = location
-            
             disk.alpha = 1
-            print(diskLocation)
-            print(knobLocation)
+            
+            if disk.contains(location) {
+                self.isPressed = true
+            }
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            let knobLocation = touch.location(in: knob)
             let diskLocation = touch.location(in: disk)
-            
+            let knobLocation = touch.location(in: knob)
+
             let angle: CGFloat = atan2(diskLocation.y, diskLocation.x) // solusi pertama arctan(y/x)
             let radiusTemp = sqrt(pow(diskLocation.y, 2) + pow(diskLocation.x, 2))
-
-            if disk.contains(location) {
-                self.isPressed = true
-            }
 
             if self.isPressed {
                 if radiusTemp < diskRadius {
@@ -69,6 +71,10 @@ class GameScene: SKScene {
                     knob.position = diskLocation
                     disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
                 }
+                
+                player.position.x += diskLocation.x * 0.08
+                player.position.y += diskLocation.y * 0.08
+                player.zRotation = atan2(diskLocation.y, diskLocation.x) - CGFloat(Double.pi / 2)
             }
         }
     }
