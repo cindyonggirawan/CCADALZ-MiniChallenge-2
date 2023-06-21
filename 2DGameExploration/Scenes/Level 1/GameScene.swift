@@ -27,8 +27,7 @@ class GameScene: SKScene {
     
     var isPressed: Bool = false
     
-//    var player = SKSpriteNode(imageNamed: "up")
-    var player = SKSpriteNode(imageNamed: "character")
+    var player: SKSpriteNode!
     
     override func didMove(to view: SKView) {
         
@@ -42,9 +41,8 @@ class GameScene: SKScene {
         knob.position = CGPoint(x: 0, y: 0)
         addChild(disk)
         
-        player = SKSpriteNode(imageNamed: "up")
-        player = SKSpriteNode(imageNamed: "character")
-        player.size = CGSize(width: 130.0, height: 105.0)
+        let texture = SKTexture(imageNamed: "up")
+        player  = SKSpriteNode(texture: texture)
         player.position = CGPoint(x: screenWidth/2, y: 350)
         addChild(player)
     }
@@ -74,6 +72,7 @@ class GameScene: SKScene {
             let xDiskLoc: Double = diskLocation.x
             let yDiskLoc: Double = diskLocation.y
             
+            
             let tangent2 = atan2(yDiskLoc, xDiskLoc)
             
             let angle: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
@@ -94,8 +93,61 @@ class GameScene: SKScene {
 //                print("bbb", tangent2)
 //                print()
                 
-//                switch {
-//                    case
+                switch tangent2 {
+                // >>> UP
+                case (Double.pi / 4) ..< (3 * Double.pi / 4):
+                    let texture = SKTexture(imageNamed: "up")
+                    player.texture = texture
+                    print("up")
+                    
+                    
+                // >>> LEFT
+                case (3 * Double.pi / 4) ... Double.pi:
+                    print("left-1")
+                    let texture = SKTexture(imageNamed: "left")
+                    player.texture = texture
+                case (-1 * Double.pi) ... (-3 * Double.pi / 4):
+                    print("left-2")
+                    let texture = SKTexture(imageNamed: "left")
+                    player.texture = texture
+                    
+                // >>> DOWN
+                case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
+                    print("down")
+                    let texture = SKTexture(imageNamed: "down")
+                    player.texture = texture
+                    
+                // >>> RIGHT
+                case (-1 * Double.pi / 4) ... 0 :
+                    print("right-2")
+                    let texture = SKTexture(imageNamed: "right")
+                    player.texture = texture
+                case 0 ..< (Double.pi / 4):
+                    print("right-1")
+                    let texture = SKTexture(imageNamed: "right")
+                    player.texture = texture
+                    
+                default:
+                    print("mantap")
+                }
+                
+                
+//                switch tangent2 {
+//                case (Double.pi / 4) ... (3 * Double.pi / 4):
+//                    player = SKSpriteNode(imageNamed: "up")
+//                    print("up")
+//                case (-3 * Double.pi / 4) ... (3 * Double.pi / 4):
+//                    player = SKSpriteNode(imageNamed: "left")
+//                    print("left")
+//                case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
+//                    player = SKSpriteNode(imageNamed: "right")
+//                    print("right")
+//                case (-1  * Double.pi / 4) ... (Double.pi / 4):
+//                    player = SKSpriteNode(imageNamed: "down")
+//                    print("down")
+//                default:
+//                    player = SKSpriteNode(imageNamed: "up")
+//                    print("mantap")
 //                }
             }
         }
