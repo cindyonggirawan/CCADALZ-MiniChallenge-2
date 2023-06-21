@@ -25,7 +25,7 @@ class GameScene: SKScene {
     
     var isPressed: Bool = false
     
-    var player: SKSpriteNode!
+    var player: SKSpriteNode! = SKSpriteNode(imageNamed: "up")
     
     override func didMove(to view: SKView) {
         disk.position = CGPoint(x: screenWidth/2, y: joystickYPos)
@@ -36,7 +36,8 @@ class GameScene: SKScene {
         knob.position = CGPoint(x: 0, y: 0)
         addChild(disk)
         
-        player = childNode(withName: "player") as? SKSpriteNode
+        player = SKSpriteNode(imageNamed: "up")
+        player.position = CGPoint(x: screenWidth/2, y: 250)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
