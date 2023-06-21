@@ -23,11 +23,17 @@ class GameScene: SKScene {
         CGFloat(disk.size.width / 2.0) // 130 / 2 : CONVERT PIXEL TO POINT!!
     }
     
+    var cameraScene = SKCameraNode()
+    
     var isPressed: Bool = false
     
-    var player = SKSpriteNode(imageNamed: "up")
+//    var player = SKSpriteNode(imageNamed: "up")
+    var player = SKSpriteNode(imageNamed: "character")
     
     override func didMove(to view: SKView) {
+        
+        camera = cameraScene
+        
         disk.position = CGPoint(x: screenWidth/2, y: joystickYPos)
         disk.alpha = 0.3
         disk.addChild(knob)
@@ -37,6 +43,8 @@ class GameScene: SKScene {
         addChild(disk)
         
         player = SKSpriteNode(imageNamed: "up")
+        player = SKSpriteNode(imageNamed: "character")
+        player.size = CGSize(width: 130.0, height: 105.0)
         player.position = CGPoint(x: screenWidth/2, y: 350)
         addChild(player)
     }
@@ -103,5 +111,8 @@ class GameScene: SKScene {
         
     }
     
-    override func update(_ currentTime: TimeInterval) {}
+    override func update(_ currentTime: TimeInterval) {
+        camera?.position.x = player.position.x
+        camera?.position.y = player.position.y
+    }
 }

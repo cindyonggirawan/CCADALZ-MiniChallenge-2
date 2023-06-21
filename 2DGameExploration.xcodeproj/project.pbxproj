@@ -25,6 +25,8 @@
 		37C29BA42A400F0E001C2335 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA22A400F0E001C2335 /* Main.storyboard */; };
 		37C29BA62A400F0F001C2335 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA52A400F0F001C2335 /* Assets.xcassets */; };
 		37C29BA92A400F0F001C2335 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA72A400F0F001C2335 /* LaunchScreen.storyboard */; };
+		A9ED46812A42DE39009BE68B /* FloorTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */; };
+		A9ED46822A42DE39009BE68B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ED46802A42DE39009BE68B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		37C29BA32A400F0E001C2335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37C29BA52A400F0F001C2335 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37C29BA82A400F0F001C2335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FloorTileSet.sks; sourceTree = "<group>"; };
+		A9ED46802A42DE39009BE68B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				37078E6E2A40727200292BE8 /* temp1.swift */,
+				A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */,
+				A9ED46802A42DE39009BE68B /* Assets.xcassets */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -274,6 +280,8 @@
 				37C29BA42A400F0E001C2335 /* Main.storyboard in Resources */,
 				37C29B9B2A400F0E001C2335 /* GameScene.sks in Resources */,
 				37C29BA62A400F0F001C2335 /* Assets.xcassets in Resources */,
+				A9ED46812A42DE39009BE68B /* FloorTileSet.sks in Resources */,
+				A9ED46822A42DE39009BE68B /* Assets.xcassets in Resources */,
 				37C29BA92A400F0F001C2335 /* LaunchScreen.storyboard in Resources */,
 				37C29B9D2A400F0E001C2335 /* Actions.sks in Resources */,
 			);
