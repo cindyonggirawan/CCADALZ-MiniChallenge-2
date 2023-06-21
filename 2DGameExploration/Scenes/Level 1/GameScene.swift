@@ -25,7 +25,7 @@ class GameScene: SKScene {
     
     var isPressed: Bool = false
     
-    var player: SKSpriteNode! = SKSpriteNode(imageNamed: "up")
+    var player = SKSpriteNode(imageNamed: "up")
     
     override func didMove(to view: SKView) {
         disk.position = CGPoint(x: screenWidth/2, y: joystickYPos)
@@ -37,7 +37,8 @@ class GameScene: SKScene {
         addChild(disk)
         
         player = SKSpriteNode(imageNamed: "up")
-        player.position = CGPoint(x: screenWidth/2, y: 250)
+        player.position = CGPoint(x: screenWidth/2, y: 350)
+        addChild(player)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -60,10 +61,15 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let diskLocation = touch.location(in: disk)
-            let knobLocation = touch.location(in: knob)
+            let _ = touch.location(in: knob) // knobLocation
 
-            let angle: CGFloat = atan2(diskLocation.y, diskLocation.x) // solusi pertama arctan(y/x)
-            let radiusTemp = sqrt(pow(diskLocation.y, 2) + pow(diskLocation.x, 2))
+            let xDiskLoc: Double = diskLocation.x
+            let yDiskLoc: Double = diskLocation.y
+            
+            let tangent2 = atan2(yDiskLoc, xDiskLoc)
+            
+            let angle: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
+            let radiusTemp = sqrt(pow(xDiskLoc, 2) + pow(yDiskLoc, 2))
 
             if self.isPressed {
                 if radiusTemp < diskRadius {
@@ -75,7 +81,14 @@ class GameScene: SKScene {
                 
                 player.position.x += diskLocation.x * 0.08
                 player.position.y += diskLocation.y * 0.08
-                player.zRotation = atan2(diskLocation.y, diskLocation.x) - CGFloat(Double.pi / 2)
+                
+//                print("aaa", atan(yDiskLoc / xDiskLoc))
+//                print("bbb", tangent2)
+//                print()
+                
+//                switch {
+//                    case
+//                }
             }
         }
     }
