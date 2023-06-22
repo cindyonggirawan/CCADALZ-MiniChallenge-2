@@ -16,12 +16,11 @@ class GameScene: SKScene {
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
-    let tileSize: CGFloat = 100.0
-    var direction: [Bool] = [false, false, false, false]
+    let tileSize = 100 // ganti ukuran persegi ke ukuran hasil export asset dari figma
     
     let joystickYPos = CGFloat(150)
     
-    var lastUpdateTime: TimeInterval = 0
+    var lastDragGesture: String = ""
 
     var diskRadius: CGFloat {
         CGFloat(disk.size.width / 2.0) // 130 / 2 : CONVERT PIXEL TO POINT!!
@@ -45,23 +44,24 @@ class GameScene: SKScene {
         addChild(disk)
         
         //create player
-        player.anchorPoint = CGPointZero
         player.name = "player"
         player.setScale(0.5)
-        player.position = CGPoint(x: 0, y: -300)
+//        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
+        player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        player.position = CGPoint(x: 50, y: -250)
         addChild(player)
         
-        debugDrawPlayableArea()
+//        debugDrawPlayableArea()
         
-        //hidden members position
+        // hidden members position
         spawnHiddenMembers()
         
-        //camera
+        // camera
         camera = cameraNode
         cameraNode.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         
-        //label generator
-//        generatefoundMembersLabel()
+        // label generator
+        generatefoundMembersLabel()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -80,15 +80,15 @@ class GameScene: SKScene {
     func spawnHiddenMembers() {
         for i in 0...2 {
             hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)"))
-            hiddenMembers[i].anchorPoint = CGPointZero
             hiddenMembers[i].name = "hidden member"
             hiddenMembers[i].setScale(0.5)
+            hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
             if i == 0 {
-                hiddenMembers[i].position = CGPoint(x: -100, y: 0)
+                hiddenMembers[i].position = CGPoint(x: -50, y: 50)
             } else if i == 1 {
-                hiddenMembers[i].position = CGPoint(x: 100, y: -200)
+                hiddenMembers[i].position = CGPoint(x: 150, y: -150)
             } else {
-                hiddenMembers[i].position = CGPoint(x: 300, y: 200)
+                hiddenMembers[i].position = CGPoint(x: 350, y: 250)
             }
             
             addChild(hiddenMembers[i])
@@ -96,7 +96,7 @@ class GameScene: SKScene {
     }
     
     func generatefoundMembersLabel() {
-        foundMembersLabel.text = "Members Collected: 0"
+        foundMembersLabel.text = "Members Found: 0"
         foundMembersLabel.fontColor = SKColor.black
         foundMembersLabel.fontSize = 20
         foundMembersLabel.zPosition = 999
@@ -116,16 +116,23 @@ class GameScene: SKScene {
         }
         
         for member in foundMembers {
-            print("a member found")
-            collectHiddenMember(member: member)
+            print("a member is found")
+            findHiddenMember(member: member)
         }
     }
     
-    func collectHiddenMember(member: SKSpriteNode) {
-//        member.removeFromParent()
+    func findHiddenMember(member: SKSpriteNode) {
         member.name = "found member"
-        GameData.shared.numberOfMembersCollected += 1
-        foundMembersLabel.text = "Members Found: \(GameData.shared.numberOfMembersCollected)"
+        
+        for i in 0..<3 {
+            if member == hiddenMembers[i] {
+                GameData.shared.numberOfFoundMembers += 1
+                GameData.shared.foundStatusOfFoundMembers[i] = true
+                GameData.shared.indexOrderOfFoundMembers.append(i)
+            }
+        }
+        
+        foundMembersLabel.text = "Members Found: \(GameData.shared.numberOfFoundMembers)"
         
         let turnGreen = SKAction.colorize(with: SKColor.green, colorBlendFactor: 1.0, duration: 0.2)
         member.run(turnGreen)
@@ -133,19 +140,31 @@ class GameScene: SKScene {
     
     func moveFoundMembers() {
         var targetPosition = player.position
+        let actionDuration = 0.3
+        var moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+        let offset = [CGPoint(x: 0, y: -tileSize), CGPoint(x: tileSize, y: 0), CGPoint(x: 0, y: tileSize), CGPoint(x: -tileSize, y: 0)]
         
         enumerateChildNodes(withName: "found member") { node, stop in
             if !node.hasActions() {
-                print("target position 1: \(targetPosition)")
-                let actionDuration = 0.3
-                let moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+                if self.lastDragGesture == "up" {
+                    node.zRotation = CGFloat(Double.pi) / 2.0
+                    moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
+                } else if self.lastDragGesture == "left" {
+                    node.zRotation = CGFloat(Double.pi) / 1.0
+                    moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
+                } else if self.lastDragGesture == "down" {
+                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+                    moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
+                } else if self.lastDragGesture == "right" {
+                    node.zRotation = 0
+                    moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
+                }
                 
                 node.run(moveAction)
             }
             
+            // member selanjutnya berada dibelakang member pertama
             targetPosition = node.position
-            print("target position 2: \(targetPosition)")
-            print("player position: \(self.player.position)")
         }
     }
     
@@ -189,35 +208,43 @@ class GameScene: SKScene {
                 player.position.x += diskLocation.x * 0.08
                 player.position.y += diskLocation.y * 0.08
                 
+                // nanti kalo asetnya sudah lengkap, bisa langsung pakai texture
                 switch tangent2 {
                 // >>> UP
                 case (Double.pi / 4) ..< (3 * Double.pi / 4):
                     player.zRotation = CGFloat(Double.pi) / 2.0
-                    print("up")
+                    lastDragGesture = "up"
+//                    print("up")
                     
                 // >>> LEFT
                 case (3 * Double.pi / 4) ... Double.pi:
                     player.zRotation = CGFloat(Double.pi) / 1.0
-                    print("left-1")
+                    lastDragGesture = "left"
+//                    print("left-1")
                 case (-1 * Double.pi) ... (-3 * Double.pi / 4):
                     player.zRotation = CGFloat(Double.pi) / 1.0
-                    print("left-2")
+                    lastDragGesture = "left"
+//                    print("left-2")
                     
                 // >>> DOWN
                 case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
                     player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
-                    print("down")
+                    lastDragGesture = "down"
+//                    print("down")
                     
                 // >>> RIGHT
                 case (-1 * Double.pi / 4) ... 0 :
                     player.zRotation = 0
-                    print("right-2")
+                    lastDragGesture = "right"
+//                    print("right-2")
                 case 0 ..< (Double.pi / 4):
                     player.zRotation = 0
-                    print("right-1")
+                    lastDragGesture = "right"
+//                    print("right-1")
                     
                 default:
-                    print("mantap")
+                    lastDragGesture = ""
+//                    print("mantap")
                 }
             }
         }
@@ -226,8 +253,10 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let moveDisk = SKAction.move(to: CGPoint(x: screenWidth/2, y: joystickYPos), duration: 0.08)
         let moveKnob = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.08)
+        
         knob.run(moveKnob)
         disk.run(moveDisk)
+        
         self.isPressed = false
         disk.alpha = 0.3
     }

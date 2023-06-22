@@ -15,7 +15,9 @@ class GameData {
     static let shared = GameData()
     
     // gameplay
-    var numberOfMembersCollected: Int = 0
+    var numberOfFoundMembers: Int = 0
+    var foundStatusOfFoundMembers: [Bool] = [false, false, false]
+    var indexOrderOfFoundMembers: [Int] = []
     
     private init() { }
 }
