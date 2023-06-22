@@ -16,7 +16,6 @@ class GameData {
     
     // gameplay
     var numberOfMembersCollected: Int = 0
-    var memberFound: [Bool] = [false, false, false, false]
     
     private init() { }
 }

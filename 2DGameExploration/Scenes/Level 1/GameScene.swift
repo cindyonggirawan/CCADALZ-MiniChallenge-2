@@ -12,11 +12,12 @@ class GameScene: SKScene {
     let disk = SKSpriteNode(imageNamed: "disk")
     let knob = SKSpriteNode(imageNamed: "knob")
     
-    let membersCollectedLabel = SKLabelNode()
-    var numberOfMembersCollected: Int = 0
+    let foundMembersLabel = SKLabelNode()
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    let tileSize: CGFloat = 100.0
+    var direction: [Bool] = [false, false, false, false]
     
     let joystickYPos = CGFloat(150)
     
@@ -26,18 +27,16 @@ class GameScene: SKScene {
         CGFloat(disk.size.width / 2.0) // 130 / 2 : CONVERT PIXEL TO POINT!!
     }
     
-    var cameraScene = SKCameraNode()
+    var cameraNode = SKCameraNode()
     
     var isPressed: Bool = false
     
-    var player: SKSpriteNode!
+    var player = SKSpriteNode(imageNamed: "player")
     var hiddenMembers: [SKSpriteNode] = []
+    var foundMembers: [SKSpriteNode] = []
     
     override func didMove(to view: SKView) {
-        
-        camera = cameraScene
-        
-        disk.position = CGPoint(x: screenWidth/2, y: joystickYPos)
+        disk.position = CGPoint(x: screenWidth / 2, y: joystickYPos)
         disk.alpha = 0.3
         disk.addChild(knob)
         knob.zPosition = 2
@@ -45,23 +44,44 @@ class GameScene: SKScene {
         knob.position = CGPoint(x: 0, y: 0)
         addChild(disk)
         
-        let texture = SKTexture(imageNamed: "up")
-        player  = SKSpriteNode(texture: texture)
-        player.position = CGPoint(x: screenWidth/2, y: 350)
+        //create player
+        player.anchorPoint = CGPointZero
+        player.name = "player"
+        player.setScale(0.5)
+        player.position = CGPoint(x: 0, y: -300)
         addChild(player)
         
-        //hidden members position set up
+        debugDrawPlayableArea()
+        
+        //hidden members position
         spawnHiddenMembers()
         
+        //camera
+        camera = cameraNode
+        cameraNode.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+        
         //label generator
-        generateMembersCollectedLabel()
+//        generatefoundMembersLabel()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        moveFoundMembers()
+        
+        camera?.position.x = player.position.x
+        foundMembersLabel.position.x = (camera?.position.x)!
+        camera?.position.y = player.position.y
+        foundMembersLabel.position.y = (camera?.position.y)!
+    }
+    
+    override func didEvaluateActions() {
+        checkCollisions()
     }
     
     func spawnHiddenMembers() {
         for i in 0...2 {
             hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)"))
             hiddenMembers[i].anchorPoint = CGPointZero
-            hiddenMembers[i].name = "member"
+            hiddenMembers[i].name = "hidden member"
             hiddenMembers[i].setScale(0.5)
             if i == 0 {
                 hiddenMembers[i].position = CGPoint(x: -100, y: 0)
@@ -75,41 +95,61 @@ class GameScene: SKScene {
         }
     }
     
-    func generateMembersCollectedLabel() {
-        membersCollectedLabel.text = "Members Collected: 0"
-        membersCollectedLabel.fontColor = SKColor.black
-        membersCollectedLabel.fontSize = 20
-        membersCollectedLabel.zPosition = 999
-        membersCollectedLabel.horizontalAlignmentMode = .left
-        membersCollectedLabel.verticalAlignmentMode = .bottom
-        membersCollectedLabel.position = CGPoint(x: 0, y: 0)
-        
-        addChild(membersCollectedLabel)
+    func generatefoundMembersLabel() {
+        foundMembersLabel.text = "Members Collected: 0"
+        foundMembersLabel.fontColor = SKColor.black
+        foundMembersLabel.fontSize = 20
+        foundMembersLabel.zPosition = 999
+        foundMembersLabel.horizontalAlignmentMode = .left
+        foundMembersLabel.verticalAlignmentMode = .bottom
+        foundMembersLabel.position = CGPoint.zero
+        addChild(foundMembersLabel)
     }
     
     func checkCollisions() {
-        var membersCollected: [SKSpriteNode] = []
-        enumerateChildNodes(withName: "member") { node, _ in
+        var foundMembers: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "hidden member") { node, _ in
             let member = node as! SKSpriteNode
             if CGRectIntersectsRect(member.frame, self.player.frame) {
-                membersCollected.append(member)
+                foundMembers.append(member)
             }
         }
         
-        for member in membersCollected {
+        for member in foundMembers {
             print("a member found")
             collectHiddenMember(member: member)
         }
     }
     
     func collectHiddenMember(member: SKSpriteNode) {
-        member.removeFromParent()
+//        member.removeFromParent()
+        member.name = "found member"
         GameData.shared.numberOfMembersCollected += 1
-        membersCollectedLabel.text = "Members Collected: \(GameData.shared.numberOfMembersCollected)"
+        foundMembersLabel.text = "Members Found: \(GameData.shared.numberOfMembersCollected)"
+        
+        let turnGreen = SKAction.colorize(with: SKColor.green, colorBlendFactor: 1.0, duration: 0.2)
+        member.run(turnGreen)
+    }
+    
+    func moveFoundMembers() {
+        var targetPosition = player.position
+        
+        enumerateChildNodes(withName: "found member") { node, stop in
+            if !node.hasActions() {
+                print("target position 1: \(targetPosition)")
+                let actionDuration = 0.3
+                let moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+                
+                node.run(moveAction)
+            }
+            
+            targetPosition = node.position
+            print("target position 2: \(targetPosition)")
+            print("player position: \(self.player.position)")
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         for touch in touches {
             let location = touch.location(in: self)
             let _ = touch.location(in: disk) // diskLocation
@@ -133,7 +173,6 @@ class GameScene: SKScene {
             let xDiskLoc: Double = diskLocation.x
             let yDiskLoc: Double = diskLocation.y
             
-            
             let tangent2 = atan2(yDiskLoc, xDiskLoc)
             
             let angle: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
@@ -150,66 +189,36 @@ class GameScene: SKScene {
                 player.position.x += diskLocation.x * 0.08
                 player.position.y += diskLocation.y * 0.08
                 
-//                print("aaa", atan(yDiskLoc / xDiskLoc))
-//                print("bbb", tangent2)
-//                print()
-                
                 switch tangent2 {
                 // >>> UP
                 case (Double.pi / 4) ..< (3 * Double.pi / 4):
-                    let texture = SKTexture(imageNamed: "up")
-                    player.texture = texture
+                    player.zRotation = CGFloat(Double.pi) / 2.0
                     print("up")
-                    
                     
                 // >>> LEFT
                 case (3 * Double.pi / 4) ... Double.pi:
+                    player.zRotation = CGFloat(Double.pi) / 1.0
                     print("left-1")
-                    let texture = SKTexture(imageNamed: "left")
-                    player.texture = texture
                 case (-1 * Double.pi) ... (-3 * Double.pi / 4):
+                    player.zRotation = CGFloat(Double.pi) / 1.0
                     print("left-2")
-                    let texture = SKTexture(imageNamed: "left")
-                    player.texture = texture
                     
                 // >>> DOWN
                 case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
+                    player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
                     print("down")
-                    let texture = SKTexture(imageNamed: "down")
-                    player.texture = texture
                     
                 // >>> RIGHT
                 case (-1 * Double.pi / 4) ... 0 :
+                    player.zRotation = 0
                     print("right-2")
-                    let texture = SKTexture(imageNamed: "right")
-                    player.texture = texture
                 case 0 ..< (Double.pi / 4):
+                    player.zRotation = 0
                     print("right-1")
-                    let texture = SKTexture(imageNamed: "right")
-                    player.texture = texture
                     
                 default:
                     print("mantap")
                 }
-                
-                
-//                switch tangent2 {
-//                case (Double.pi / 4) ... (3 * Double.pi / 4):
-//                    player = SKSpriteNode(imageNamed: "up")
-//                    print("up")
-//                case (-3 * Double.pi / 4) ... (3 * Double.pi / 4):
-//                    player = SKSpriteNode(imageNamed: "left")
-//                    print("left")
-//                case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
-//                    player = SKSpriteNode(imageNamed: "right")
-//                    print("right")
-//                case (-1  * Double.pi / 4) ... (Double.pi / 4):
-//                    player = SKSpriteNode(imageNamed: "down")
-//                    print("down")
-//                default:
-//                    player = SKSpriteNode(imageNamed: "up")
-//                    print("mantap")
-//                }
             }
         }
     }
@@ -223,14 +232,10 @@ class GameScene: SKScene {
         disk.alpha = 0.3
     }
     
-    override func update(_ currentTime: TimeInterval) {
-        camera?.position.x = player.position.x
-        membersCollectedLabel.position.x = (camera?.position.x)!
-        camera?.position.y = player.position.y
-        membersCollectedLabel.position.y = (camera?.position.y)!
-    }
-    
-    override func didEvaluateActions() {
-        checkCollisions()
+    func debugDrawPlayableArea() {
+        let shape = SKShapeNode()
+        shape.strokeColor = SKColor.red
+        shape.lineWidth = 4.0
+        addChild(shape)
     }
 }
