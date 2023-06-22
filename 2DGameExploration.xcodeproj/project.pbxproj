@@ -25,6 +25,7 @@
 		37C29BA42A400F0E001C2335 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA22A400F0E001C2335 /* Main.storyboard */; };
 		37C29BA62A400F0F001C2335 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA52A400F0F001C2335 /* Assets.xcassets */; };
 		37C29BA92A400F0F001C2335 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA72A400F0F001C2335 /* LaunchScreen.storyboard */; };
+		A561EE982A443596000A2042 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561EE972A443596000A2042 /* GameData.swift */; };
 		A9ED46812A42DE39009BE68B /* FloorTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */; };
 		A9ED46822A42DE39009BE68B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ED46802A42DE39009BE68B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		37C29BA32A400F0E001C2335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37C29BA52A400F0F001C2335 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37C29BA82A400F0F001C2335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A561EE972A443596000A2042 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FloorTileSet.sks; sourceTree = "<group>"; };
 		A9ED46802A42DE39009BE68B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				37078E7F2A40732100292BE8 /* temp9.swift */,
+				A561EE972A443596000A2042 /* GameData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				37C29B992A400F0E001C2335 /* AppDelegate.swift in Sources */,
 				37078E7C2A40730100292BE8 /* temp7.swift in Sources */,
 				37078E6F2A40727200292BE8 /* temp1.swift in Sources */,
+				A561EE982A443596000A2042 /* GameData.swift in Sources */,
 				37078E732A40728F00292BE8 /* temp3.swift in Sources */,
 				37078E802A40732100292BE8 /* temp9.swift in Sources */,
 			);

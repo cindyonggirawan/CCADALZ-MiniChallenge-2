@@ -104,8 +104,8 @@ class GameScene: SKScene {
     
     func collectHiddenMember(member: SKSpriteNode) {
         member.removeFromParent()
-        numberOfMembersCollected += 1
-        membersCollectedLabel.text = "Members Collected: \(numberOfMembersCollected)"
+        GameData.shared.numberOfMembersCollected += 1
+        membersCollectedLabel.text = "Members Collected: \(GameData.shared.numberOfMembersCollected)"
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
