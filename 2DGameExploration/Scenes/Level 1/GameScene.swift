@@ -9,8 +9,9 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    let disk = SKSpriteNode(imageNamed: "disk")
-    let knob = SKSpriteNode(imageNamed: "knob")
+    // TO GET JOYSTICK FROM GAMESCENE.SKS
+    var disk: SKSpriteNode!
+    var knob: SKSpriteNode!
     
     let foundMembersLabel = SKLabelNode()
     
@@ -30,28 +31,27 @@ class GameScene: SKScene {
     
     var isPressed: Bool = false
     
-    var player = SKSpriteNode(imageNamed: "player")
+    var player: SKSpriteNode!
     var hiddenMembers: [SKSpriteNode] = []
     var foundMembers: [SKSpriteNode] = []
     
     var availableSpots = [CGPoint]()
     
     override func didMove(to view: SKView) {
-        disk.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
-        disk.alpha = 0.3
-        disk.addChild(knob)
+        disk = childNode(withName: "disk") as! SKSpriteNode
+        knob = disk.childNode(withName: "knob") as! SKSpriteNode
+        
+        disk.alpha = 0
         knob.zPosition = 2
         
-        knob.position = CGPoint(x: 0, y: 0)
-        addChild(disk)
-        
         //create player
+        player = childNode(withName: "player") as! SKSpriteNode
         player.name = "player"
         player.setScale(0.5)
 //        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = CGPoint(x: 50, y: -350)
-        addChild(player)
+//        player.position = CGPoint(x: 50, y: -350)
+//        addChild(player)
         
 //        debugDrawPlayableArea()
         
@@ -209,19 +209,27 @@ class GameScene: SKScene {
             }
         }
     }
-    
+    // _ angle: CGFloat, _ diskLocation: CGPoint, _ radiusTemp: Double
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            let _ = touch.location(in: disk) // diskLocation
+            let diskLocation = touch.location(in: disk) // diskLocation
             let _ = touch.location(in: knob) // knobLocation
             
             disk.position = location
-            disk.alpha = 1
+            disk.alpha = 0.4
             
             if disk.contains(location) {
                 self.isPressed = true
             }
+
+//            let _: Double = diskLocation.x
+//            let _: Double = diskLocation.y
+//            
+//            let _: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
+//            let _ = sqrt(pow(xDiskLoc, 2) + pow(yDiskLoc, 2))
+
+//            joyStick(location, angle, diskLocation, radiusTemp)
         }
     }
     
@@ -234,8 +242,6 @@ class GameScene: SKScene {
             let xDiskLoc: Double = diskLocation.x
             let yDiskLoc: Double = diskLocation.y
             
-            let tangent2 = atan2(yDiskLoc, xDiskLoc)
-            
             let angle: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
             let radiusTemp = sqrt(pow(xDiskLoc, 2) + pow(yDiskLoc, 2))
 
@@ -246,61 +252,55 @@ class GameScene: SKScene {
                     knob.position = diskLocation
                     disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
                 }
-                
+
                 player.position.x += diskLocation.x * 0.08
                 player.position.y += diskLocation.y * 0.08
-                
+
                 // nanti kalo asetnya sudah lengkap, bisa langsung pakai texture
-                switch tangent2 {
+                switch angle {
                 // >>> UP
                 case (Double.pi / 4) ..< (3 * Double.pi / 4):
                     player.zRotation = CGFloat(Double.pi) / 2.0
                     lastDragGesture = "up"
-//                    print("up")
-                    
+        //                    print("up")
+
                 // >>> LEFT
                 case (3 * Double.pi / 4) ... Double.pi:
                     player.zRotation = CGFloat(Double.pi) / 1.0
                     lastDragGesture = "left"
-//                    print("left-1")
+        //                    print("left-1")
                 case (-1 * Double.pi) ... (-3 * Double.pi / 4):
                     player.zRotation = CGFloat(Double.pi) / 1.0
                     lastDragGesture = "left"
-//                    print("left-2")
-                    
+        //                    print("left-2")
+
                 // >>> DOWN
                 case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
                     player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
                     lastDragGesture = "down"
-//                    print("down")
-                    
+        //                    print("down")
+
                 // >>> RIGHT
                 case (-1 * Double.pi / 4) ... 0 :
                     player.zRotation = 0
                     lastDragGesture = "right"
-//                    print("right-2")
+        //                    print("right-2")
                 case 0 ..< (Double.pi / 4):
                     player.zRotation = 0
                     lastDragGesture = "right"
-//                    print("right-1")
-                    
+        //                    print("right-1")
+
                 default:
                     lastDragGesture = ""
-//                    print("mantap")
+        //                    print("mantap")
                 }
             }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let moveDisk = SKAction.move(to: CGPoint(x: screenWidth/2, y: joystickYPos), duration: 0.08)
-        let moveKnob = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.08)
-        
-        knob.run(moveKnob)
-        disk.run(moveDisk)
-        
         self.isPressed = false
-        disk.alpha = 0.3
+        disk.alpha = 0
     }
     
     func debugDrawPlayableArea() {
@@ -309,4 +309,64 @@ class GameScene: SKScene {
         shape.lineWidth = 4.0
         addChild(shape)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    func joyStick(_ location: CGPoint, _ angle: CGFloat, _ diskLocation: CGPoint, _ radiusTemp: Double) {
+//        if radiusTemp < diskRadius {
+//            knob.position = diskLocation
+//        } else {
+//            knob.position = diskLocation
+//            disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
+//        }
+//
+//        player.position.x += diskLocation.x * 0.08
+//        player.position.y += diskLocation.y * 0.08
+//
+//        // nanti kalo asetnya sudah lengkap, bisa langsung pakai texture
+//        switch angle {
+//        // >>> UP
+//        case (Double.pi / 4) ..< (3 * Double.pi / 4):
+//            player.zRotation = CGFloat(Double.pi) / 2.0
+//            lastDragGesture = "up"
+////                    print("up")
+//
+//        // >>> LEFT
+//        case (3 * Double.pi / 4) ... Double.pi:
+//            player.zRotation = CGFloat(Double.pi) / 1.0
+//            lastDragGesture = "left"
+////                    print("left-1")
+//        case (-1 * Double.pi) ... (-3 * Double.pi / 4):
+//            player.zRotation = CGFloat(Double.pi) / 1.0
+//            lastDragGesture = "left"
+////                    print("left-2")
+//
+//        // >>> DOWN
+//        case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
+//            player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+//            lastDragGesture = "down"
+////                    print("down")
+//
+//        // >>> RIGHT
+//        case (-1 * Double.pi / 4) ... 0 :
+//            player.zRotation = 0
+//            lastDragGesture = "right"
+////                    print("right-2")
+//        case 0 ..< (Double.pi / 4):
+//            player.zRotation = 0
+//            lastDragGesture = "right"
+////                    print("right-1")
+//
+//        default:
+//            lastDragGesture = ""
+////                    print("mantap")
+//        }
+//    }
 }
