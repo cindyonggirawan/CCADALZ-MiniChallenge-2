@@ -38,8 +38,8 @@ class GameScene: SKScene {
     var availableSpots = [CGPoint]()
     
     override func didMove(to view: SKView) {
-        disk = childNode(withName: "disk") as! SKSpriteNode
-        knob = disk.childNode(withName: "knob") as! SKSpriteNode
+        disk = childNode(withName: "disk") as? SKSpriteNode
+        knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
         disk.alpha = 0
         knob.zPosition = 2
