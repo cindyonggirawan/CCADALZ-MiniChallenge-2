@@ -31,7 +31,7 @@ class GameScene: SKScene {
     
     var isPressed: Bool = false
     
-    var player = SKSpriteNode(imageNamed: "player")
+    var player: SKSpriteNode!
     var hiddenMembers: [SKSpriteNode] = []
     var foundMembers: [SKSpriteNode] = []
     
@@ -45,12 +45,13 @@ class GameScene: SKScene {
         knob.zPosition = 2
         
         //create player
+        player = childNode(withName: "player") as! SKSpriteNode
         player.name = "player"
         player.setScale(0.5)
 //        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = CGPoint(x: 50, y: -350)
-        addChild(player)
+//        player.position = CGPoint(x: 50, y: -350)
+//        addChild(player)
         
 //        debugDrawPlayableArea()
         
