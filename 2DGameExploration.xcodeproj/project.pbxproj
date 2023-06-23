@@ -27,6 +27,7 @@
 		37C29BA62A400F0F001C2335 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA52A400F0F001C2335 /* Assets.xcassets */; };
 		37C29BA92A400F0F001C2335 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37C29BA72A400F0F001C2335 /* LaunchScreen.storyboard */; };
 		8F1B557B2A454124007C2BC6 /* TilesSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F1B557A2A454124007C2BC6 /* TilesSet.sks */; };
+		8FFBA16D2A45BD89007DD9B9 /* SingleTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBA16B2A45BD89007DD9B9 /* SingleTileSet.sks */; };
 		A561EE982A443596000A2042 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561EE972A443596000A2042 /* GameData.swift */; };
 		A5C2FDBE2A45069700237D71 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C2FDBD2A45069700237D71 /* MenuViewController.swift */; };
 		A9ED46812A42DE39009BE68B /* FloorTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */; };
@@ -55,6 +56,7 @@
 		37C29BA52A400F0F001C2335 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37C29BA82A400F0F001C2335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F1B557A2A454124007C2BC6 /* TilesSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TilesSet.sks; sourceTree = "<group>"; };
+		8FFBA16B2A45BD89007DD9B9 /* SingleTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SingleTileSet.sks; sourceTree = "<group>"; };
 		A561EE972A443596000A2042 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		A5C2FDBD2A45069700237D71 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A9ED467F2A42DE39009BE68B /* FloorTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FloorTileSet.sks; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				8F1B557A2A454124007C2BC6 /* TilesSet.sks */,
+				8FFBA16B2A45BD89007DD9B9 /* SingleTileSet.sks */,
 				37078E622A406C7400292BE8 /* Level 1 */,
 				37078E6C2A406F1B00292BE8 /* Level 2 */,
 				37078E6D2A406F2300292BE8 /* Level 3 */,
@@ -294,6 +297,7 @@
 				37C29B9B2A400F0E001C2335 /* GameScene.sks in Resources */,
 				37C29BA62A400F0F001C2335 /* Assets.xcassets in Resources */,
 				A9ED46812A42DE39009BE68B /* FloorTileSet.sks in Resources */,
+				8FFBA16D2A45BD89007DD9B9 /* SingleTileSet.sks in Resources */,
 				A9ED46822A42DE39009BE68B /* Assets.xcassets in Resources */,
 				37C29BA92A400F0F001C2335 /* LaunchScreen.storyboard in Resources */,
 				37C29B9D2A400F0E001C2335 /* Actions.sks in Resources */,
