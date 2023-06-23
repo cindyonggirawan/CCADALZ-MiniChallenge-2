@@ -46,25 +46,21 @@ class GameScene: SKScene {
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
         portalA = childNode(withName: "portalA") as? SKSpriteNode
-        print(portalA.name)
         
         disk.alpha = 0
         knob.zPosition = 2
         
         //create player
-        player = childNode(withName: "player") as! SKSpriteNode
+        player = childNode(withName: "player") as? SKSpriteNode
         player.name = "player"
 //        player.setScale(0.5)
-//        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = CGPoint(x: 50, y: -350)
         
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA
         player.physicsBody?.collisionBitMask = PhysicsCategory.none
-        addChild(player)
         
         // PORTAL CONTACT TEST
         portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
@@ -146,7 +142,7 @@ class GameScene: SKScene {
         }
         
         for member in foundMembers {
-            print("a member is found")
+//            print("a member is found")
             findHiddenMember(member: member)
         }
     }
@@ -230,7 +226,7 @@ class GameScene: SKScene {
                     let x = CGFloat(col) * tileSize.width - halfWidth + (tileSize.width) / 2
                     let y = CGFloat(row) * tileSize.height - halfHeight + (tileSize.height) / 2
                     
-                    print("its a land in \(x) and \(y)")
+//                    print("its a land in \(x) and \(y)")
                     
                     let newPoint: CGPoint = CGPoint(x: x, y: y)
                     
