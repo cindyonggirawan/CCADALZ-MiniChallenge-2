@@ -31,6 +31,10 @@ class GameViewController: UIViewController {
         }
     }
 
+    @IBAction func didClickMenu(_ sender: Any) {
+        print("Button Clicked")
+    }
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
