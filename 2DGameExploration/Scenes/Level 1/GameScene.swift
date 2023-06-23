@@ -13,6 +13,8 @@ class GameScene: SKScene {
     var disk: SKSpriteNode!
     var knob: SKSpriteNode!
     
+    var portalA: SKSpriteNode!
+    
     let foundMembersLabel = SKLabelNode()
     
     let screenWidth = UIScreen.main.bounds.width
@@ -38,8 +40,13 @@ class GameScene: SKScene {
     var availableSpots = [CGPoint]()
     
     override func didMove(to view: SKView) {
+        physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
+        
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
+        
+        portalA = childNode(withName: "portalA") as? SKSpriteNode
+        print(portalA.name)
         
         disk.alpha = 0
         knob.zPosition = 2
@@ -50,13 +57,25 @@ class GameScene: SKScene {
 //        player.setScale(0.5)
 //        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-//        player.position = CGPoint(x: 50, y: -350)
-//        addChild(player)
+        player.position = CGPoint(x: 50, y: -350)
         
-//        debugDrawPlayableArea()
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.categoryBitMask = PhysicsCategory.player
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA
+        player.physicsBody?.collisionBitMask = PhysicsCategory.none
+        addChild(player)
         
-        // hidden members position
+        // PORTAL CONTACT TEST
+        portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
+        portalA.physicsBody?.isDynamic = true
+        portalA.physicsBody?.categoryBitMask = PhysicsCategory.portalA
+        portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
+        
         spawnHiddenMembers()
+        
+        // debugDrawPlayableArea()
         
         // camera
         camera = cameraNode
@@ -240,7 +259,7 @@ class GameScene: SKScene {
 
 //            let _: Double = diskLocation.x
 //            let _: Double = diskLocation.y
-//            
+//
 //            let _: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
 //            let _ = sqrt(pow(xDiskLoc, 2) + pow(yDiskLoc, 2))
 
