@@ -33,6 +33,8 @@ class GameViewController: UIViewController {
 
     @IBAction func didClickMenu(_ sender: Any) {
         print("Button Clicked")
+//        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameViewController") as UIViewController
+//        self.present(MenuViewController, animated: true, completion: nil)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
