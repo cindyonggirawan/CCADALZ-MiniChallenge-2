@@ -21,3 +21,11 @@ class GameData {
     
     private init() { }
 }
+
+struct PhysicsCategory {
+    static let none: UInt32 = 0
+    static let all: UInt32 = UInt32.max
+
+    static let player: UInt32 = UInt32(pow(2.0, 5))
+    static let portalA: UInt32 = UInt32(pow(2.0, 6))
+}
