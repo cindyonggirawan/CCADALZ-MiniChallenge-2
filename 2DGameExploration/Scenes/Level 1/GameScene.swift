@@ -17,7 +17,7 @@ class GameScene: SKScene {
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
-    var tileSize = CGSize(width: 100, height: 100) // ganti ukuran persegi ke ukuran hasil export asset dari figma
+    var tileSize = CGSize(width: 40, height: 40) // ganti ukuran persegi ke ukuran hasil export asset dari figma
     
     let joystickYPos = CGFloat(150)
     
@@ -47,7 +47,7 @@ class GameScene: SKScene {
         //create player
         player = childNode(withName: "player") as! SKSpriteNode
         player.name = "player"
-        player.setScale(0.5)
+//        player.setScale(0.5)
 //        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 //        player.position = CGPoint(x: 50, y: -350)
@@ -90,16 +90,16 @@ class GameScene: SKScene {
     
     func spawnHiddenMembers() {
         for i in 0...2 {
-            hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)"))
+            hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
             hiddenMembers[i].name = "hidden member"
-            hiddenMembers[i].setScale(0.5)
+//            hiddenMembers[i].setScale(0.5)
             hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
             if i == 0 {
-                hiddenMembers[i].position = CGPoint(x: -150, y: -50)
+                hiddenMembers[i].position = CGPoint(x: -60, y: 8)
             } else if i == 1 {
-                hiddenMembers[i].position = CGPoint(x: 450, y: -150)
+                hiddenMembers[i].position = CGPoint(x: 180, y: -234)
             } else {
-                hiddenMembers[i].position = CGPoint(x: -250, y: 350)
+                hiddenMembers[i].position = CGPoint(x: -180, y: 86)
             }
             
             addChild(hiddenMembers[i])
@@ -154,20 +154,34 @@ class GameScene: SKScene {
         let actionDuration = 0.3
         var moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
         let offset = [CGPoint(x: 0, y: -tileSize.height), CGPoint(x: tileSize.width, y: 0), CGPoint(x: 0, y: tileSize.height), CGPoint(x: -tileSize.width, y: 0)]
+        var memberName = ""
         
         enumerateChildNodes(withName: "found member") { node, stop in
             if !node.hasActions() {
+                let member = node as! SKSpriteNode
+                
+                for i in 0..<3 {
+                    if member == self.hiddenMembers[i] {
+                        memberName = "member\(i)"
+                        break
+                    }
+                }
+                
                 if self.lastDragGesture == "up" {
-                    node.zRotation = CGFloat(Double.pi) / 2.0
+//                    node.zRotation = CGFloat(Double.pi) / 2.0
+                    member.texture = SKTexture(imageNamed: "\(memberName)_up")
                     moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
                 } else if self.lastDragGesture == "left" {
-                    node.zRotation = CGFloat(Double.pi) / 1.0
+//                    node.zRotation = CGFloat(Double.pi) / 1.0
+                    member.texture = SKTexture(imageNamed: "\(memberName)_left")
                     moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
                 } else if self.lastDragGesture == "down" {
-                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+//                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+                    member.texture = SKTexture(imageNamed: "\(memberName)_down")
                     moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
                 } else if self.lastDragGesture == "right" {
-                    node.zRotation = 0
+//                    node.zRotation = 0
+                    member.texture = SKTexture(imageNamed: "\(memberName)_right")
                     moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
                 }
                 
@@ -209,6 +223,7 @@ class GameScene: SKScene {
             }
         }
     }
+    
     // _ angle: CGFloat, _ diskLocation: CGPoint, _ radiusTemp: Double
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -260,33 +275,39 @@ class GameScene: SKScene {
                 switch angle {
                 // >>> UP
                 case (Double.pi / 4) ..< (3 * Double.pi / 4):
-                    player.zRotation = CGFloat(Double.pi) / 2.0
+//                    player.zRotation = CGFloat(Double.pi) / 2.0
+                    player.texture = SKTexture(imageNamed: "player_up")
                     lastDragGesture = "up"
         //                    print("up")
 
                 // >>> LEFT
                 case (3 * Double.pi / 4) ... Double.pi:
-                    player.zRotation = CGFloat(Double.pi) / 1.0
+//                    player.zRotation = CGFloat(Double.pi) / 1.0
+                    player.texture = SKTexture(imageNamed: "player_left")
                     lastDragGesture = "left"
         //                    print("left-1")
                 case (-1 * Double.pi) ... (-3 * Double.pi / 4):
-                    player.zRotation = CGFloat(Double.pi) / 1.0
+//                    player.zRotation = CGFloat(Double.pi) / 1.0
+                    player.texture = SKTexture(imageNamed: "player_left")
                     lastDragGesture = "left"
         //                    print("left-2")
 
                 // >>> DOWN
                 case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
-                    player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+//                    player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+                    player.texture = SKTexture(imageNamed: "player_down")
                     lastDragGesture = "down"
         //                    print("down")
 
                 // >>> RIGHT
                 case (-1 * Double.pi / 4) ... 0 :
-                    player.zRotation = 0
+//                    player.zRotation = 0
+                    player.texture = SKTexture(imageNamed: "player_right")
                     lastDragGesture = "right"
         //                    print("right-2")
                 case 0 ..< (Double.pi / 4):
-                    player.zRotation = 0
+//                    player.zRotation = 0
+                    player.texture = SKTexture(imageNamed: "player_right")
                     lastDragGesture = "right"
         //                    print("right-1")
 
