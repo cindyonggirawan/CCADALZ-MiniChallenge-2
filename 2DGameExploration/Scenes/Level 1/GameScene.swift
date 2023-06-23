@@ -16,7 +16,7 @@ class GameScene: SKScene {
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
-    let tileSize = 100 // ganti ukuran persegi ke ukuran hasil export asset dari figma
+    var tileSize = CGSize(width: 100, height: 100) // ganti ukuran persegi ke ukuran hasil export asset dari figma
     
     let joystickYPos = CGFloat(150)
     
@@ -34,8 +34,10 @@ class GameScene: SKScene {
     var hiddenMembers: [SKSpriteNode] = []
     var foundMembers: [SKSpriteNode] = []
     
+    var availableSpots = [CGPoint]()
+    
     override func didMove(to view: SKView) {
-        disk.position = CGPoint(x: screenWidth / 2, y: joystickYPos)
+        disk.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         disk.alpha = 0.3
         disk.addChild(knob)
         knob.zPosition = 2
@@ -48,7 +50,7 @@ class GameScene: SKScene {
         player.setScale(0.5)
 //        player.anchorPoint = CGPointZero // dia jadi posisi kuadran, agak membingungkan
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = CGPoint(x: 50, y: -250)
+        player.position = CGPoint(x: 50, y: -350)
         addChild(player)
         
 //        debugDrawPlayableArea()
@@ -62,6 +64,15 @@ class GameScene: SKScene {
         
         // label generator
         generatefoundMembersLabel()
+        
+        // tile map
+        for node in self.children {
+            if node is SKTileMapNode {
+                if let theMap: SKTileMapNode = node as? SKTileMapNode {
+                    setUpSceneWithMap(map: theMap)
+                }
+            }
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -84,11 +95,11 @@ class GameScene: SKScene {
             hiddenMembers[i].setScale(0.5)
             hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
             if i == 0 {
-                hiddenMembers[i].position = CGPoint(x: -50, y: 50)
+                hiddenMembers[i].position = CGPoint(x: -150, y: -50)
             } else if i == 1 {
-                hiddenMembers[i].position = CGPoint(x: 150, y: -150)
+                hiddenMembers[i].position = CGPoint(x: 450, y: -150)
             } else {
-                hiddenMembers[i].position = CGPoint(x: 350, y: 250)
+                hiddenMembers[i].position = CGPoint(x: -250, y: 350)
             }
             
             addChild(hiddenMembers[i])
@@ -142,7 +153,7 @@ class GameScene: SKScene {
         var targetPosition = player.position
         let actionDuration = 0.3
         var moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
-        let offset = [CGPoint(x: 0, y: -tileSize), CGPoint(x: tileSize, y: 0), CGPoint(x: 0, y: tileSize), CGPoint(x: -tileSize, y: 0)]
+        let offset = [CGPoint(x: 0, y: -tileSize.height), CGPoint(x: tileSize.width, y: 0), CGPoint(x: 0, y: tileSize.height), CGPoint(x: -tileSize.width, y: 0)]
         
         enumerateChildNodes(withName: "found member") { node, stop in
             if !node.hasActions() {
@@ -165,6 +176,37 @@ class GameScene: SKScene {
             
             // member selanjutnya berada dibelakang member pertama
             targetPosition = node.position
+        }
+    }
+    
+    func setUpSceneWithMap(map: SKTileMapNode) {
+        let tileMap = map
+        tileSize = tileMap.tileSize
+        
+        print("row: \(tileMap.numberOfRows), col: \(tileMap.numberOfColumns)")
+        
+        let halfWidth = CGFloat(tileMap.numberOfColumns) / 2.0
+        let halfHeight = CGFloat(tileMap.numberOfRows) / 2.0
+        
+        for col in 0..<tileMap.numberOfColumns {
+            for row in 0..<tileMap.numberOfRows {
+                if let _ = tileMap.tileDefinition(atColumn: col, row: row) {
+                    // ada tembok
+                } else {
+                    // tidak ada tembok (bisa jalan)
+                    let x = CGFloat(col) * tileSize.width - halfWidth + (tileSize.width) / 2
+                    let y = CGFloat(row) * tileSize.height - halfHeight + (tileSize.height) / 2
+                    
+                    print("its a land in \(x) and \(y)")
+                    
+                    let newPoint: CGPoint = CGPoint(x: x, y: y)
+                    
+                    let newPointConverted: CGPoint = self.convert(newPoint, from: tileMap)
+                    
+                    availableSpots.append(newPointConverted)
+                    // terus diapain yaaa
+                }
+            }
         }
     }
     
