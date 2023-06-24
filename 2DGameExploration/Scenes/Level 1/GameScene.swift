@@ -74,7 +74,7 @@ class GameScene: SKScene {
         
         spawnHiddenMembers()
         
-        // debugDrawPlayableArea()
+         debugDrawPlayableArea()
         
         // camera
         camera = cameraNode
@@ -119,6 +119,12 @@ class GameScene: SKScene {
             } else {
                 hiddenMembers[i].position = CGPoint(x: -180, y: 86)
             }
+            
+            hiddenMembers[i].physicsBody = SKPhysicsBody(rectangleOf: hiddenMembers[i].size)
+            hiddenMembers[i].physicsBody?.isDynamic = true
+            hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
+            hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.none
+            hiddenMembers[i].physicsBody?.collisionBitMask = PhysicsCategory.none
             
             addChild(hiddenMembers[i])
         }

@@ -26,6 +26,11 @@ extension GameScene: SKPhysicsContactDelegate {
             if let player = firstBody.node as? SKSpriteNode,
                let portal = secondBody.node as? SKSpriteNode {
                 print("\nMantap")
+                guard let newLayer = Layer2(fileNamed: "Layer2") else {
+                    return
+                }
+                let transition = SKTransition.fade(withDuration: 0.5)
+                view?.presentScene(newLayer, transition: transition)
             }
         }
         
