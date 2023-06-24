@@ -34,20 +34,46 @@ class GameScene: SKScene {
     var isPressed: Bool = false
     
     var player: SKSpriteNode!
+    
+    var playerXPos: Double = 0.0
+    var playerYPos: Double = 0.0
+    
+    var didContactWall: Bool = false
+    
     var hiddenMembers: [SKSpriteNode] = []
     var foundMembers: [SKSpriteNode] = []
     
     var availableSpots = [CGPoint]()
     
+    var layerTile: SKTileMapNode!
+    
+    var mantapButton: SKSpriteNode!
+    var upButton: SKSpriteNode!
+    var downButton: SKSpriteNode!
+    var leftButton: SKSpriteNode!
+    var rightButton: SKSpriteNode!
+    
+    var movingup = false
+    var movingdown = false
+    var movingleft = false
+    var movingright = false
+
+    
     override func didMove(to view: SKView) {
+        mantapButton = childNode(withName: "stikPs") as? SKSpriteNode
+        upButton = mantapButton.childNode(withName: "upbutton") as? SKSpriteNode
+        downButton = mantapButton.childNode(withName: "downbutton") as? SKSpriteNode
+        leftButton = mantapButton.childNode(withName: "leftbutton") as? SKSpriteNode
+        rightButton = mantapButton.childNode(withName: "rightbutton") as? SKSpriteNode
+        
+        
+        // ==========
         physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
         
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
         portalA = childNode(withName: "portalA") as? SKSpriteNode
-        
-        print(portalA.name)
         
         disk.alpha = 0
         knob.zPosition = 2
@@ -59,11 +85,20 @@ class GameScene: SKScene {
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
         
-        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+//        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.size.width - 50, height: player.size.height - 70))
+        player.physicsBody = SKPhysicsBody(circleOfRadius: (player.size.width - 50) / 2)
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
-        player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA
-        player.physicsBody?.collisionBitMask = PhysicsCategory.none
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA | PhysicsCategory.wall
+        player.physicsBody?.collisionBitMask = PhysicsCategory.wall
+        player.physicsBody?.allowsRotation = false
+        player.physicsBody?.restitution = 1
+        player.physicsBody?.angularDamping = 0
+        player.physicsBody?.linearDamping = 1
+        player.physicsBody?.mass = 0
+        player.physicsBody?.velocity  = .zero
+        player.physicsBody?.isResting = true
+        player.physicsBody?.usesPreciseCollisionDetection = true
         
         // PORTAL CONTACT TEST
         portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
@@ -72,9 +107,9 @@ class GameScene: SKScene {
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
         
-        spawnHiddenMembers()
+//        spawnHiddenMembers()
         
-         debugDrawPlayableArea()
+//         debugDrawPlayableArea()
         
         // camera
         camera = cameraNode
@@ -91,15 +126,47 @@ class GameScene: SKScene {
                 }
             }
         }
+        
+        // get tilemap from .sks
+        layerTile = childNode(withName: "WallTilesMap") as? SKTileMapNode
+
+        setUpMapPhysics(layerTile)
+//        camera?.position.x = player.position.x
+//        camera?.position.y = player.position.y
     }
     
     override func update(_ currentTime: TimeInterval) {
         moveFoundMembers()
         
+//        if (abs(player.position.x - playerXPos) > 1.0) {
+//            camera?.position.x = player.position.x
+//        }
+        
+
         camera?.position.x = player.position.x
-        foundMembersLabel.position.x = (camera?.position.x)!
         camera?.position.y = player.position.y
+        
+        mantapButton.position.x = camera!.position.x - 80
+        mantapButton.position.y = camera!.position.y - 300
+        
+        foundMembersLabel.position.x = (camera?.position.x)!
         foundMembersLabel.position.y = (camera?.position.y)!
+        
+        if (movingup) {
+            print("asdas")
+            player.position.y += 10
+        } else if (movingdown) {
+            player.position.y -= 10
+        } else if (movingleft) {
+            player.position.x -= 10
+        } else if (movingright) {
+            player.position.x += 10
+        }
+        
+        
+        
+//        print(abs(player.position.x - playerXPos))
+//        playerXPos = player.position.x
     }
     
     override func didEvaluateActions() {
@@ -235,7 +302,9 @@ class GameScene: SKScene {
                     let x = CGFloat(col) * tileSize.width - halfWidth + (tileSize.width) / 2
                     let y = CGFloat(row) * tileSize.height - halfHeight + (tileSize.height) / 2
                     
-//                    print("its a land in \(x) and \(y)")
+//                    let xx = CGFloat(col) * tileSize.width - halfWidth + (tileSize.width) / 2
+                    
+//                    print("its a land in \(x) and \(y)\n")
                     
                     let newPoint: CGPoint = CGPoint(x: x, y: y)
                     
@@ -247,31 +316,87 @@ class GameScene: SKScene {
             }
         }
     }
-    
-    // _ angle: CGFloat, _ diskLocation: CGPoint, _ radiusTemp: Double
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let diskLocation = touch.location(in: disk) // diskLocation
-            let _ = touch.location(in: knob) // knobLocation
-            
-            disk.position = location
-            disk.alpha = 0.4
-            
-            if disk.contains(location) {
-                self.isPressed = true
+        
+    func setUpMapPhysics(_ tileMap: SKTileMapNode) {
+        let tileSize = tileMap.tileSize
+        
+        let halfWidth = (CGFloat(tileMap.numberOfColumns) / 2.0) * tileSize.width
+        let halfHeight = (CGFloat(tileMap.numberOfRows) / 2.0) * tileSize.width
+        
+        for col in 0..<tileMap.numberOfColumns {
+            for row in 0..<tileMap.numberOfRows {
+                if let _ = tileMap.tileDefinition(atColumn: col, row: row) {
+                    let x = CGFloat(col) * tileSize.width - halfWidth + (tileSize.width) / 2
+                    let y = CGFloat(row) * tileSize.height - halfHeight + (tileSize.height) / 2
+                    
+                    let tembok = SKShapeNode(rectOf: CGSize(width: tileSize.width, height: tileSize.height))
+//                    tembok.fillColor = UIColor.green
+                    tembok.position = CGPoint(x: x, y: y)
+                    tembok.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tileSize.width, height: tileSize.height))
+                    tembok.physicsBody?.categoryBitMask = PhysicsCategory.wall
+                    tembok.physicsBody?.collisionBitMask = PhysicsCategory.player
+                    tembok.physicsBody?.contactTestBitMask = PhysicsCategory.player
+                    tembok.physicsBody?.isDynamic = false
+                    tembok.physicsBody?.allowsRotation = false
+                    tembok.physicsBody?.restitution = 1
+                    tembok.physicsBody?.angularDamping = 0
+                    tembok.physicsBody?.linearDamping = 1
+                    tembok.physicsBody?.mass = 0
+                    tembok.physicsBody?.usesPreciseCollisionDetection = true
+                    addChild(tembok)
+                }
             }
-
-//            let _: Double = diskLocation.x
-//            let _: Double = diskLocation.y
-//
-//            let _: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
-//            let _ = sqrt(pow(xDiskLoc, 2) + pow(yDiskLoc, 2))
-
-//            joyStick(location, angle, diskLocation, radiusTemp)
         }
     }
     
+    // _ angle: CGFloat, _ diskLocation: CGPoint, _ radiusTemp: Double
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        for touch in touches {
+//            let location = touch.location(in: self)
+//            let diskLocation = touch.location(in: disk) // diskLocation
+//            let _ = touch.location(in: knob) // knobLocation
+//
+//            disk.position = location
+//            disk.alpha = 0.4
+//
+//            if disk.contains(location) {
+//                self.isPressed = true
+//            }
+//
+////            let _: Double = diskLocation.x
+////            let _: Double = diskLocation.y
+////
+////            let _: CGFloat = atan2(yDiskLoc, xDiskLoc) // solusi pertama arctan(y/x)
+////            let _ = sqrt(pow(xDiskLoc, 2) + pow(yDiskLoc, 2))
+//
+////            joyStick(location, angle, diskLocation, radiusTemp)
+//        }
+//    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let localTouch = touch.location(in: mantapButton)
+            
+            if upButton.contains(localTouch) {
+                print("uppp")
+                movingup = true
+            }
+            if downButton.contains(localTouch) {
+                print("downnn")
+                movingdown = true
+            }
+            if leftButton.contains(localTouch) {
+                print("leftttt")
+                movingleft = true
+            }
+            if rightButton.contains(localTouch) {
+                print("righttt")
+                movingright = true
+            }
+        }
+    }
+    
+    /* TOUCHESMOVED UTK JOYSTICK
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -342,10 +467,59 @@ class GameScene: SKScene {
             }
         }
     }
+    */
+    
+//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let x = 1.23
+//        let location = touches.first!.location(in: self)
+//
+//
+//        player.position.x += location.x * 0.08
+//        player.position.y += location.y * 0.08
+//
+//        // >>> UP
+//        player.texture = SKTexture(imageNamed: "player_up")
+//        lastDragGesture = "up"
+//
+//        // >>> LEFT
+//        player.texture = SKTexture(imageNamed: "player_left")
+//        lastDragGesture = "left"
+//
+//        // >>> DOWN
+//        player.texture = SKTexture(imageNamed: "player_down")
+//        lastDragGesture = "down"
+//
+//        // >>> RIGHT
+//        player.texture = SKTexture(imageNamed: "player_right")
+//        lastDragGesture = "right"
+//    }
+    
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.isPressed = false
+//        disk.alpha = 0
+//    }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.isPressed = false
-        disk.alpha = 0
+        for touch in touches {
+            let localTouch = touch.location(in: mantapButton)
+            
+            if upButton.contains(localTouch) {
+                print("uppp")
+                movingup = false
+            }
+            if downButton.contains(localTouch) {
+                print("downnn")
+                movingdown = false
+            }
+            if leftButton.contains(localTouch) {
+                print("leftttt")
+                movingleft = false
+            }
+            if rightButton.contains(localTouch) {
+                print("righttt")
+                movingright = false
+            }
+        }
     }
     
     func debugDrawPlayableArea() {
