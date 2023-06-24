@@ -40,13 +40,14 @@ class GameScene: SKScene {
     var availableSpots = [CGPoint]()
     
     override func didMove(to view: SKView) {
-
         physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
         
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
         portalA = childNode(withName: "portalA") as? SKSpriteNode
+        
+        print(portalA.name)
         
         disk.alpha = 0
         knob.zPosition = 2
@@ -56,6 +57,7 @@ class GameScene: SKScene {
         player.name = "player"
 //        player.setScale(0.5)
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+
         
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.isDynamic = true
