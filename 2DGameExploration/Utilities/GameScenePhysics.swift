@@ -9,6 +9,7 @@ import Foundation
 import SpriteKit
 
 extension GameScene: SKPhysicsContactDelegate {
+    
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
@@ -20,6 +21,8 @@ extension GameScene: SKPhysicsContactDelegate {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
             print("bbb")
+            print(firstBody)
+            print(secondBody)
         }
         
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.portalA != 0)) {
@@ -32,6 +35,11 @@ extension GameScene: SKPhysicsContactDelegate {
 //                let transition = SKTransition.fade(withDuration: 0.5)
 //                view?.presentScene(newLayer, transition: transition)
             }
+        }
+        
+        if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.wall != 0)) {
+            print("\nMantapZZ")
+//            didContactWall = true
         }
         
     }

@@ -26,9 +26,11 @@ struct PhysicsCategory {
     static let none: UInt32 = 0
     static let all: UInt32 = UInt32.max
 
-    static let player: UInt32 = UInt32(pow(2.0, 1))
-    static let portalA: UInt32 = UInt32(pow(2.0, 2))
+    static let player: UInt32 = 0x1 << 1
+    static let portalA: UInt32 = 0x1 << 2
     
-    static let hiddenMember: UInt32 = UInt32(pow(2.0, 3)) // COBA TAMBAHIN LAYER DI GAMESCENE NYA,
-                                                        // TERUS KASIH COLLISION BITMASK
+    static let hiddenMember: UInt32 = 0x1 << 3
+    
+    static let wall: UInt32 = 0x1 << 4
+    
 }
