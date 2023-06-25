@@ -39,7 +39,7 @@ extension GameScene: SKPhysicsContactDelegate {
         
     }
 }
-
+//
 extension Layer2: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -56,11 +56,11 @@ extension Layer2: SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.portalA != 0)) {
             if let _ = firstBody.node as? SKSpriteNode,
                let _ = secondBody.node as? SKSpriteNode {
-                guard let newLayer = Layer2(fileNamed: "Layer2") else {
-                    return
-                }
-                let transition = SKTransition.fade(withDuration: 0.5)
-                view?.presentScene(newLayer, transition: transition)
+//                guard let newLayer = Layer2(fileNamed: "Layer2") else {
+//                    return
+//                }
+//                let transition = SKTransition.fade(withDuration: 0.5)
+//                view?.presentScene(newLayer, transition: transition)
             }
         }
         
