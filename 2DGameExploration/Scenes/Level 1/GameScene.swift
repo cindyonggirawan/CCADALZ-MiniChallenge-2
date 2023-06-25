@@ -70,7 +70,7 @@ class GameScene: SKScene {
             rectangleOf: CGSize(width: 56, height: 26),
             center: CGPoint(x: 0, y: -30)
         )
-        player.physicsBody?.isDynamic = false
+        player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA | PhysicsCategory.wall
         player.physicsBody?.collisionBitMask = PhysicsCategory.wall
@@ -162,7 +162,7 @@ class GameScene: SKScene {
             
 //            hiddenMembers[i].physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hiddenMembers[i].size.width - 50, height: hiddenMembers[i].size.height - 40))
             
-            hiddenMembers[i].physicsBody?.isDynamic = false
+            hiddenMembers[i].physicsBody?.isDynamic = true
             hiddenMembers[i].physicsBody?.allowsRotation = false
             hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
             hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.wall
