@@ -16,13 +16,9 @@ extension GameScene: SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody = contact.bodyA
             secondBody = contact.bodyB
-            print("aaa")
         } else {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
-            print("bbb")
-            print(firstBody)
-            print(secondBody)
         }
         
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.portalA != 0)) {
@@ -38,7 +34,7 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.wall != 0)) {
-            print("\nMantapZZ")
+//            print("\nMantapZZ")
 //            didContactWall = true
         }
         
