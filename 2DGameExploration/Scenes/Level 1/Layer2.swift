@@ -57,7 +57,7 @@ class Layer2: SKScene {
         scene.backgroundColor = .white
         
         
-        self.physicsWorld.contactDelegate = self
+        physicsWorld.contactDelegate = self
         
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
@@ -71,12 +71,13 @@ class Layer2: SKScene {
         player = childNode(withName: "player") as? SKSpriteNode
         player.name = "player"
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        player.position = portalA.position
 
         player.physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 26),
             center: CGPoint(x: 0, y: -30)
         )
-        player.physicsBody?.isDynamic = false
+        player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA | PhysicsCategory.wall
         player.physicsBody?.collisionBitMask = PhysicsCategory.wall
@@ -84,6 +85,7 @@ class Layer2: SKScene {
         player.physicsBody?.restitution = 0
         player.physicsBody?.angularDamping = 0
         player.physicsBody?.linearDamping = 1
+        player.physicsBody?.affectedByGravity = false
         
         // PORTAL CONTACT TEST
         portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
@@ -161,7 +163,7 @@ class Layer2: SKScene {
                     center: CGPoint(x: -1, y: -35)
                 )
             } else {
-                hiddenMembers[i].position = CGPoint(x: -165, y: 116)
+                hiddenMembers[i].position = CGPoint(x: -300, y: -220)
                 hiddenMembers[i].physicsBody = SKPhysicsBody(
                     rectangleOf: CGSize(width: 56, height: 27),
                     center: CGPoint(x: 0, y: -36)
@@ -339,7 +341,7 @@ class Layer2: SKScene {
                     tembok.physicsBody?.contactTestBitMask = PhysicsCategory.player
                     tembok.physicsBody?.isDynamic = false
                     tembok.physicsBody?.allowsRotation = false
-                    tembok.physicsBody?.restitution = 1
+                    tembok.physicsBody?.restitution = 0
                     tembok.physicsBody?.angularDamping = 0
                     tembok.physicsBody?.linearDamping = 1
                     self.addChild(tembok)
