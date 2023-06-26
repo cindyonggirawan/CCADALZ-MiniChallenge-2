@@ -174,7 +174,7 @@ class GameScene: SKScene {
     
     func generatefoundMembersLabel() {
         foundMembersLabel.text = "Members Found: 0"
-        foundMembersLabel.fontColor = SKColor.black
+        foundMembersLabel.fontColor = SKColor.lightGray
         foundMembersLabel.fontSize = 20
         foundMembersLabel.zPosition = 999
         foundMembersLabel.horizontalAlignmentMode = .left

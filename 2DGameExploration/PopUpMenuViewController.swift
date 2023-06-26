@@ -11,15 +11,12 @@ class PopUpMenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        view.backgroundColor = .darkGray.withAlphaComponent(0.9)
-//        view.backgroundColor?.withAlphaComponent(0)
+        view.backgroundColor = .black.withAlphaComponent(0.6)
     }
     
     @IBAction func resumeBtnClicked(_ sender: Any) {
-        self.dismiss(animated:
-                        true)
+        self.dismiss(animated: true)
     }
     
     

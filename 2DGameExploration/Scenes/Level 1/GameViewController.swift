@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
-    @IBOutlet weak var menuBtn: UIButton!
+//    @IBOutlet weak var menuBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,20 +30,18 @@ class GameViewController: UIViewController {
             
             view.showsFPS = true
             view.showsNodeCount = true
-            view.addSubview(menuBtn)
+//            view.addSubview(menuBtn)
 //            view.showsPhysics = true
 
         }
     }
     @IBAction func menuBtnClicked(_ sender: UIButton) {
-        print("sepp")
         if let popUpMenuViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpMenuViewController") as? PopUpMenuViewController {
 
             popUpMenuViewController.modalTransitionStyle = .crossDissolve
             popUpMenuViewController.modalPresentationStyle = .overCurrentContext
             
 //            performSegue(withIdentifier: "segueToPopUpMenuViewController", sender: self)
-            
             self.present(popUpMenuViewController, animated: true, completion: nil)
         }
         
