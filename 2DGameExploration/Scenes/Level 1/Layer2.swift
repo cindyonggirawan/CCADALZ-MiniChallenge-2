@@ -1,14 +1,15 @@
 //
-//  GameScene.swift
+//  Layer2.swift
 //  2DGameExploration
 //
-//  Created by Cindy Amanda Onggirawan on 19/06/23.
+//  Created by Daniel Bernard Sahala Simamora on 24/06/23.
 //
 
+import Foundation
 import SpriteKit
-import GameplayKit
 
-class GameScene: SKScene {
+
+class Layer2: SKScene {
     // TO GET JOYSTICK FROM GAMESCENE.SKS
     var disk: SKSpriteNode!
     var knob: SKSpriteNode!
@@ -51,7 +52,12 @@ class GameScene: SKScene {
     var layerTile: SKTileMapNode!
     
     override func didMove(to view: SKView) {
-        physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
+        guard let scene = scene else { return }
+        scene.scaleMode = .aspectFill
+        scene.backgroundColor = .white
+        
+        
+        physicsWorld.contactDelegate = self
         
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
@@ -65,6 +71,7 @@ class GameScene: SKScene {
         player = childNode(withName: "player") as? SKSpriteNode
         player.name = "player"
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        player.position = portalA.position
 
         player.physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 26),
@@ -78,10 +85,11 @@ class GameScene: SKScene {
         player.physicsBody?.restitution = 0
         player.physicsBody?.angularDamping = 0
         player.physicsBody?.linearDamping = 1
+        player.physicsBody?.affectedByGravity = false
         
         // PORTAL CONTACT TEST
         portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
-        portalA.physicsBody?.isDynamic = true
+        portalA.physicsBody?.isDynamic = false
         portalA.physicsBody?.categoryBitMask = PhysicsCategory.portalA
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
@@ -94,6 +102,8 @@ class GameScene: SKScene {
         camera = cameraNode
         cameraNode.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         
+        // label generator
+        generatefoundMembersLabel()
         
         // tile map
         for node in self.children {
@@ -153,7 +163,7 @@ class GameScene: SKScene {
                     center: CGPoint(x: -1, y: -35)
                 )
             } else {
-                hiddenMembers[i].position = CGPoint(x: -165, y: 116)
+                hiddenMembers[i].position = CGPoint(x: -300, y: -220)
                 hiddenMembers[i].physicsBody = SKPhysicsBody(
                     rectangleOf: CGSize(width: 56, height: 27),
                     center: CGPoint(x: 0, y: -36)
@@ -162,7 +172,7 @@ class GameScene: SKScene {
             
 //            hiddenMembers[i].physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hiddenMembers[i].size.width - 50, height: hiddenMembers[i].size.height - 40))
             
-            hiddenMembers[i].physicsBody?.isDynamic = true
+            hiddenMembers[i].physicsBody?.isDynamic = false
             hiddenMembers[i].physicsBody?.allowsRotation = false
             hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
             hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.wall
@@ -331,10 +341,10 @@ class GameScene: SKScene {
                     tembok.physicsBody?.contactTestBitMask = PhysicsCategory.player
                     tembok.physicsBody?.isDynamic = false
                     tembok.physicsBody?.allowsRotation = false
-                    tembok.physicsBody?.restitution = 1
+                    tembok.physicsBody?.restitution = 0
                     tembok.physicsBody?.angularDamping = 0
                     tembok.physicsBody?.linearDamping = 1
-                    addChild(tembok)
+                    self.addChild(tembok)
                 }
             }
         }
@@ -434,3 +444,4 @@ class GameScene: SKScene {
     }
     
 }
+
