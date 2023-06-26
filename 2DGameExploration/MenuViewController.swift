@@ -9,13 +9,33 @@ import UIKit
 
 class MenuViewController: UIViewController {
 
+    @IBOutlet weak var startMenuBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    let mainMenuAssets = ["iconMenu1.svg", "iconMenu2.svg", "iconMenu3.svg"]
+    
+    @IBAction func startMenuBtnClicked (_ sender: UIButton) {
+        UIView.setAnimationsEnabled(true)
 
+        UIView.animate(withDuration: 1, delay: 1) { [self] in
+            startMenuBtn.setImage(UIImage(named: self.mainMenuAssets[2]), for: .normal)
+            
+            if let chaptersMenuViewController = storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
+
+                chaptersMenuViewController.modalTransitionStyle = .crossDissolve
+                chaptersMenuViewController.modalPresentationStyle = .fullScreen
+                self.present(chaptersMenuViewController, animated: true, completion: nil)
+            }
+        }
+        
+        
+    }
+    
     /*
     // MARK: - Navigation
 
