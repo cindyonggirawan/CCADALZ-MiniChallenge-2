@@ -122,10 +122,11 @@ class GameScene: SKScene {
         foundMembersLabel.position.y = (camera!.position.y + 300.0)
         
         
-        if self.isPressed {
+        if (self.isPressed) {
             rotatePlayer(location, diskLocation, angle)
-            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.03)
-            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.03)
+//            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
+//            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
+            disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
         }
     }
     
@@ -345,12 +346,16 @@ class GameScene: SKScene {
         for touch in touches {
             location = touch.location(in: self)
             diskLocation = touch.location(in: disk) // diskLocation
+            knob.position = CGPoint(x: 0, y: 0)
             let _ = touch.location(in: knob) // knobLocation
 
             disk.position = location
             disk.alpha = 0.3
             
             self.isPressed = true
+            
+//            disk.position.x = camera!.position.x + (location.x - camera!.position.x)
+//            disk.position.y = camera!.position.y + (location.y - camera!.position.y)
             
         }
     }
@@ -381,8 +386,11 @@ class GameScene: SKScene {
           // code joystick pertama kali :  disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
         }
         
-        player.position.x += diskLocation.x * 0.03
-        player.position.y += diskLocation.y * 0.03
+//        disk.position.x = camera!.position.x + (location.x - camera!.position.x)
+//        disk.position.y = camera!.position.y + (location.y - camera!.position.y)
+        
+        player.position.x += diskLocation.x * 0.015
+        player.position.y += diskLocation.y * 0.015
         
         switch angle {
         // >>> UP
