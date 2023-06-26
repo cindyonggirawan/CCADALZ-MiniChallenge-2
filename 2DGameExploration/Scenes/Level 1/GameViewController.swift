@@ -11,15 +11,17 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var menuBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
-                scene.backgroundColor = .white
+                scene.backgroundColor = .darkGray
+                
                 // Present the scene
                 view.presentScene(scene)
             }
@@ -28,14 +30,23 @@ class GameViewController: UIViewController {
             
             view.showsFPS = true
             view.showsNodeCount = true
+            view.addSubview(menuBtn)
         }
     }
+    @IBAction func menuBtnClicked(_ sender: UIButton) {
+        print("sepp")
+        if let popUpMenuViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpMenuViewController") as? PopUpMenuViewController {
 
-    @IBAction func didClickMenu(_ sender: Any) {
-        print("Button Clicked")
-//        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameViewController") as UIViewController
-//        self.present(MenuViewController, animated: true, completion: nil)
+            popUpMenuViewController.modalTransitionStyle = .crossDissolve
+            popUpMenuViewController.modalPresentationStyle = .overCurrentContext
+            
+//            performSegue(withIdentifier: "segueToPopUpMenuViewController", sender: self)
+            
+            self.present(popUpMenuViewController, animated: true, completion: nil)
+        }
+        
     }
+    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
