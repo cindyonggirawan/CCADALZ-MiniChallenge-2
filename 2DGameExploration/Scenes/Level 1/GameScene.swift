@@ -6,7 +6,7 @@
 //
 
 import SpriteKit
-import GameplayKit
+import AVFoundation
 
 class GameScene: SKScene {
     // TO GET JOYSTICK FROM GAMESCENE.SKS
@@ -110,6 +110,15 @@ class GameScene: SKScene {
         setUpMapPhysics(layerTile)
 //        camera?.position.x = player.position.x
 //        camera?.position.y = player.position.y
+        
+        let audioFileNames = ["level1_bgm.mp3", "level1_voice1.mp3", "level1_voice2.mp3", "level1_voice3.mp3", "level1_voice4.mp3"]
+        for fileName in audioFileNames {
+            if let audioPlayer = loadAudioPlayer(fileName: fileName) {
+                GameData.shared.audioPlayers.append(audioPlayer)
+            }
+        }
+        
+        playAllAudioTracks()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -122,11 +131,22 @@ class GameScene: SKScene {
         foundMembersLabel.position.y = (camera!.position.y + 300.0)
         
         
-        if (self.isPressed) {
+        if self.isPressed {
             rotatePlayer(location, diskLocation, angle)
 //            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
 //            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
             disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
+        }
+        
+        if GameData.shared.isEnded == false {
+            let duration = GameData.shared.audioPlayers.first!.duration
+            let delay = duration + 1
+            run(SKAction.sequence([
+                SKAction.wait(forDuration: delay),
+                SKAction.run {
+                    playAllAudioTracks()
+                }
+            ]))
         }
     }
     
@@ -207,6 +227,8 @@ class GameScene: SKScene {
                 GameData.shared.numberOfFoundMembers += 1
                 GameData.shared.foundStatusOfFoundMembers[i] = true
                 GameData.shared.indexOrderOfFoundMembers.append(i)
+                
+                adjustVolume()
             }
         }
         

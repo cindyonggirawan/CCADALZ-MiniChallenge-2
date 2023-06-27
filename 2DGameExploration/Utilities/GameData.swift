@@ -7,6 +7,7 @@
 
 import Foundation
 import SpriteKit
+import AVFoundation
 
 class GameData {
     /*
@@ -18,6 +19,12 @@ class GameData {
     var numberOfFoundMembers: Int = 0
     var foundStatusOfFoundMembers: [Bool] = [false, false, false]
     var indexOrderOfFoundMembers: [Int] = []
+    var isEnded: Bool = false
+    
+    // audio
+    var audioPlayers: [AVAudioPlayer] = []
+    
+    let teleportSound: SKAction = SKAction.playSoundFileNamed("teleport.mp3", waitForCompletion: false)
     
     private init() { }
 }
@@ -32,5 +39,4 @@ struct PhysicsCategory {
     static let hiddenMember: UInt32 = 0x1 << 3
     
     static let wall: UInt32 = 0x1 << 4
-    
 }
