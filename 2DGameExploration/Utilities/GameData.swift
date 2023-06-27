@@ -22,7 +22,8 @@ class GameData {
     var isEnded: Bool = false
     
     // audio
-    var audioPlayers: [AVAudioPlayer] = []
+    var audioHelper = AudioHelper()
+    var audioPlayers: [AVAudioPlayer] = [] //kalo bisa dipindah ke arr di audio helper, ada kusiapin arr namanya "gamePlayMusicPlayer"
     
     let teleportSound: SKAction = SKAction.playSoundFileNamed("teleport.mp3", waitForCompletion: false)
     
