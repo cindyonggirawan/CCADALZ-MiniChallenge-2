@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-extension GameScene: SKPhysicsContactDelegate {
+extension Layer1: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody: SKPhysicsBody
@@ -34,7 +34,7 @@ extension GameScene: SKPhysicsContactDelegate {
         
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.wall != 0)) {
             print("\nwall contacted!")
-            didContactWall = true
+//            didContactWall = true
         }
         
     }
