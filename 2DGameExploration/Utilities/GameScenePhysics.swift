@@ -27,14 +27,14 @@ extension GameScene: SKPhysicsContactDelegate {
                 guard let newLayer = Layer2(fileNamed: "Layer2") else {
                     return
                 }
-                let transition = SKTransition.fade(withDuration: 0.5)
+                let transition = SKTransition.fade(withDuration: 1)
                 view?.presentScene(newLayer, transition: transition)
             }
         }
         
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.wall != 0)) {
-//            print("\nMantapZZ")
-//            didContactWall = true
+            print("\nwall contacted!")
+            didContactWall = true
         }
         
     }

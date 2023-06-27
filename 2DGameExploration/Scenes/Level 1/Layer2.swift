@@ -54,7 +54,7 @@ class Layer2: SKScene {
     override func didMove(to view: SKView) {
         guard let scene = scene else { return }
         scene.scaleMode = .aspectFill
-        scene.backgroundColor = .white
+        scene.backgroundColor = .darkGray
         
         
         physicsWorld.contactDelegate = self
