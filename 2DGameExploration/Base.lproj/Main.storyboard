@@ -64,7 +64,7 @@
                                         <color key="tintColor" systemColor="systemGray6Color"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" imagePlacement="top" title="RESUME" imagePadding="15">
-                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                            <imageReference key="image" image="iconPlay" symbolScale="large"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20" scale="large"/>
                                             <color key="baseForegroundColor" red="0.99541284399999996" green="0.99082568810000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
@@ -81,7 +81,7 @@
                                         <color key="tintColor" systemColor="systemGray6Color"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" imagePlacement="top" title="EXIT" imagePadding="15">
-                                            <imageReference key="image" image="rectangle.portrait.and.arrow.forward" catalog="system" symbolScale="large"/>
+                                            <imageReference key="image" image="iconExit" symbolScale="large"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20" scale="large"/>
                                             <color key="baseForegroundColor" red="0.99541284399999996" green="0.99082568810000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
@@ -124,7 +124,7 @@
                                 </constraints>
                                 <color key="tintColor" systemColor="separatorColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="iconMenu1"/>
+                                <buttonConfiguration key="configuration" style="plain" image="iconMenu"/>
                                 <connections>
                                     <action selector="startMenuBtnClicked:" destination="uXZ-fr-k0G" eventType="touchUpInside" id="SCU-16-DeA"/>
                                 </connections>
@@ -185,13 +185,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhj-T0-JJg">
-                                <rect key="frame" x="297" y="85" width="64" height="64"/>
+                                <rect key="frame" x="283" y="85" width="78" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Z0W-a7-dwr"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="a5d-yz-Pxl"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="gearshape.fill" catalog="system">
+                                <buttonConfiguration key="configuration" style="plain" image="iconSetting">
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20" scale="large"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -315,6 +315,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" image="iconToggleOn">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="soundToggleBtnClicked:" destination="09c-xI-jSJ" eventType="touchUpInside" id="dyc-wD-wgc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -337,6 +340,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" image="iconToggleOff">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="isOnColorBlindModeBtnClicked:" destination="09c-xI-jSJ" eventType="touchUpInside" id="Whd-5h-ICL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -355,6 +361,11 @@
                             <constraint firstItem="rLu-jJ-hcG" firstAttribute="leading" secondItem="f2y-PS-jy1" secondAttribute="leading" constant="48" id="eof-bf-sCp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="colorBlindeModeBtn" destination="aek-hV-3YO" id="hCU-bv-apc"/>
+                        <outlet property="musicToggleBtn" destination="agI-uG-YxH" id="Me5-SI-2hp"/>
+                        <outlet property="soundToggleBtn" destination="HdW-Ko-yBE" id="iLr-Zf-H8I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UF9-vZ-TRL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -428,14 +439,13 @@
         <image name="1-GameplayBG" width="390" height="844"/>
         <image name="BGchaptersMenu" width="390" height="844"/>
         <image name="BGstartMenu" width="390" height="844"/>
-        <image name="gearshape.fill" catalog="system" width="128" height="123"/>
+        <image name="iconExit" width="54" height="54"/>
         <image name="iconMenu" width="40" height="40"/>
-        <image name="iconMenu1" width="85" height="85"/>
+        <image name="iconPlay" width="54" height="54"/>
+        <image name="iconSetting" width="54" height="54"/>
         <image name="iconToggleOff" width="72" height="36"/>
         <image name="iconToggleOn" width="72" height="36"/>
-        <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="player_down" width="100" height="140"/>
-        <image name="rectangle.portrait.and.arrow.forward" catalog="system" width="128" height="109"/>
         <image name="title" width="217" height="124"/>
         <image name="winningScreenChoir" width="326" height="169"/>
         <image name="winningScreenNextButton" width="122" height="122"/>
