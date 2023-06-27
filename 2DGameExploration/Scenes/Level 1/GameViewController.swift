@@ -12,7 +12,6 @@ import GameplayKit
 class GameViewController: UIViewController {
 
 //    @IBOutlet weak var menuBtn: UIButton!
-    var isFinishGateOpened = "false"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +32,19 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
 //            view.addSubview(menuBtn)
 //            view.showsPhysics = true
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onFinishGameScene), name: NSNotification.Name(rawValue: "onGameFinish"), object: nil)
+    }
+    
+    @objc
+    func onFinishGameScene(){
+        if let finishScreenViewController = storyboard?.instantiateViewController(withIdentifier: "FinishScreenViewController") as? FinishScreenViewController {
+
+            finishScreenViewController.modalTransitionStyle = .crossDissolve
+            finishScreenViewController.modalPresentationStyle = .overCurrentContext
+            
+            self.present(finishScreenViewController, animated: true, completion: nil)
         }
     }
     

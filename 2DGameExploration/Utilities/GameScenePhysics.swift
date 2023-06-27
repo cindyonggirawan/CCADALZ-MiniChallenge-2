@@ -68,18 +68,7 @@ extension Layer2: SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.finishGate != 0)) {
             if let _ = firstBody.node as? SKSpriteNode,
                let _ = secondBody.node as? SKSpriteNode {
-                
-                
-//                print(view?.window?.rootViewController)
-                finishScreenViewController = FinishScreenViewController()
-//                view?.window?.rootViewController = finishScreenViewController
-//                view?.window?.makeKeyAndVisible()
-                view?.window?.rootViewController?.present(finishScreenViewController!, animated: true, completion: nil)
-                
-                
-//                gameViewController = GameViewController()
-//                gameViewController?.isFinishGateOpened = true
-
+                NotificationCenter.default.post(name: NSNotification.Name("onGameFinish"), object: nil)
             }
             
         }
