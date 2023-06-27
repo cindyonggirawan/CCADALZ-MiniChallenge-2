@@ -374,7 +374,7 @@
         <!--Winning Screen View Controller-->
         <scene sceneID="Gej-Mp-XAU">
             <objects>
-                <viewController title="Winning Screen View Controller" id="7iv-V0-Ypl" sceneMemberID="viewController">
+                <viewController title="Winning Screen View Controller" id="7iv-V0-Ypl" customClass="FinishScreenViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G6P-cM-W7u">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -428,6 +428,9 @@
                             <constraint firstItem="c2F-DM-N6q" firstAttribute="top" secondItem="G6P-cM-W7u" secondAttribute="top" constant="327" id="zwM-wZ-Chu"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nextLevelBtn" destination="hPo-hm-NOO" id="pEs-b2-ay0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYO-lG-9OB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

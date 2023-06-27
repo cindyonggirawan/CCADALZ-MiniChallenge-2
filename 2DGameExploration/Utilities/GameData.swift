@@ -20,6 +20,7 @@ class GameData {
     var foundStatusOfFoundMembers: [Bool] = [false, false, false]
     var indexOrderOfFoundMembers: [Int] = []
     var isEnded: Bool = false
+//    var isFinishGateOpenned
     
     // audio
     var audioPlayers: [AVAudioPlayer] = []
@@ -39,4 +40,5 @@ struct PhysicsCategory {
     static let hiddenMember: UInt32 = 0x1 << 3
     
     static let wall: UInt32 = 0x1 << 4
+    static let finishGate: UInt32 = 0x1 << 5
 }

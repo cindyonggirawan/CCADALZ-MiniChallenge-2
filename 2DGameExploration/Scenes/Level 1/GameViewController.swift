@@ -12,6 +12,7 @@ import GameplayKit
 class GameViewController: UIViewController {
 
 //    @IBOutlet weak var menuBtn: UIButton!
+    var isFinishGateOpened = "false"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,11 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
 //            view.addSubview(menuBtn)
 //            view.showsPhysics = true
-
         }
     }
+    
+    
+    
     @IBAction func menuBtnClicked(_ sender: UIButton) {
         if let popUpMenuViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpMenuViewController") as? PopUpMenuViewController {
 
