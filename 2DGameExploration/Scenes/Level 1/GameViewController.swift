@@ -32,9 +32,24 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
 //            view.addSubview(menuBtn)
 //            view.showsPhysics = true
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onFinishGameScene), name: NSNotification.Name(rawValue: "onGameFinish"), object: nil)
+    }
+    
+    @objc
+    func onFinishGameScene(){
+        if let finishScreenViewController = storyboard?.instantiateViewController(withIdentifier: "FinishScreenViewController") as? FinishScreenViewController {
 
+            finishScreenViewController.modalTransitionStyle = .crossDissolve
+            finishScreenViewController.modalPresentationStyle = .overCurrentContext
+            
+            self.present(finishScreenViewController, animated: true, completion: nil)
         }
     }
+    
+    
+    
     @IBAction func menuBtnClicked(_ sender: UIButton) {
         if let popUpMenuViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpMenuViewController") as? PopUpMenuViewController {
 

@@ -18,6 +18,7 @@ class Layer2: SKScene {
     var angle: CGFloat = 0.0
     
     var portalA: SKSpriteNode!
+    var finishGate: SKSpriteNode!
     
     let foundMembersLabel = SKLabelNode()
     
@@ -51,11 +52,14 @@ class Layer2: SKScene {
     
     var layerTile: SKTileMapNode!
     
+    var finishScreenViewController: FinishScreenViewController?
+    
+    var gameViewController: GameViewController?
+
     override func didMove(to view: SKView) {
         guard let scene = scene else { return }
         scene.scaleMode = .aspectFill
         scene.backgroundColor = .darkGray
-        
         
         physicsWorld.contactDelegate = self
         
@@ -63,6 +67,7 @@ class Layer2: SKScene {
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
         portalA = childNode(withName: "portalA") as? SKSpriteNode
+        finishGate = childNode(withName: "finishGate") as? SKSpriteNode
         
         disk.alpha = 0
         knob.zPosition = 2
@@ -93,6 +98,13 @@ class Layer2: SKScene {
         portalA.physicsBody?.categoryBitMask = PhysicsCategory.portalA
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
+        
+        
+        finishGate.physicsBody = SKPhysicsBody(rectangleOf: finishGate.size)
+        finishGate.physicsBody?.isDynamic = false
+        finishGate.physicsBody?.categoryBitMask = PhysicsCategory.finishGate
+        finishGate.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        finishGate.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
         
         spawnHiddenMembers()
         

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import SpriteKit
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -62,6 +63,14 @@ extension Layer2: SKPhysicsContactDelegate {
 //                let transition = SKTransition.fade(withDuration: 0.5)
 //                view?.presentScene(newLayer, transition: transition)
             }
+        }
+        
+        if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.finishGate != 0)) {
+            if let _ = firstBody.node as? SKSpriteNode,
+               let _ = secondBody.node as? SKSpriteNode {
+                NotificationCenter.default.post(name: NSNotification.Name("onGameFinish"), object: nil)
+            }
+            
         }
         
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.wall != 0)) {
