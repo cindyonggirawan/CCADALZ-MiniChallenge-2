@@ -315,6 +315,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" image="iconToggleOn">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="soundToggleBtnClicked:" destination="09c-xI-jSJ" eventType="touchUpInside" id="dyc-wD-wgc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -337,6 +340,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" image="iconToggleOff">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="isOnColorBlindModeBtnClicked:" destination="09c-xI-jSJ" eventType="touchUpInside" id="Whd-5h-ICL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -355,6 +361,11 @@
                             <constraint firstItem="rLu-jJ-hcG" firstAttribute="leading" secondItem="f2y-PS-jy1" secondAttribute="leading" constant="48" id="eof-bf-sCp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="colorBlindeModeBtn" destination="aek-hV-3YO" id="hCU-bv-apc"/>
+                        <outlet property="musicToggleBtn" destination="agI-uG-YxH" id="Me5-SI-2hp"/>
+                        <outlet property="soundToggleBtn" destination="HdW-Ko-yBE" id="iLr-Zf-H8I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UF9-vZ-TRL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

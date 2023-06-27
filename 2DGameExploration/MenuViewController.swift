@@ -20,18 +20,45 @@ class MenuViewController: UIViewController {
     let mainMenuAssets = ["iconMenu1.svg", "iconMenu2.svg", "iconMenu3.svg"]
     
     @IBAction func startMenuBtnClicked (_ sender: UIButton) {
-        UIView.setAnimationsEnabled(true)
-
-        UIView.animate(withDuration: 1, delay: 1) { [self] in
-            startMenuBtn.setImage(UIImage(named: self.mainMenuAssets[2]), for: .normal)
+        
+        let newButtonWidth: CGFloat = 60
+        UIView.animate(withDuration: 0.4, //1
+            delay: 0.0, //2
+            usingSpringWithDamping: 0, //3
+            initialSpringVelocity: 0, //4
+            options: UIView.AnimationOptions.curveEaseInOut, //5
+            animations: ({ //6
+            sender.layer.opacity = 0.1
+//            sender.setImage(UIImage(named: self.mainMenuAssets[2]), for: .normal)
+//
+//            sender.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth) //2
+                
+//                sender.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth)
+//            sender.center = self.view.center
             
-            if let chaptersMenuViewController = storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
+        }), completion: {_ in
+            if let chaptersMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
 
                 chaptersMenuViewController.modalTransitionStyle = .crossDissolve
                 chaptersMenuViewController.modalPresentationStyle = .fullScreen
                 self.present(chaptersMenuViewController, animated: true, completion: nil)
             }
-        }
+            
+        })
+        
+        
+//        UIView.setAnimationsEnabled(true)
+//
+//        UIView.animate(withDuration: 1, delay: 1) { [self] in
+//            startMenuBtn.setImage(UIImage(named: self.mainMenuAssets[2]), for: .normal)
+//
+//            if let chaptersMenuViewController = storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
+//
+//                chaptersMenuViewController.modalTransitionStyle = .crossDissolve
+//                chaptersMenuViewController.modalPresentationStyle = .fullScreen
+//                self.present(chaptersMenuViewController, animated: true, completion: nil)
+//            }
+//        }
         
         
     }
