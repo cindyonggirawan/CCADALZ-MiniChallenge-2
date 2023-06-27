@@ -15,13 +15,14 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        GameData.shared.audioHelper.playBgMusic()
     }
     
     let mainMenuAssets = ["iconMenu1.svg", "iconMenu2.svg", "iconMenu3.svg"]
     
     @IBAction func startMenuBtnClicked (_ sender: UIButton) {
         
-        let newButtonWidth: CGFloat = 60
+//        let newButtonWidth: CGFloat = 60
         UIView.animate(withDuration: 0.4, //1
             delay: 0.0, //2
             usingSpringWithDamping: 0, //3
@@ -36,6 +37,9 @@ class MenuViewController: UIViewController {
 //                sender.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth)
 //            sender.center = self.view.center
             
+            
+            //Play sound
+            GameData.shared.audioHelper.playActiveButton()
         }), completion: {_ in
             if let chaptersMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
 
@@ -45,21 +49,6 @@ class MenuViewController: UIViewController {
             }
             
         })
-        
-        
-//        UIView.setAnimationsEnabled(true)
-//
-//        UIView.animate(withDuration: 1, delay: 1) { [self] in
-//            startMenuBtn.setImage(UIImage(named: self.mainMenuAssets[2]), for: .normal)
-//
-//            if let chaptersMenuViewController = storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
-//
-//                chaptersMenuViewController.modalTransitionStyle = .crossDissolve
-//                chaptersMenuViewController.modalPresentationStyle = .fullScreen
-//                self.present(chaptersMenuViewController, animated: true, completion: nil)
-//            }
-//        }
-        
         
     }
     

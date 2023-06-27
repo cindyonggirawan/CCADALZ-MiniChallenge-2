@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uXZ-fr-k0G">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -24,9 +24,8 @@
                                     <constraint firstAttribute="width" constant="64" id="KTi-Ey-kmf"/>
                                     <constraint firstAttribute="height" constant="64" id="Pxv-o7-U6Z"/>
                                 </constraints>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" image="iconMenu" title=""/>
+                                <buttonConfiguration key="configuration" style="plain" image="iconMenu" title=""/>
                                 <connections>
                                     <action selector="menuBtnClicked:" destination="BV1-FR-VrT" eventType="touchUpInside" id="WaD-DK-IET"/>
                                 </connections>

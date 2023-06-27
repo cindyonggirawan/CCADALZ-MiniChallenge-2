@@ -38,6 +38,7 @@
 		8F1B557B2A454124007C2BC6 /* TilesSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F1B557A2A454124007C2BC6 /* TilesSet.sks */; };
 		8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */; };
 		8F48B8822A4929FE00D3FD13 /* PopUpMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */; };
+		8F82E7A02A4AF26500CDEBE5 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */; };
 		8F93FC0A2A489DE4008E0FA8 /* ChaptersMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */; };
 		A561EE982A443596000A2042 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561EE972A443596000A2042 /* GameData.swift */; };
 		A5C2FDBE2A45069700237D71 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C2FDBD2A45069700237D71 /* MenuViewController.swift */; };
@@ -79,6 +80,7 @@
 		8F1B557A2A454124007C2BC6 /* TilesSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TilesSet.sks; sourceTree = "<group>"; };
 		8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpSettingsViewController.swift; sourceTree = "<group>"; };
 		8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpMenuViewController.swift; sourceTree = "<group>"; };
+		8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
 		8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersMenuViewController.swift; sourceTree = "<group>"; };
 		A561EE972A443596000A2042 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		A5C2FDBD2A45069700237D71 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				A561EE972A443596000A2042 /* GameData.swift */,
 				37693AAB2A44561400317BAF /* Helper.swift */,
 				652ADE5C2A45B15C00ADD08A /* GameScenePhysics.swift */,
+				8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 			files = (
 				37078E762A4072C900292BE8 /* temp4.swift in Sources */,
 				37693AAC2A44561400317BAF /* Helper.swift in Sources */,
+				8F82E7A02A4AF26500CDEBE5 /* AudioHelper.swift in Sources */,
 				A9C848DF2A4ADC45008FDE7C /* FinishScreenViewController.swift in Sources */,
 				8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */,
 				37C29B9F2A400F0E001C2335 /* GameScene.swift in Sources */,

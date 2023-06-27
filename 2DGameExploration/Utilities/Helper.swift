@@ -72,26 +72,6 @@ extension CGPoint {
 
 import AVFoundation
 
-//var audioPlayer: AVAudioPlayer?
-
-//func playAnAudio(fileName: String) {
-//    guard let filePath = Bundle.main.url(forResource: fileName, withExtension: nil) else {
-//        print("Error: Audio file not found - \(fileName)")
-//        return
-//    }
-//
-//    do {
-//        try audioPlayer = AVAudioPlayer(contentsOf: filePath)
-//        audioPlayer?.numberOfLoops = -1
-//        audioPlayer?.volume = 1.0
-//        audioPlayer?.prepareToPlay()
-//        audioPlayer?.play()
-//    } catch {
-//        print("Error: Could not create audio player")
-//        return
-//    }
-//}
-
 func loadAudioPlayer(fileName: String) -> AVAudioPlayer? {
     guard let filePath = Bundle.main.path(forResource: fileName, ofType: nil) else {
         print("Error: Audio file not found - \(fileName)")
@@ -120,6 +100,7 @@ func playAllAudioTracks() {
         }
         audioPlayer.play()
     }
+    
 }
 
 func stopAllAudioTracks() {

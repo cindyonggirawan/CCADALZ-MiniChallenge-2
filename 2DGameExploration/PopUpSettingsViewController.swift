@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import AVFAudio
 
 class PopUpSettingsViewController: UIViewController {
 
-    var isMusicOn = true
-    var isSoundOn = true
+ 
     var isOnColorBlindMode = false
     
+    var audioPlayers: [AVAudioPlayer] = []
+
     @IBOutlet weak var musicToggleBtn: UIButton!
     @IBOutlet weak var soundToggleBtn: UIButton!
     @IBOutlet weak var colorBlindeModeBtn: UIButton!
@@ -22,44 +24,54 @@ class PopUpSettingsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         view.backgroundColor = .black.withAlphaComponent(0.7)
-        
-//        let chaptersMenuViewController = storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController
-        
-//        print(chaptersMenuViewController?.chapterCaptionLbl ?? "haiya")
-//        chaptersMenuViewController?.chapterTitleLbl.isHidden = true
-//        chaptersMenuViewController?.chapterCaptionLbl.isHidden = true
+        setToggleIcon(button: musicToggleBtn, currState: GameData.shared.audioHelper.isMusicOn)
+        setToggleIcon(button: soundToggleBtn, currState: GameData.shared.audioHelper.isSoundOn)
+        setToggleIcon(button: colorBlindeModeBtn, currState: isOnColorBlindMode)
 
     }
     
     @IBAction func exitSettingsBtn(_ sender: UIButton) {
-//        let chaptersMenuViewController = storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController
-//        chaptersMenuViewController?.chapterTitleLbl.isHidden = false
-//        chaptersMenuViewController?.chapterCaptionLbl.isHidden = false
         self.dismiss(animated: true)
     }
     
     @IBAction func musicToggleBtnClicked(_ sender: UIButton) {
-        isMusicOn = changeSettingState(currState: isMusicOn, button: sender)
+        changeSettingState(button: sender, currState: GameData.shared.audioHelper.isMusicOn)
+        GameData.shared.audioHelper.changeMusicState()
     }
     
 
     @IBAction func soundToggleBtnClicked(_ sender: UIButton) {
-        isSoundOn = changeSettingState(currState: isSoundOn, button: sender)
+        changeSettingState(button: sender, currState: GameData.shared.audioHelper.isSoundOn)
+        GameData.shared.audioHelper.changeSoundState()
+
     }
     
     @IBAction func isOnColorBlindModeBtnClicked(_ sender: UIButton) {
-        isOnColorBlindMode = changeSettingState(currState: isOnColorBlindMode, button: sender)
-    }
-    
-    private func changeSettingState(currState : Bool, button: UIButton) -> Bool {
-        if(currState){
-            button.setImage(UIImage(named: "iconToggleOff"), for: .normal)
-            return false
+        changeSettingState(button: sender, currState: isOnColorBlindMode)
+        
+        if(isOnColorBlindMode){
+            isOnColorBlindMode = false
         } else {
-            button.setImage(UIImage(named: "iconToggleOn"), for: .normal)
-            return true
+            isOnColorBlindMode = true
         }
     }
+    
+    private func changeSettingState(button: UIButton, currState : Bool){
+        if(currState){
+            setToggleIcon(button: button, currState: false)
+        } else {
+            setToggleIcon(button: button, currState: true)
+        }
+    }
+    
+    func setToggleIcon(button: UIButton, currState: Bool){
+        if(currState){
+            button.setImage(UIImage(named: "iconToggleOn"), for: .normal)
+        } else {
+            button.setImage(UIImage(named: "iconToggleOff"), for: .normal)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

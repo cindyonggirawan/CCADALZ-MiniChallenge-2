@@ -27,11 +27,15 @@ class ChaptersMenuViewController: UIViewController {
     
     @IBAction func playBtnClicked(_ sender: Any) {
         if let gameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
-
+            
+            //Edit transition +  presentation style (spy full screen)
             gameViewController.modalTransitionStyle = .crossDissolve
             gameViewController.modalPresentationStyle = .fullScreen
             
-//            performSegue(withIdentifier: "segueToGameViewController", sender: self)
+            //Stop BG music supaya suaranya ga nabrak sama sound gameplay
+            GameData.shared.audioHelper.stopBgMusic()
+            
+            //Pindah/panggil gameViewController
             self.present(gameViewController, animated: true, completion: nil)
         }
     }
@@ -39,13 +43,14 @@ class ChaptersMenuViewController: UIViewController {
     @IBAction func settingsBtnClicked(_ sender: UIButton) {
         if let popUpSettingsViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpSettingsViewController") as? PopUpSettingsViewController {
 
+            //Edit transition +  presentation style (spy full screen)
             popUpSettingsViewController.modalTransitionStyle = .crossDissolve
             popUpSettingsViewController.modalPresentationStyle = .overCurrentContext
             
-//            chapterTitleLbl.isHidden = true
-//            chapterCaptionLbl.isHidden = true
+            //Play sound effect
+            GameData.shared.audioHelper.playActiveButton()
             
-//            performSegue(withIdentifier: "segueToPopUpMenuViewController", sender: self)
+            //Pindah/panggil popUpSettingsViewController
             self.present(popUpSettingsViewController, animated: true, completion: nil)
         }
     }
