@@ -138,16 +138,16 @@ class GameScene: SKScene {
             disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
         }
         
-        if GameData.shared.isEnded == false {
-            let duration = GameData.shared.audioPlayers.first!.duration
-            let delay = duration + 1
-            run(SKAction.sequence([
-                SKAction.wait(forDuration: delay),
-                SKAction.run {
-                    playAllAudioTracks()
-                }
-            ]))
-        }
+//        if GameData.shared.isEnded == false {
+//            let duration = GameData.shared.audioPlayers.first!.duration
+//            let delay = duration + 1
+//            run(SKAction.sequence([
+//                SKAction.wait(forDuration: delay),
+//                SKAction.run {
+//                    playAllAudioTracks()
+//                }
+//            ]))
+//        }
     }
     
     override func didEvaluateActions() {
