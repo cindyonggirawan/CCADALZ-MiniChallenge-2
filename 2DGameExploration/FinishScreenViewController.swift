@@ -13,10 +13,17 @@ class FinishScreenViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 //        view.backgroundColor = .black.withAlphaComponent(0.6)
+        
     }
     
-    @IBOutlet weak var nextLevelBtn: UIImageView!
-    
+    @IBAction func nextLvlBtn(_ sender: Any) {
+        if let chaptersMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
+
+            chaptersMenuViewController.modalTransitionStyle = .crossDissolve
+            chaptersMenuViewController.modalPresentationStyle = .fullScreen
+            self.present(chaptersMenuViewController, animated: true, completion: nil)
+        }
+    }
     
     
     /*
