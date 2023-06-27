@@ -26,7 +26,8 @@ class GameScene: SKScene {
     
     let joystickYPos = CGFloat(150)
     
-    var lastDragGesture: String = ""
+    var lastDragGesture: String = "down"
+    var beforeLastDragGesture: String = "down"
 
     var diskRadius: CGFloat {
         CGFloat(disk.size.width / 2.0) // 130 / 2 : CONVERT PIXEL TO POINT!!
@@ -37,6 +38,7 @@ class GameScene: SKScene {
     var isPressed: Bool = false
     
     var player: SKSpriteNode!
+    var playerAnimation: SKAction!
     
     var playerXPos: Double = 0.0
     var playerYPos: Double = 0.0
@@ -86,6 +88,13 @@ class GameScene: SKScene {
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
         
+        //animasi player
+        var textures: [SKTexture] = []
+        for i in 0..<2 {
+            textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
+        }
+        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+        
         spawnHiddenMembers()
         
 //         debugDrawPlayableArea()
@@ -93,7 +102,6 @@ class GameScene: SKScene {
         // camera
         camera = cameraNode
         cameraNode.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
-        
         
         // tile map
         for node in self.children {
@@ -152,6 +160,17 @@ class GameScene: SKScene {
     
     override func didEvaluateActions() {
         checkCollisions()
+    }
+    
+    func startPlayerAnimation() {
+        if player.action(forKey: "animation") == nil {
+            player.run(SKAction.repeatForever(playerAnimation),
+                        withKey: "animation")
+        }
+    }
+    
+    func stopPlayerAnimation() {
+        player.removeAction(forKey: "animation")
     }
     
     func spawnHiddenMembers() {
@@ -414,6 +433,8 @@ class GameScene: SKScene {
         player.position.x += diskLocation.x * 0.015
         player.position.y += diskLocation.y * 0.015
         
+        beforeLastDragGesture = lastDragGesture
+        
         switch angle {
         // >>> UP
         case (Double.pi / 4) ..< (3 * Double.pi / 4):
@@ -430,7 +451,6 @@ class GameScene: SKScene {
 
         // >>> DOWN
         case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
-//                    player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
             player.texture = SKTexture(imageNamed: "player_down")
             lastDragGesture = "down"
 
@@ -445,10 +465,33 @@ class GameScene: SKScene {
         default:
             lastDragGesture = ""
         }
+        
+//        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
+        
+        if beforeLastDragGesture == lastDragGesture {
+            var textures: [SKTexture] = []
+            for i in 0..<2 {
+                textures.append(SKTexture(imageNamed: "player_\(beforeLastDragGesture)_animation\(i)"))
+            }
+            playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+            startPlayerAnimation()
+        } else {
+            stopPlayerAnimation()
+            
+            var textures: [SKTexture] = []
+            for i in 0..<2 {
+                textures.append(SKTexture(imageNamed: "player_\(lastDragGesture)_animation\(i)"))
+            }
+            playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+            startPlayerAnimation()
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.isPressed = false
+        stopPlayerAnimation()
         disk.alpha = 0
         disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
         knob.position = CGPoint(x: 0, y: 0)
