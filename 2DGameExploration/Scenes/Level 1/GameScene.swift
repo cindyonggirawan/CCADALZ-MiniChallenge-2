@@ -47,6 +47,8 @@ class GameScene: SKScene {
     
     var hiddenMembers: [SKSpriteNode] = []
     var foundMembers: [SKSpriteNode] = []
+    var memberAnimation: SKAction!
+    var membersAnimation: [SKAction] = []
     
     var availableSpots = [CGPoint]()
     
@@ -88,7 +90,7 @@ class GameScene: SKScene {
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
         
-        //animasi player
+        // animasi player
         var textures: [SKTexture] = []
         for i in 0..<2 {
             textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
@@ -96,6 +98,16 @@ class GameScene: SKScene {
         playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
         
         spawnHiddenMembers()
+        
+        // animasi member
+        for i in 0..<3 {
+            textures = []
+            for j in 0..<2 {
+                textures.append(SKTexture(imageNamed: "member\(i)_down_animation\(j)"))
+            }
+            memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+//            membersAnimation.append(memberAnimation)
+        }
         
 //         debugDrawPlayableArea()
         
@@ -130,17 +142,15 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        moveFoundMembers()
-
         camera?.position.x = player.position.x
         camera?.position.y = player.position.y
         
         foundMembersLabel.position.x = (camera?.position.x)!
         foundMembersLabel.position.y = (camera!.position.y + 300.0)
         
-        
         if self.isPressed {
             rotatePlayer(location, diskLocation, angle)
+            moveFoundMembers()
 //            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
 //            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
             disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
@@ -163,14 +173,14 @@ class GameScene: SKScene {
     }
     
     func startPlayerAnimation() {
-        if player.action(forKey: "animation") == nil {
+        if player.action(forKey: "playerAnimation") == nil {
             player.run(SKAction.repeatForever(playerAnimation),
-                        withKey: "animation")
+                        withKey: "playerAnimation")
         }
     }
     
     func stopPlayerAnimation() {
-        player.removeAction(forKey: "animation")
+        player.removeAction(forKey: "playerAnimation")
     }
     
     func spawnHiddenMembers() {
@@ -267,42 +277,64 @@ class GameScene: SKScene {
             CGPoint(x: 0, y: tileSize.height),
             CGPoint(x: -tileSize.width, y: 0)
         ]
-        var memberName = ""
         
         enumerateChildNodes(withName: "found member") { node, stop in
             if !node.hasActions() {
                 let member = node as! SKSpriteNode
+                var index = 0
                 
                 for i in 0..<3 {
                     if member == self.hiddenMembers[i] {
-                        memberName = "member\(i)"
+                        index = i
                         break
                     }
                 }
                 
                 if self.lastDragGesture == "up" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0
-                    member.texture = SKTexture(imageNamed: "\(memberName)_up")
+                    member.texture = SKTexture(imageNamed: "member\(index)_up")
                     moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
                 } else if self.lastDragGesture == "left" {
 //                    node.zRotation = CGFloat(Double.pi) / 1.0
-                    member.texture = SKTexture(imageNamed: "\(memberName)_left")
+                    member.texture = SKTexture(imageNamed: "member\(index)_left")
                     moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
                 } else if self.lastDragGesture == "down" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
-                    member.texture = SKTexture(imageNamed: "\(memberName)_down")
+                    member.texture = SKTexture(imageNamed: "member\(index)_down")
                     moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
                 } else if self.lastDragGesture == "right" {
 //                    node.zRotation = 0
-                    member.texture = SKTexture(imageNamed: "\(memberName)_right")
+                    member.texture = SKTexture(imageNamed: "member\(index)_right")
                     moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
                 }
                 
                 node.run(moveAction)
+                
+                if self.beforeLastDragGesture == self.lastDragGesture {
+                    var textures: [SKTexture] = []
+                    for i in 0..<2 {
+                        textures.append(SKTexture(imageNamed: "member\(index)_\(self.beforeLastDragGesture)_animation\(i)"))
+                    }
+                    self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+//                    self.membersAnimation.append(self.memberAnimation)
+
+                    self.startMemberAnimation(member: member, index: index)
+                } else {
+                    self.stopMemberAnimation(member: member, index: index)
+
+                    var textures: [SKTexture] = []
+                    for i in 0..<2 {
+                        textures.append(SKTexture(imageNamed: "member\(index)_\(self.lastDragGesture)_animation\(i)"))
+                    }
+                    self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+//                    self.membersAnimation.append(self.memberAnimation)
+
+                    self.startMemberAnimation(member: member, index: index)
+                }
             }
             
             // member selanjutnya berada dibelakang member pertama
@@ -310,11 +342,22 @@ class GameScene: SKScene {
         }
     }
     
+    func startMemberAnimation(member: SKSpriteNode, index: Int) {
+        if member.action(forKey: "member\(index)Animation") == nil {
+            member.run(SKAction.repeatForever(memberAnimation),
+                        withKey: "member\(index)Animation")
+        }
+    }
+    
+    func stopMemberAnimation(member: SKSpriteNode, index: Int) {
+        member.removeAction(forKey: "member\(index)Animation")
+    }
+    
     func setUpSceneWithMap(map: SKTileMapNode) {
         let tileMap = map
         tileSize = tileMap.tileSize
         
-        print("row: \(tileMap.numberOfRows), col: \(tileMap.numberOfColumns)")
+//        print("row: \(tileMap.numberOfRows), col: \(tileMap.numberOfColumns)")
         
         let halfWidth = CGFloat(tileMap.numberOfColumns) / 2.0
         let halfHeight = CGFloat(tileMap.numberOfRows) / 2.0
@@ -410,6 +453,7 @@ class GameScene: SKScene {
             let _ = touch.location(in: knob) // knobLocation
             
             rotatePlayer(location, diskLocation, angle)
+            moveFoundMembers()
         }
     }
     
@@ -491,12 +535,30 @@ class GameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.isPressed = false
-        stopPlayerAnimation()
+        
         disk.alpha = 0
         disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
         knob.position = CGPoint(x: 0, y: 0)
         
         diskLocation = .zero
+        
+        self.stopPlayerAnimation()
+        
+        enumerateChildNodes(withName: "found member") { node, stop in
+            if node.hasActions() {
+                let member = node as! SKSpriteNode
+                var index = 0
+                
+                for i in 0..<3 {
+                    if member == self.hiddenMembers[i] {
+                        index = i
+                        break
+                    }
+                }
+                
+                self.stopMemberAnimation(member: member, index: index)
+            }
+        }
     }
     
     func debugDrawPlayableArea() {
