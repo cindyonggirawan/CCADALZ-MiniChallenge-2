@@ -51,9 +51,10 @@ class GameScene1_1: SKScene {
     var availableSpots = [CGPoint]()
     
     var layerTile: SKTileMapNode!
+    var figma: SKTileMapNode!
     
     override func didMove(to view: SKView) {
-//        physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
+        physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
         
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
@@ -73,6 +74,7 @@ class GameScene1_1: SKScene {
             center: CGPoint(x: 0, y: -30)
         )
         player.physicsBody?.isDynamic = true
+        player.physicsBody?.affectedByGravity = false
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA | PhysicsCategory.wall
         player.physicsBody?.collisionBitMask = PhysicsCategory.wall
@@ -103,19 +105,25 @@ class GameScene1_1: SKScene {
         camera = cameraNode
         cameraNode.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         
-        // tile map
-        for node in self.children {
-            if node is SKTileMapNode {
-                if let theMap: SKTileMapNode = node as? SKTileMapNode {
-                    setUpSceneWithMap(map: theMap)
-                }
-            }
-        }
+//        // tile map
+//        for node in self.children {
+//            if node is SKTileMapNode {
+//                if let theMap: SKTileMapNode = node as? SKTileMapNode {
+//                    setUpSceneWithMap(map: theMap)
+//                    print("Tile \(theMap.a)")
+//                }
+//            }
+//        }
         
         // get tilemap from .sks
         layerTile = childNode(withName: "WallTilesMap") as? SKTileMapNode
 
         setUpMapPhysics(layerTile)
+        print("Wall \(layerTile.anchorPoint.x), \(layerTile.anchorPoint.y)")
+        
+        figma = childNode(withName: "Tile Map Node") as? SKTileMapNode
+        
+        print("Layer \(figma.anchorPoint.x), \(figma.anchorPoint.y)")
 //        camera?.position.x = player.position.x
 //        camera?.position.y = player.position.y
         
@@ -357,14 +365,14 @@ class GameScene1_1: SKScene {
                     
                     
                     let tembok = SKShapeNode(rectOf: CGSize(width: tileSize.width, height: tileSize.height))
-//                    tembok.fillColor = UIColor.green
+                    tembok.fillColor = UIColor.green
                     tembok.alpha = 0
                     
-                    if mantap.name == "water" {
-                        tembok.position = CGPoint(x: x, y: y - 5.0)
+                    if mantap.name == "Water_Grid_Center" {
+                        tembok.position = CGPoint(x: 150.0 + x, y: y - 5.0 + 50.0)
                         tembok.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tileSize.width, height: 30))
                     } else {
-                        tembok.position = CGPoint(x: x, y: y)
+                        tembok.position = CGPoint(x: 150.0 + x, y: y + 50.0)
                         tembok.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tileSize.width, height: tileSize.height))
                     }
                     
@@ -372,6 +380,7 @@ class GameScene1_1: SKScene {
                     tembok.physicsBody?.collisionBitMask = PhysicsCategory.player
                     tembok.physicsBody?.contactTestBitMask = PhysicsCategory.player
                     tembok.physicsBody?.isDynamic = false
+                    tembok.physicsBody?.allowsRotation = false
                     tembok.physicsBody?.allowsRotation = false
                     tembok.physicsBody?.restitution = 1
                     tembok.physicsBody?.angularDamping = 0

@@ -239,8 +239,8 @@
 				A5160A702A4BB30300436D5D /* GameScene1_1.sks */,
 				A5160A722A4BB32B00436D5D /* GameScene1_1.swift */,
 				A5160A772A4BCCD200436D5D /* GameScene1_2.sks */,
-				A5160A792A4BCE8300436D5D /* GameScene1_3.sks */,
 				A5160A7B2A4BCF7500436D5D /* GameScene1_2.swift */,
+				A5160A792A4BCE8300436D5D /* GameScene1_3.sks */,
 				A5160A7D2A4BCF7F00436D5D /* GameScene1_3.swift */,
 			);
 			path = "Level 1";
