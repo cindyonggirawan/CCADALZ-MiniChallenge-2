@@ -95,9 +95,9 @@ class GameScene: SKScene {
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none // hidden members position
         
         //particle menyanyi
-//        particle = SKEmitterNode(fileNamed: "Particle")
-//        particle.position = CGPoint(x: 0, y: player.size.height / 2)
-//        player.addChild(particle)
+        particle = SKEmitterNode(fileNamed: "Particle")
+        particle.position = CGPoint(x: 0, y: player.size.height / 2)
+        player.addChild(particle)
         
         // animasi player
         var textures: [SKTexture] = []
@@ -273,9 +273,9 @@ class GameScene: SKScene {
                 GameData.shared.audioHelper.adjustVolume()
                 
                 //particle menyanyi
-//                particle = SKEmitterNode(fileNamed: "Particle")
-//                particle.position = CGPoint(x: 0, y: hiddenMembers[i].size.height / 2)
-//                hiddenMembers[i].addChild(particle)
+                particle = SKEmitterNode(fileNamed: "Particle")
+                particle.position = CGPoint(x: 0, y: hiddenMembers[i].size.height / 2)
+                hiddenMembers[i].addChild(particle)
             }
         }
         
