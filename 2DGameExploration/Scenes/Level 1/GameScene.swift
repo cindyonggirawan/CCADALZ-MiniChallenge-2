@@ -10,6 +10,7 @@ import AVFoundation
 
 class GameScene: SKScene {
     // TO GET JOYSTICK FROM GAMESCENE.SKS
+    var background: SKSpriteNode!
     var disk: SKSpriteNode!
     var knob: SKSpriteNode!
     var location: CGPoint = .zero
@@ -57,6 +58,9 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
         
+        background = childNode(withName: "background") as? SKSpriteNode
+        background.zPosition = -999
+        
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
@@ -91,9 +95,9 @@ class GameScene: SKScene {
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none // hidden members position
         
         //particle menyanyi
-        particle = SKEmitterNode(fileNamed: "Particle")
-        particle.position = CGPoint(x: 0, y: player.size.height / 2)
-        player.addChild(particle)
+//        particle = SKEmitterNode(fileNamed: "Particle")
+//        particle.position = CGPoint(x: 0, y: player.size.height / 2)
+//        player.addChild(particle)
         
         // animasi player
         var textures: [SKTexture] = []
@@ -137,20 +141,22 @@ class GameScene: SKScene {
         
         let audioFileNames = ["level1_bgm.mp3", "level1_voice1.mp3", "level1_voice2.mp3", "level1_voice3.mp3", "level1_voice4.mp3"]
         for fileName in audioFileNames {
-            if let audioPlayer = loadAudioPlayer(fileName: fileName) {
+            if let audioPlayer = GameData.shared.audioHelper.loadAudioPlayer(fileName: fileName) {
                 GameData.shared.audioPlayers.append(audioPlayer)
             }
         }
         
-        playAllAudioTracks()
+        GameData.shared.audioHelper.playAllAudioTracks()
+        
+        generatefoundMembersLabel()
     }
     
     override func update(_ currentTime: TimeInterval) {
         camera?.position.x = player.position.x
         camera?.position.y = player.position.y
         
-        foundMembersLabel.position.x = (camera?.position.x)!
-        foundMembersLabel.position.y = (camera!.position.y + 300.0)
+        foundMembersLabel.position.x = (camera!.position.x - 75.0)
+        foundMembersLabel.position.y = (camera!.position.y - 400.0)
         
         if self.isPressed {
             rotatePlayer(location, diskLocation, angle)
@@ -166,9 +172,11 @@ class GameScene: SKScene {
             run(SKAction.sequence([
                 SKAction.wait(forDuration: delay),
                 SKAction.run {
-                    playAllAudioTracks()
+                    GameData.shared.audioHelper.playAllAudioTracks()
                 }
             ]))
+        } else {
+            GameData.shared.audioHelper.stopAllAudioTracks()
         }
     }
     
@@ -228,7 +236,7 @@ class GameScene: SKScene {
     
     func generatefoundMembersLabel() {
         foundMembersLabel.text = "Members Found: 0"
-        foundMembersLabel.fontColor = SKColor.lightGray
+        foundMembersLabel.fontColor = SKColor.black
         foundMembersLabel.fontSize = 20
         foundMembersLabel.zPosition = 999
         foundMembersLabel.horizontalAlignmentMode = .left
@@ -261,12 +269,13 @@ class GameScene: SKScene {
                 GameData.shared.foundStatusOfFoundMembers[i] = true
                 GameData.shared.indexOrderOfFoundMembers.append(i)
                 
-                adjustVolume()
+                run(GameData.shared.foundSound)
+                GameData.shared.audioHelper.adjustVolume()
                 
                 //particle menyanyi
-                particle = SKEmitterNode(fileNamed: "Particle")
-                particle.position = CGPoint(x: 0, y: hiddenMembers[i].size.height / 2)
-                hiddenMembers[i].addChild(particle)
+//                particle = SKEmitterNode(fileNamed: "Particle")
+//                particle.position = CGPoint(x: 0, y: hiddenMembers[i].size.height / 2)
+//                hiddenMembers[i].addChild(particle)
             }
         }
         

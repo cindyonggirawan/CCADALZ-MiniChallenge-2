@@ -43,6 +43,11 @@ class AudioHelper {
             playSound(fileName: soundEffectsFileNames[0], playerType: 0)
         }
     }
+    func playTeleportSound(){
+        if isSoundOn {
+            playSound(fileName: soundEffectsFileNames[3], playerType: 0)
+        }
+    }
     
     //BG Music
     func playBgMusic(){
@@ -55,22 +60,54 @@ class AudioHelper {
     }
     
     //Game Music
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func loadAudioPlayer(fileName: String) -> AVAudioPlayer? {
+        guard let filePath = Bundle.main.path(forResource: fileName, ofType: nil) else {
+            print("Error: Audio file not found - \(fileName)")
+            return nil
+        }
+        
+        do {
+            let url = URL(fileURLWithPath: filePath)
+            let audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer.numberOfLoops = 0
+            audioPlayer.prepareToPlay()
+            return audioPlayer
+        } catch {
+            print("Error: Unable to load audio file - \(fileName), error: \(error)")
+            return nil
+        }
+    }
+
+    func playAllAudioTracks() {
+        for (index, audioPlayer) in GameData.shared.audioPlayers.enumerated() {
+            if index == 0 || index == 1 {
+                audioPlayer.volume = 1.0
+            } else {
+                audioPlayer.volume = 0.0
+                adjustVolume()
+            }
+            audioPlayer.play()
+        }
+        
+    }
+
+    func stopAllAudioTracks() {
+        for audioPlayer in GameData.shared.audioPlayers {
+            audioPlayer.stop()
+        }
+    }
+
+    func adjustVolume() {
+    //    print("found members = \(GameData.shared.indexOrderOfFoundMembers)")
+    //    print("audio nodes = \(GameData.shared.audioPlayers)")
+        if GameData.shared.indexOrderOfFoundMembers.count > 0 && GameData.shared.audioPlayers.count > 1 {
+            for memberIndex in GameData.shared.indexOrderOfFoundMembers {
+                GameData.shared.audioPlayers[memberIndex + 2].volume = 1.0
+            }
+            // + 1 untuk index yang start dari 0
+            // + 1 untuk index pertama yang dikhususkan untuk bgm
+        }
+    }
     
     //PLAY AN AUDIO -> for sound effects
     private func playSound(fileName: String, playerType: Int) {
@@ -110,7 +147,6 @@ class AudioHelper {
         default:
             break
         }
-        
     }
     
     //STOP AN AUDIO
@@ -118,53 +154,4 @@ class AudioHelper {
         player.stop()
     }
     
-}
-
-func loadAudioPlayer(fileName: String) -> AVAudioPlayer? {
-    guard let filePath = Bundle.main.path(forResource: fileName, ofType: nil) else {
-        print("Error: Audio file not found - \(fileName)")
-        return nil
-    }
-    
-    do {
-        let url = URL(fileURLWithPath: filePath)
-        let audioPlayer = try AVAudioPlayer(contentsOf: url)
-        audioPlayer.numberOfLoops = 0
-        audioPlayer.prepareToPlay()
-        return audioPlayer
-    } catch {
-        print("Error: Unable to load audio file - \(fileName), error: \(error)")
-        return nil
-    }
-}
-
-func playAllAudioTracks() {
-    for (index, audioPlayer) in GameData.shared.audioPlayers.enumerated() {
-        if index == 0 || index == 1 {
-            audioPlayer.volume = 1.0
-        } else {
-            audioPlayer.volume = 0.0
-            adjustVolume()
-        }
-        audioPlayer.play()
-    }
-    
-}
-
-func stopAllAudioTracks() {
-    for audioPlayer in GameData.shared.audioPlayers {
-        audioPlayer.stop()
-    }
-}
-
-func adjustVolume() {
-//    print("found members = \(GameData.shared.indexOrderOfFoundMembers)")
-//    print("audio nodes = \(GameData.shared.audioPlayers)")
-    if GameData.shared.indexOrderOfFoundMembers.count > 0 && GameData.shared.audioPlayers.count > 1 {
-        for memberIndex in GameData.shared.indexOrderOfFoundMembers {
-            GameData.shared.audioPlayers[memberIndex + 2].volume = 1.0
-        }
-        // + 1 untuk index yang start dari 0
-        // + 1 untuk index pertama yang dikhususkan untuk bgm
-    }
 }

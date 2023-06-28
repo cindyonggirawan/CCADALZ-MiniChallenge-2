@@ -29,6 +29,7 @@ extension GameScene: SKPhysicsContactDelegate {
                     return
                 }
                 let transition = SKTransition.fade(withDuration: 1)
+                GameData.shared.audioHelper.playTeleportSound()
                 view?.presentScene(newLayer, transition: transition)
             }
         }
