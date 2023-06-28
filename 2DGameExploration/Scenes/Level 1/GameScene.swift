@@ -48,11 +48,11 @@ class GameScene: SKScene {
     var hiddenMembers: [SKSpriteNode] = []
     var foundMembers: [SKSpriteNode] = []
     var memberAnimation: SKAction!
-    var membersAnimation: [SKAction] = []
     
     var availableSpots = [CGPoint]()
     
     var layerTile: SKTileMapNode!
+    var particle: SKEmitterNode!
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
@@ -88,7 +88,12 @@ class GameScene: SKScene {
         portalA.physicsBody?.isDynamic = true
         portalA.physicsBody?.categoryBitMask = PhysicsCategory.portalA
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
-        portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
+        portalA.physicsBody?.collisionBitMask = PhysicsCategory.none // hidden members position
+        
+        //particle menyanyi
+        particle = SKEmitterNode(fileNamed: "Particle")
+        particle.position = CGPoint(x: 0, y: player.size.height / 2)
+        player.addChild(particle)
         
         // animasi player
         var textures: [SKTexture] = []
@@ -106,7 +111,6 @@ class GameScene: SKScene {
                 textures.append(SKTexture(imageNamed: "member\(i)_down_animation\(j)"))
             }
             memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//            membersAnimation.append(memberAnimation)
         }
         
 //         debugDrawPlayableArea()
@@ -258,6 +262,11 @@ class GameScene: SKScene {
                 GameData.shared.indexOrderOfFoundMembers.append(i)
                 
                 adjustVolume()
+                
+                //particle menyanyi
+                particle = SKEmitterNode(fileNamed: "Particle")
+                particle.position = CGPoint(x: 0, y: hiddenMembers[i].size.height / 2)
+                hiddenMembers[i].addChild(particle)
             }
         }
         
@@ -295,7 +304,6 @@ class GameScene: SKScene {
                     textures.append(SKTexture(imageNamed: "member\(index)_\(self.beforeLastDragGesture)_animation\(i)"))
                 }
                 self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//                    self.membersAnimation.append(self.memberAnimation)
 
                 self.startMemberAnimation(member: member, index: index)
             } else {
@@ -306,7 +314,6 @@ class GameScene: SKScene {
                     textures.append(SKTexture(imageNamed: "member\(index)_\(self.lastDragGesture)_animation\(i)"))
                 }
                 self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//                    self.membersAnimation.append(self.memberAnimation)
 
                 self.startMemberAnimation(member: member, index: index)
             }
