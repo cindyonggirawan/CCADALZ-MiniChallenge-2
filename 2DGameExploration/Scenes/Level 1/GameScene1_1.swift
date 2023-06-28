@@ -121,9 +121,9 @@ class GameScene1_1: SKScene {
         setUpMapPhysics(layerTile)
         print("Wall \(layerTile.anchorPoint.x), \(layerTile.anchorPoint.y)")
         
-        figma = childNode(withName: "Tile Map Node") as? SKTileMapNode
+//        figma = childNode(withName: "Tile Map Node") as? SKTileMapNode
         
-        print("Layer \(figma.anchorPoint.x), \(figma.anchorPoint.y)")
+//        print("Layer \(figma.anchorPoint.x), \(figma.anchorPoint.y)")
 //        camera?.position.x = player.position.x
 //        camera?.position.y = player.position.y
         
