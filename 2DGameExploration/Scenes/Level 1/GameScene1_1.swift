@@ -5,9 +5,8 @@
 //  Created by Louis Mayco Dillon Wijaya on 28/06/23.
 //
 
-import Foundation
 import SpriteKit
-
+import AVFoundation
 
 class GameScene1_1: SKScene {
     // TO GET JOYSTICK FROM GAMESCENE.SKS
@@ -18,7 +17,6 @@ class GameScene1_1: SKScene {
     var angle: CGFloat = 0.0
     
     var portalA: SKSpriteNode!
-    var finishGate: SKSpriteNode!
     
     let foundMembersLabel = SKLabelNode()
     
@@ -28,7 +26,8 @@ class GameScene1_1: SKScene {
     
     let joystickYPos = CGFloat(150)
     
-    var lastDragGesture: String = ""
+    var lastDragGesture: String = "down"
+    var beforeLastDragGesture: String = "down"
 
     var diskRadius: CGFloat {
         CGFloat(disk.size.width / 2.0) // 130 / 2 : CONVERT PIXEL TO POINT!!
@@ -39,6 +38,7 @@ class GameScene1_1: SKScene {
     var isPressed: Bool = false
     
     var player: SKSpriteNode!
+    var playerAnimation: SKAction!
     
     var playerXPos: Double = 0.0
     var playerYPos: Double = 0.0
@@ -52,22 +52,13 @@ class GameScene1_1: SKScene {
     
     var layerTile: SKTileMapNode!
     
-    var finishScreenViewController: FinishScreenViewController?
-    
-    var gameViewController: GameViewController?
-
     override func didMove(to view: SKView) {
-        guard let scene = scene else { return }
-        scene.scaleMode = .aspectFill
-        scene.backgroundColor = .darkGray
-        
-        physicsWorld.contactDelegate = self
+//        physicsWorld.contactDelegate = self // aktifkan tenaga dalam!
         
         disk = childNode(withName: "disk") as? SKSpriteNode
         knob = disk.childNode(withName: "knob") as? SKSpriteNode
         
         portalA = childNode(withName: "portalA") as? SKSpriteNode
-        finishGate = childNode(withName: "finishGate") as? SKSpriteNode
         
         disk.alpha = 0
         knob.zPosition = 2
@@ -76,7 +67,6 @@ class GameScene1_1: SKScene {
         player = childNode(withName: "player") as? SKSpriteNode
         player.name = "player"
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = portalA.position
 
         player.physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 26),
@@ -90,21 +80,20 @@ class GameScene1_1: SKScene {
         player.physicsBody?.restitution = 0
         player.physicsBody?.angularDamping = 0
         player.physicsBody?.linearDamping = 1
-        player.physicsBody?.affectedByGravity = false
         
         // PORTAL CONTACT TEST
         portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
-        portalA.physicsBody?.isDynamic = false
+        portalA.physicsBody?.isDynamic = true
         portalA.physicsBody?.categoryBitMask = PhysicsCategory.portalA
         portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
         portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
         
-        
-        finishGate.physicsBody = SKPhysicsBody(rectangleOf: finishGate.size)
-        finishGate.physicsBody?.isDynamic = false
-        finishGate.physicsBody?.categoryBitMask = PhysicsCategory.finishGate
-        finishGate.physicsBody?.contactTestBitMask = PhysicsCategory.player
-        finishGate.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
+        //animasi player
+        var textures: [SKTexture] = []
+        for i in 0..<2 {
+            textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
+        }
+        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
         
         spawnHiddenMembers()
         
@@ -113,9 +102,6 @@ class GameScene1_1: SKScene {
         // camera
         camera = cameraNode
         cameraNode.position = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
-        
-        // label generator
-        generatefoundMembersLabel()
         
         // tile map
         for node in self.children {
@@ -132,6 +118,15 @@ class GameScene1_1: SKScene {
         setUpMapPhysics(layerTile)
 //        camera?.position.x = player.position.x
 //        camera?.position.y = player.position.y
+        
+        let audioFileNames = ["level1_bgm.mp3", "level1_voice1.mp3", "level1_voice2.mp3", "level1_voice3.mp3", "level1_voice4.mp3"]
+        for fileName in audioFileNames {
+            if let audioPlayer = loadAudioPlayer(fileName: fileName) {
+                GameData.shared.audioPlayers.append(audioPlayer)
+            }
+        }
+        
+        playAllAudioTracks()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -146,13 +141,36 @@ class GameScene1_1: SKScene {
         
         if self.isPressed {
             rotatePlayer(location, diskLocation, angle)
-            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.03)
-            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.03)
+//            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
+//            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
+            disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
+        }
+        
+        if GameData.shared.isEnded == false {
+            let duration = GameData.shared.audioPlayers.first!.duration
+            let delay = duration + 1
+            run(SKAction.sequence([
+                SKAction.wait(forDuration: delay),
+                SKAction.run {
+                    playAllAudioTracks()
+                }
+            ]))
         }
     }
     
     override func didEvaluateActions() {
         checkCollisions()
+    }
+    
+    func startPlayerAnimation() {
+        if player.action(forKey: "animation") == nil {
+            player.run(SKAction.repeatForever(playerAnimation),
+                        withKey: "animation")
+        }
+    }
+    
+    func stopPlayerAnimation() {
+        player.removeAction(forKey: "animation")
     }
     
     func spawnHiddenMembers() {
@@ -175,7 +193,7 @@ class GameScene1_1: SKScene {
                     center: CGPoint(x: -1, y: -35)
                 )
             } else {
-                hiddenMembers[i].position = CGPoint(x: -300, y: -220)
+                hiddenMembers[i].position = CGPoint(x: -165, y: 116)
                 hiddenMembers[i].physicsBody = SKPhysicsBody(
                     rectangleOf: CGSize(width: 56, height: 27),
                     center: CGPoint(x: 0, y: -36)
@@ -184,7 +202,7 @@ class GameScene1_1: SKScene {
             
 //            hiddenMembers[i].physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: hiddenMembers[i].size.width - 50, height: hiddenMembers[i].size.height - 40))
             
-            hiddenMembers[i].physicsBody?.isDynamic = false
+            hiddenMembers[i].physicsBody?.isDynamic = true
             hiddenMembers[i].physicsBody?.allowsRotation = false
             hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
             hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.wall
@@ -196,7 +214,7 @@ class GameScene1_1: SKScene {
     
     func generatefoundMembersLabel() {
         foundMembersLabel.text = "Members Found: 0"
-        foundMembersLabel.fontColor = SKColor.black
+        foundMembersLabel.fontColor = SKColor.lightGray
         foundMembersLabel.fontSize = 20
         foundMembersLabel.zPosition = 999
         foundMembersLabel.horizontalAlignmentMode = .left
@@ -228,6 +246,8 @@ class GameScene1_1: SKScene {
                 GameData.shared.numberOfFoundMembers += 1
                 GameData.shared.foundStatusOfFoundMembers[i] = true
                 GameData.shared.indexOrderOfFoundMembers.append(i)
+                
+                adjustVolume()
             }
         }
         
@@ -353,10 +373,10 @@ class GameScene1_1: SKScene {
                     tembok.physicsBody?.contactTestBitMask = PhysicsCategory.player
                     tembok.physicsBody?.isDynamic = false
                     tembok.physicsBody?.allowsRotation = false
-                    tembok.physicsBody?.restitution = 0
+                    tembok.physicsBody?.restitution = 1
                     tembok.physicsBody?.angularDamping = 0
                     tembok.physicsBody?.linearDamping = 1
-                    self.addChild(tembok)
+                    addChild(tembok)
                 }
             }
         }
@@ -367,12 +387,16 @@ class GameScene1_1: SKScene {
         for touch in touches {
             location = touch.location(in: self)
             diskLocation = touch.location(in: disk) // diskLocation
+            knob.position = CGPoint(x: 0, y: 0)
             let _ = touch.location(in: knob) // knobLocation
 
             disk.position = location
             disk.alpha = 0.3
             
             self.isPressed = true
+            
+//            disk.position.x = camera!.position.x + (location.x - camera!.position.x)
+//            disk.position.y = camera!.position.y + (location.y - camera!.position.y)
             
         }
     }
@@ -403,8 +427,13 @@ class GameScene1_1: SKScene {
           // code joystick pertama kali :  disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
         }
         
-        player.position.x += diskLocation.x * 0.03
-        player.position.y += diskLocation.y * 0.03
+//        disk.position.x = camera!.position.x + (location.x - camera!.position.x)
+//        disk.position.y = camera!.position.y + (location.y - camera!.position.y)
+        
+        player.position.x += diskLocation.x * 0.015
+        player.position.y += diskLocation.y * 0.015
+        
+        beforeLastDragGesture = lastDragGesture
         
         switch angle {
         // >>> UP
@@ -422,7 +451,6 @@ class GameScene1_1: SKScene {
 
         // >>> DOWN
         case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
-//                    player.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
             player.texture = SKTexture(imageNamed: "player_down")
             lastDragGesture = "down"
 
@@ -437,10 +465,33 @@ class GameScene1_1: SKScene {
         default:
             lastDragGesture = ""
         }
+        
+//        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
+        
+        if beforeLastDragGesture == lastDragGesture {
+            var textures: [SKTexture] = []
+            for i in 0..<2 {
+                textures.append(SKTexture(imageNamed: "player_\(beforeLastDragGesture)_animation\(i)"))
+            }
+            playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+            startPlayerAnimation()
+        } else {
+            stopPlayerAnimation()
+            
+            var textures: [SKTexture] = []
+            for i in 0..<2 {
+                textures.append(SKTexture(imageNamed: "player_\(lastDragGesture)_animation\(i)"))
+            }
+            playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+            startPlayerAnimation()
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.isPressed = false
+        stopPlayerAnimation()
         disk.alpha = 0
         disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
         knob.position = CGPoint(x: 0, y: 0)
@@ -456,4 +507,3 @@ class GameScene1_1: SKScene {
     }
     
 }
-

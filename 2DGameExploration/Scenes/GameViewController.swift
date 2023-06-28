@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
 //            view.addSubview(menuBtn)
-//            view.showsPhysics = true
+//            view.showsPhysics = true 
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(onFinishGameScene), name: NSNotification.Name(rawValue: "onGameFinish"), object: nil)

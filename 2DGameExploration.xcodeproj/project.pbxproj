@@ -42,6 +42,8 @@
 		A5160A732A4BB32B00436D5D /* GameScene1_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5160A722A4BB32B00436D5D /* GameScene1_1.swift */; };
 		A5160A782A4BCCD200436D5D /* GameScene1_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = A5160A772A4BCCD200436D5D /* GameScene1_2.sks */; };
 		A5160A7A2A4BCE8300436D5D /* GameScene1_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = A5160A792A4BCE8300436D5D /* GameScene1_3.sks */; };
+		A5160A7C2A4BCF7500436D5D /* GameScene1_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5160A7B2A4BCF7500436D5D /* GameScene1_2.swift */; };
+		A5160A7E2A4BCF7F00436D5D /* GameScene1_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5160A7D2A4BCF7F00436D5D /* GameScene1_3.swift */; };
 		A561EE982A443596000A2042 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561EE972A443596000A2042 /* GameData.swift */; };
 		A5C2FDBE2A45069700237D71 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C2FDBD2A45069700237D71 /* MenuViewController.swift */; };
 		A9C848DF2A4ADC45008FDE7C /* FinishScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C848DE2A4ADC45008FDE7C /* FinishScreenViewController.swift */; };
@@ -86,6 +88,8 @@
 		A5160A722A4BB32B00436D5D /* GameScene1_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene1_1.swift; sourceTree = "<group>"; };
 		A5160A772A4BCCD200436D5D /* GameScene1_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene1_2.sks; sourceTree = "<group>"; };
 		A5160A792A4BCE8300436D5D /* GameScene1_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene1_3.sks; sourceTree = "<group>"; };
+		A5160A7B2A4BCF7500436D5D /* GameScene1_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene1_2.swift; sourceTree = "<group>"; };
+		A5160A7D2A4BCF7F00436D5D /* GameScene1_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene1_3.swift; sourceTree = "<group>"; };
 		A561EE972A443596000A2042 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		A5C2FDBD2A45069700237D71 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A9C848DE2A4ADC45008FDE7C /* FinishScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishScreenViewController.swift; sourceTree = "<group>"; };
@@ -233,9 +237,11 @@
 			isa = PBXGroup;
 			children = (
 				A5160A702A4BB30300436D5D /* GameScene1_1.sks */,
+				A5160A722A4BB32B00436D5D /* GameScene1_1.swift */,
 				A5160A772A4BCCD200436D5D /* GameScene1_2.sks */,
 				A5160A792A4BCE8300436D5D /* GameScene1_3.sks */,
-				A5160A722A4BB32B00436D5D /* GameScene1_1.swift */,
+				A5160A7B2A4BCF7500436D5D /* GameScene1_2.swift */,
+				A5160A7D2A4BCF7F00436D5D /* GameScene1_3.swift */,
 			);
 			path = "Level 1";
 			sourceTree = "<group>";
@@ -371,12 +377,14 @@
 				37693AAC2A44561400317BAF /* Helper.swift in Sources */,
 				A9C848DF2A4ADC45008FDE7C /* FinishScreenViewController.swift in Sources */,
 				8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */,
+				A5160A7C2A4BCF7500436D5D /* GameScene1_2.swift in Sources */,
 				37C29B9F2A400F0E001C2335 /* GameScene.swift in Sources */,
 				37C29BA12A400F0E001C2335 /* GameViewController.swift in Sources */,
 				8F93FC0A2A489DE4008E0FA8 /* ChaptersMenuViewController.swift in Sources */,
 				37078E822A40733400292BE8 /* temp10.swift in Sources */,
 				37078E782A4072D800292BE8 /* temp5.swift in Sources */,
 				A5C2FDBE2A45069700237D71 /* MenuViewController.swift in Sources */,
+				A5160A7E2A4BCF7F00436D5D /* GameScene1_3.swift in Sources */,
 				37078E712A40728100292BE8 /* temp2.swift in Sources */,
 				37078E7A2A4072E300292BE8 /* temp6.swift in Sources */,
 				6577CEF82A462C1D006FE200 /* Layer2.swift in Sources */,
