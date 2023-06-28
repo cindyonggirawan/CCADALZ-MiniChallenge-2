@@ -21,8 +21,16 @@ class ChaptersMenuViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        chapterTitleLbl.isHidden = false
-//        chapterCaptionLbl.isHidden = false
+        //Play music
+        if !GameData.shared.audioHelper.isMusicOn {
+            GameData.shared.audioHelper.playBgMusic()
+        }
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        //Stop BG music supaya suaranya ga nabrak sama sound gameplay
+        GameData.shared.audioHelper.stopBgMusic()
     }
     
     @IBAction func playBtnClicked(_ sender: Any) {
@@ -31,9 +39,6 @@ class ChaptersMenuViewController: UIViewController {
             //Edit transition +  presentation style (spy full screen)
             gameViewController.modalTransitionStyle = .crossDissolve
             gameViewController.modalPresentationStyle = .fullScreen
-            
-            //Stop BG music supaya suaranya ga nabrak sama sound gameplay
-            GameData.shared.audioHelper.stopBgMusic()
             
             //Pindah/panggil gameViewController
             self.present(gameViewController, animated: true, completion: nil)
