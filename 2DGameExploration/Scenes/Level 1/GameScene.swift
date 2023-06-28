@@ -165,7 +165,7 @@ class GameScene: SKScene {
 //            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
             disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
         }
-        
+
         if GameData.shared.isEnded == false {
             let duration = GameData.shared.audioPlayers.first!.duration
             let delay = duration + 1
