@@ -279,7 +279,41 @@ class GameScene: SKScene {
         ]
         
         enumerateChildNodes(withName: "found member") { node, stop in
-            if !node.hasActions() {
+            let member = node as! SKSpriteNode
+            var index = 0
+            
+            for i in 0..<3 {
+                if member == self.hiddenMembers[i] {
+                    index = i
+                    break
+                }
+            }
+            
+            if self.beforeLastDragGesture == self.lastDragGesture {
+                var textures: [SKTexture] = []
+                for i in 0..<2 {
+                    textures.append(SKTexture(imageNamed: "member\(index)_\(self.beforeLastDragGesture)_animation\(i)"))
+                }
+                self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+//                    self.membersAnimation.append(self.memberAnimation)
+
+                self.startMemberAnimation(member: member, index: index)
+            } else {
+                self.stopMemberAnimation(member: member, index: index)
+
+                var textures: [SKTexture] = []
+                for i in 0..<2 {
+                    textures.append(SKTexture(imageNamed: "member\(index)_\(self.lastDragGesture)_animation\(i)"))
+                }
+                self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+//                    self.membersAnimation.append(self.memberAnimation)
+
+                self.startMemberAnimation(member: member, index: index)
+            }
+        }
+        
+        enumerateChildNodes(withName: "found member") { node, stop in
+            if node.hasActions() {
                 let member = node as! SKSpriteNode
                 var index = 0
                 
@@ -313,28 +347,6 @@ class GameScene: SKScene {
                 }
                 
                 node.run(moveAction)
-                
-                if self.beforeLastDragGesture == self.lastDragGesture {
-                    var textures: [SKTexture] = []
-                    for i in 0..<2 {
-                        textures.append(SKTexture(imageNamed: "member\(index)_\(self.beforeLastDragGesture)_animation\(i)"))
-                    }
-                    self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//                    self.membersAnimation.append(self.memberAnimation)
-
-                    self.startMemberAnimation(member: member, index: index)
-                } else {
-                    self.stopMemberAnimation(member: member, index: index)
-
-                    var textures: [SKTexture] = []
-                    for i in 0..<2 {
-                        textures.append(SKTexture(imageNamed: "member\(index)_\(self.lastDragGesture)_animation\(i)"))
-                    }
-                    self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//                    self.membersAnimation.append(self.memberAnimation)
-
-                    self.startMemberAnimation(member: member, index: index)
-                }
             }
             
             // member selanjutnya berada dibelakang member pertama
@@ -510,7 +522,7 @@ class GameScene: SKScene {
             lastDragGesture = ""
         }
         
-//        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
+        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
         
         if beforeLastDragGesture == lastDragGesture {
             var textures: [SKTexture] = []
