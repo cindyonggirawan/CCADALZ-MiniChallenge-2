@@ -199,7 +199,7 @@ class GameScene: SKScene {
         for i in 0...2 {
             hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
             hiddenMembers[i].name = "hidden member"
-            hiddenMembers[i].zPosition = CGFloat(i + 10)
+//            hiddenMembers[i].zPosition = CGFloat(i + 10)
 //            hiddenMembers[i].setScale(0.5)
             hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
             if i == 0 {
@@ -342,21 +342,31 @@ class GameScene: SKScene {
                 
                 if self.lastDragGesture == "up" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0
+                    self.player.zPosition = 0
+                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[1].zPosition = 20
+                    self.hiddenMembers[2].zPosition = 30
                     member.texture = SKTexture(imageNamed: "member\(index)_up")
                     moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
                 } else if self.lastDragGesture == "left" {
 //                    node.zRotation = CGFloat(Double.pi) / 1.0
+                    self.player.zPosition = 100.0
                     member.texture = SKTexture(imageNamed: "member\(index)_left")
                     moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
                 } else if self.lastDragGesture == "down" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
+                    self.player.zPosition = 100.0
+                    self.hiddenMembers[0].zPosition = 30
+                    self.hiddenMembers[1].zPosition = 20
+                    self.hiddenMembers[2].zPosition = 10
                     member.texture = SKTexture(imageNamed: "member\(index)_down")
                     moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
                 } else if self.lastDragGesture == "right" {
 //                    node.zRotation = 0
+                    self.player.zPosition = 100.0
                     member.texture = SKTexture(imageNamed: "member\(index)_right")
                     moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
