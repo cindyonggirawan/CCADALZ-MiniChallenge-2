@@ -105,26 +105,48 @@ class GameScene1_2: SKScene {
         camera?.position.y = GameData.shared.player.position.y
         foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
 
-        if GameData.shared.isPressed {
-            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
-            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
-
-            GameData.shared.rotatePlayer(
-                self,
-                GameData.shared.location,
-                GameData.shared.diskLocation,
-                GameData.shared.angle
-            )
-            
-            GameData.shared.moveFoundMembers(self)
-            
-//            GameData.shared.disk.position = CGPoint(
-//                x: GameData.shared.location.x,
-//                y: GameData.shared.location.y
+//<<<<<<< HEAD
+//        if GameData.shared.isPressed {
+//            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+//            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+//
+//            GameData.shared.rotatePlayer(
+//                self,
+//                GameData.shared.location,
+//                GameData.shared.diskLocation,
+//                GameData.shared.angle
 //            )
-            
-//            GameData.shared.location.x
-        }
+//
+//            GameData.shared.moveFoundMembers(self)
+//
+////            GameData.shared.disk.position = CGPoint(
+////                x: GameData.shared.location.x,
+////                y: GameData.shared.location.y
+//=======
+        GameData.shared.updateJoystickAndPlayer(self)
+        
+//        if GameData.shared.isPressed {
+//            print("YEAHHASDHASDB")
+//            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+//            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+//
+//            GameData.shared.rotatePlayer(
+//                self,
+//                GameData.shared.location,
+//                GameData.shared.diskLocation,
+//                GameData.shared.angle
+//>>>>>>> cd1ba58 (fix joystick, fix player bergerak sendiri)
+//            )
+//
+//            GameData.shared.moveFoundMembers(self)
+//
+////            GameData.shared.disk.position = CGPoint(
+////                x: GameData.shared.location.x,
+////                y: GameData.shared.location.y
+////            )
+//
+////            GameData.shared.location.x
+//        }
 
         // AUDIO
 //        if GameData.shared.isEnded == false {

@@ -42,15 +42,18 @@ class GameData {
     let foundSound: SKAction = SKAction.playSoundFileNamed("found.mp3", waitForCompletion: false)
     
     // JOYSTEAK 21
-    var location: CGPoint = .zero
-    var diskLocation: CGPoint = .zero
-    var angle: CGFloat = 0.0
-    var isPressed: Bool = false
     var disk: SKSpriteNode
     var knob: SKSpriteNode
     var diskRadius: CGFloat {
-        CGFloat(disk.size.width / 2.0) // CONVERT PIXEL TO POINT
+        CGFloat(disk.size.width / 2.0)
     }
+    
+    var location: CGPoint = .zero
+    var diskLocation: CGPoint = .zero
+    var angle: CGFloat = 0.0
+    
+    var isPressed: Bool = false
+    var isMoved: Bool = false
     
     // PLAYER
     var player: SKSpriteNode
@@ -167,18 +170,19 @@ class GameData {
     
     func joystickBegan(_ scene: SKScene, _ touch: UITouch) {
         location = touch.location(in: scene)
-        diskLocation = touch.location(in: disk) // diskLocation
-        knob.position = CGPoint(x: 0, y: 0)
-        
+        diskLocation = touch.location(in: disk)
         
 //        disk.position = CGPoint(x: scene.camera!.position.x, y: scene.camera!.position.y)
-        disk.position = CGPoint(x: GameData.shared.location.x, y: GameData.shared.location.y)
+        disk.position = location
+        knob.position = .zero
+        
         disk.alpha = 0.3
 
         self.isPressed = true
     }
     
     func joystickMoved(_ scene: SKScene, _ touch: UITouch) {
+        self.isMoved = true
         
         location = touch.location(in: scene)
         diskLocation = touch.location(in: disk)
@@ -210,18 +214,21 @@ class GameData {
         if radiusTemp < diskRadius {
             knob.position = diskLocation
         } else {
-            knob.position = CGPoint(x: diskRadius * cos(angle), y: diskRadius * sin(angle))
+//            knob.position = CGPoint(x: diskRadius * cos(angle), y: diskRadius * sin(angle))
             // code joystick pertama kali
 //             disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
+            // manusia silver
+            knob.position = diskLocation
+            disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
         }
 
 //        disk.position.x = camera!.position.x + (location.x - camera!.position.x)
 //        disk.position.y = camera!.position.y + (location.y - camera!.position.y)
 
-        player.position.x += diskLocation.x * playerScaler
-        player.position.y += diskLocation.y * playerScaler
-        
         beforeLastDragGesture = lastDragGesture
+
+        player.position.x += scaleJoystickOutput(diskLocation.x)
+        player.position.y += scaleJoystickOutput(diskLocation.y)
 
         switch angle {
         // >>> UP
@@ -278,12 +285,9 @@ class GameData {
     }
     
     func joystickEnded(_ scene: SKScene) {
-        let disk = scene.childNode(withName: "disk") as! SKSpriteNode
-        let knob = disk.childNode(withName: "knob") as! SKSpriteNode
-        
         disk.alpha = 0 // balikin ke 0
         disk.position = CGPoint(x: scene.camera!.position.x, y: scene.camera!.position.y - 250)
-        knob.position = CGPoint(x: 0, y: 0)
+        knob.position = .zero
 
         diskLocation = .zero
         
@@ -306,6 +310,19 @@ class GameData {
         }
         
         self.isPressed = false
+        self.isMoved = false
+        diskLocation = .zero
+    }
+    
+    
+    func updateJoystickAndPlayer(_ scene: SKScene) {
+        if (self.isPressed && self.isMoved) {
+            rotatePlayer(scene, location, diskLocation, angle)
+            disk.position.x += scaleJoystickOutput(diskLocation.x)
+            disk.position.y += scaleJoystickOutput(diskLocation.y)
+            
+            moveFoundMembers(scene)
+        }
     }
     
     func setupTile(_ scene: SKScene) {
@@ -603,6 +620,11 @@ class GameData {
         particle = SKEmitterNode(fileNamed: "Particle")
         particle.position = CGPoint(x: 0, y: hiddenMembers[index].size.height / 2)
         hiddenMembers[index].addChild(particle)
+    }
+
+    func scaleJoystickOutput(_ value: Double) -> Double {
+//        return (1 / (0.25 + pow(2, -0.7 * value))) - 2.0
+        return (1 / (0.25 + pow(2, -0.2 * (value + 10)))) - 2.0
     }
 }
 
