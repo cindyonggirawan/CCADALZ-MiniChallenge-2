@@ -315,7 +315,10 @@ class GameData {
             if CGRectIntersectsRect(member.frame, self.player.frame) {
                 self.foundMembers.append(member)
             }
+            
+//            print("x")
         }
+//        print("b")
 
         for member in self.foundMembers {
 //            print("a member is found")
@@ -330,7 +333,7 @@ class GameData {
 
         for i in 0 ..< hiddenMembers.count {
             if member == hiddenMembers[i] {
-                numberOfFoundMembers += 1
+//                numberOfFoundMembers += 1
                 foundStatusOfFoundMembers[i] = true
                 indexOrderOfFoundMembers.append(i)
 
@@ -338,7 +341,7 @@ class GameData {
             }
         }
 
-        foundMembersLabel.text = "Members Found: \(GameData.shared.numberOfFoundMembers)"
+        foundMembersLabel.text = "\(GameData.shared.foundMembers.count)/3"
 
 //        let turnGreen = SKAction.colorize(with: SKColor.green, colorBlendFactor: 1.0, duration: 0.2)
 //        member.run(turnGreen)

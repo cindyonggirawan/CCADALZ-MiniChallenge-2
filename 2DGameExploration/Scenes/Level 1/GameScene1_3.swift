@@ -58,13 +58,13 @@ class GameScene1_3: SKScene {
     
     func generatefoundMembersLabel() {
         foundMembersLabel.name = "foundMembersLabel"
-        foundMembersLabel.text = "Members Found: 0"
-        foundMembersLabel.fontColor = SKColor.lightGray
-        foundMembersLabel.fontSize = 20
+        foundMembersLabel.text = "0/3"
+        foundMembersLabel.fontColor = SKColor.white
+        foundMembersLabel.fontSize = 30
         foundMembersLabel.zPosition = 999
-        foundMembersLabel.horizontalAlignmentMode = .left
+        foundMembersLabel.horizontalAlignmentMode = .center
         foundMembersLabel.verticalAlignmentMode = .bottom
-        foundMembersLabel.position = CGPoint.zero
+        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
         
         addChild(foundMembersLabel)
     }
@@ -105,6 +105,7 @@ class GameScene1_3: SKScene {
 
         camera?.position.x = GameData.shared.player.position.x
         camera?.position.y = GameData.shared.player.position.y
+        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
 
         if GameData.shared.isPressed {
             print("YEAHHASDHASDB")
