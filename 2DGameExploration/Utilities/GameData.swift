@@ -22,6 +22,9 @@ class GameData {
     var isEnded: Bool = false
 //    var isFinishGateOpenned
     
+    // chapter
+    var chapterHelper = ChapterHelper()
+    
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     

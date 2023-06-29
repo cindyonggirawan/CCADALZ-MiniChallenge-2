@@ -1,0 +1,4 @@
+<svg width="20" height="90" viewBox="0 0 20 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="90" height="20" transform="translate(0 90) rotate(-90)" fill="#FBEDC0"/>
+<rect y="90" width="90" height="20" transform="rotate(-90 0 90)" fill="#FBEDC0"/>
+</svg>

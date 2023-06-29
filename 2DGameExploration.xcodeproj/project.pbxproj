@@ -40,6 +40,11 @@
 		8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */; };
 		8F48B8822A4929FE00D3FD13 /* PopUpMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */; };
 		8F82E7A02A4AF26500CDEBE5 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */; };
+		8F82E7A32A4C22D200CDEBE5 /* ChapterScene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7A22A4C22D200CDEBE5 /* ChapterScene1.sks */; };
+		8F82E7A52A4C231C00CDEBE5 /* ChapterScene1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7A42A4C231C00CDEBE5 /* ChapterScene1.swift */; };
+		8F82E7CB2A4CA08500CDEBE5 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7CA2A4CA08500CDEBE5 /* Level.swift */; };
+		8F82E7CD2A4CA18900CDEBE5 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7CC2A4CA18900CDEBE5 /* Chapter.swift */; };
+		8F82E7CF2A4CA74800CDEBE5 /* ChapterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7CE2A4CA74800CDEBE5 /* ChapterHelper.swift */; };
 		8F93FC0A2A489DE4008E0FA8 /* ChaptersMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */; };
 		A561EE982A443596000A2042 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561EE972A443596000A2042 /* GameData.swift */; };
 		A5A4B3402A4D1A2800869F7F /* GameScene2_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = A5A4B33F2A4D1A2800869F7F /* GameScene2_1.sks */; };
@@ -85,6 +90,11 @@
 		8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpSettingsViewController.swift; sourceTree = "<group>"; };
 		8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpMenuViewController.swift; sourceTree = "<group>"; };
 		8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
+		8F82E7A22A4C22D200CDEBE5 /* ChapterScene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ChapterScene1.sks; sourceTree = "<group>"; };
+		8F82E7A42A4C231C00CDEBE5 /* ChapterScene1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterScene1.swift; sourceTree = "<group>"; };
+		8F82E7CA2A4CA08500CDEBE5 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		8F82E7CC2A4CA18900CDEBE5 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		8F82E7CE2A4CA74800CDEBE5 /* ChapterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterHelper.swift; sourceTree = "<group>"; };
 		8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersMenuViewController.swift; sourceTree = "<group>"; };
 		A561EE972A443596000A2042 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		A5A4B33F2A4D1A2800869F7F /* GameScene2_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_1.sks; sourceTree = "<group>"; };
@@ -129,6 +139,7 @@
 				37D9EF942A4C21F700AB73BA /* Assets.xcassets */,
 				8F1B557A2A454124007C2BC6 /* TilesSet.sks */,
 				37D9EF892A4BDE7900AB73BA /* Particle.sks */,
+				8F82E7A12A4C228300CDEBE5 /* ChapterScene */,
 				37078E622A406C7400292BE8 /* Level 1 */,
 				37078E6C2A406F1B00292BE8 /* Level 2 */,
 				37078E6D2A406F2300292BE8 /* Level 3 */,
@@ -173,6 +184,7 @@
 				37693AAB2A44561400317BAF /* Helper.swift */,
 				652ADE5C2A45B15C00ADD08A /* GameScenePhysics.swift */,
 				8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */,
+				8F82E7CE2A4CA74800CDEBE5 /* ChapterHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -264,6 +276,7 @@
 			children = (
 				37078E5F2A406C0F00292BE8 /* Entities */,
 				37078E602A406C2C00292BE8 /* Components */,
+				8F82E7C92A4CA05F00CDEBE5 /* Model */,
 				37078E612A406C4500292BE8 /* Scenes */,
 				37078E632A406CBA00292BE8 /* UI */,
 				37078E642A406CD000292BE8 /* Audio */,
@@ -274,12 +287,30 @@
 				37C29BA22A400F0E001C2335 /* Main.storyboard */,
 				A9C848DE2A4ADC45008FDE7C /* FinishScreenViewController.swift */,
 				8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */,
-				8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */,
 				8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */,
+				8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */,
 				A5C2FDBD2A45069700237D71 /* MenuViewController.swift */,
 				37C29BA72A400F0F001C2335 /* LaunchScreen.storyboard */,
 			);
 			path = 2DGameExploration;
+			sourceTree = "<group>";
+		};
+		8F82E7A12A4C228300CDEBE5 /* ChapterScene */ = {
+			isa = PBXGroup;
+			children = (
+				8F82E7A22A4C22D200CDEBE5 /* ChapterScene1.sks */,
+				8F82E7A42A4C231C00CDEBE5 /* ChapterScene1.swift */,
+			);
+			path = ChapterScene;
+			sourceTree = "<group>";
+		};
+		8F82E7C92A4CA05F00CDEBE5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8F82E7CA2A4CA08500CDEBE5 /* Level.swift */,
+				8F82E7CC2A4CA18900CDEBE5 /* Chapter.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +374,7 @@
 				37D9EF7D2A4ACB2E00AB73BA /* level1_voice3.mp3 in Resources */,
 				6577CEFA2A462C2A006FE200 /* GameScene1_1_Temp.sks in Resources */,
 				37D9EF682A4A9B8800AB73BA /* teleport.mp3 in Resources */,
+				8F82E7A32A4C22D200CDEBE5 /* ChapterScene1.sks in Resources */,
 				8F1B557B2A454124007C2BC6 /* TilesSet.sks in Resources */,
 				37C29BA42A400F0E001C2335 /* Main.storyboard in Resources */,
 				37D9EF7F2A4ACB2E00AB73BA /* level1_voice4.mp3 in Resources */,
@@ -374,11 +406,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				37078E762A4072C900292BE8 /* temp4.swift in Sources */,
+				8F82E7CF2A4CA74800CDEBE5 /* ChapterHelper.swift in Sources */,
 				37693AAC2A44561400317BAF /* Helper.swift in Sources */,
 				8F82E7A02A4AF26500CDEBE5 /* AudioHelper.swift in Sources */,
 				A9C848DF2A4ADC45008FDE7C /* FinishScreenViewController.swift in Sources */,
 				8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */,
 				37C29B9F2A400F0E001C2335 /* GameScene.swift in Sources */,
+				8F82E7CD2A4CA18900CDEBE5 /* Chapter.swift in Sources */,
 				37C29BA12A400F0E001C2335 /* GameViewController.swift in Sources */,
 				8F93FC0A2A489DE4008E0FA8 /* ChaptersMenuViewController.swift in Sources */,
 				37078E822A40733400292BE8 /* temp10.swift in Sources */,
@@ -390,7 +424,10 @@
 				37C29B992A400F0E001C2335 /* AppDelegate.swift in Sources */,
 				8F48B8822A4929FE00D3FD13 /* PopUpMenuViewController.swift in Sources */,
 				652ADE5D2A45B15C00ADD08A /* GameScenePhysics.swift in Sources */,
+				8F82E7A52A4C231C00CDEBE5 /* ChapterScene1.swift in Sources */,
 				A561EE982A443596000A2042 /* GameData.swift in Sources */,
+				8F82E7CB2A4CA08500CDEBE5 /* Level.swift in Sources */,
+				37078E732A40728F00292BE8 /* temp3.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

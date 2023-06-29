@@ -5,7 +5,6 @@
 //  Created by Daniel Bernard Sahala Simamora on 23/06/23.
 //
 
-import Foundation
 import UIKit
 import SpriteKit
 
