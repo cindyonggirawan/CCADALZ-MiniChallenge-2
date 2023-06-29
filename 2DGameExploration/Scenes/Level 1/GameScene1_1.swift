@@ -137,7 +137,7 @@ class GameScene1_1: SKScene {
     override func update(_ currentTime: TimeInterval) {
 //        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
 //        GameData.shared.moveFoundMembers(self, hiddenMembers: hiddenMembers)
-        GameData.shared.moveFoundMembers(self)
+//        GameData.shared.moveFoundMembers(self)
         GameData.shared.updateFoundMembersLabel(camera!)
 
         camera?.position.x = GameData.shared.player.position.x
@@ -163,26 +163,6 @@ class GameScene1_1: SKScene {
 //            )
             
 //            GameData.shared.location.x
-        }
-        
-        GameData.shared.stopPlayerAnimation()
-
-        enumerateChildNodes(withName: "found member") { node, stop in
-            if node.hasActions() {
-                let member = node as! SKSpriteNode
-                var index = 0
-
-                if self.hiddenMembers.count != 0 {
-                    for i in 0..<3 {
-                        if member == self.hiddenMembers[i] {
-                            index = i
-                            break
-                        }
-                    }                    
-                }
-
-                GameData.shared.stopMemberAnimation(member: member, index: index)
-            }
         }
 
         // AUDIO
@@ -226,8 +206,5 @@ class GameScene1_1: SKScene {
         shape.lineWidth = 4.0
         addChild(shape)
     }
-        
-    
-
 }
 
