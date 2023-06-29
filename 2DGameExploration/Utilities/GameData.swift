@@ -96,7 +96,7 @@ class GameData {
         disk = scene.childNode(withName: "disk") as! SKSpriteNode
         knob = disk.childNode(withName: "knob") as! SKSpriteNode
         
-        disk.alpha = 1 // balikin ke 0
+        disk.alpha = 0 // balikin ke 0
     }
     
     func setupPlayer(_ scene: SKScene) {
@@ -162,8 +162,7 @@ class GameData {
         
 //        disk.position = CGPoint(x: scene.camera!.position.x, y: scene.camera!.position.y)
         disk.position = CGPoint(x: GameData.shared.location.x, y: GameData.shared.location.y)
-//        disk.alpha = 0.3
-        disk.alpha = 1
+        disk.alpha = 0.3
 
         self.isPressed = true
     }
@@ -247,7 +246,7 @@ class GameData {
         var disk = scene.childNode(withName: "disk") as! SKSpriteNode
         var knob = disk.childNode(withName: "knob") as! SKSpriteNode
         
-        disk.alpha = 1 // balikin ke 0
+        disk.alpha = 0 // balikin ke 0
         disk.position = CGPoint(x: scene.camera!.position.x, y: scene.camera!.position.y - 250)
         knob.position = CGPoint(x: 0, y: 0)
 
@@ -365,7 +364,7 @@ class GameData {
                         //ATUR INJEK INJEKANNYA
                         self.player.zPosition = 100
                         setupZPosition(choirMember: member)
-
+                        
                         if self.playerPosition.count > 40{
                             if i == 0 {
                                 targetPosition = self.playerPosition[40]
