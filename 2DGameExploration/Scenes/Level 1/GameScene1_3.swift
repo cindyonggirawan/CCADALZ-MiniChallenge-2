@@ -28,12 +28,14 @@ class GameScene1_3: SKScene {
         physicsWorld.contactDelegate = self
         
         GameData.shared.setupJoystick(self)
-        GameData.shared.setupPlayer(self)
+        GameData.shared.setupPlayer(self, playerSpawnPosition: CGPoint(x: -205, y: -20))
         GameData.shared.setupPortalLevel1(self)
         GameData.shared.setupTile(self)
+        GameData.shared.playerPosition = []
+
         generatefoundMembersLabel()
         
-//        spawnHiddenMembers(self) // MEMBER DI LAYER 3 KOSONG. BELUM SESUAI SKENARIO -DANIEL
+        spawnHiddenMembers(self)
         
         // CAMERA
         camera = cameraNode
@@ -68,26 +70,20 @@ class GameScene1_3: SKScene {
     }
     
     func spawnHiddenMembers(_ scene: SKScene) {
-//        var GameData.shared.hiddenMembers = GameData.shared.hiddenMembers
-        
-        for i in 0...1 {
+        let i = 2
+            
+        if !GameData.shared.foundStatusOfFoundMembers[i]{
             GameData.shared.hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
             GameData.shared.hiddenMembers[i].name = "hidden member"
             GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
             GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            if i == 0 {
-                GameData.shared.hiddenMembers[i].position = CGPoint(x: -45, y: 8)
-                GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
-                    rectangleOf: CGSize(width: 56, height: 26),
-                    center: CGPoint(x: -1, y: -35)
-                )
-            } else if i == 1 {
-                GameData.shared.hiddenMembers[i].position = CGPoint(x: -60, y: -234 + 200)
-                GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
-                    rectangleOf: CGSize(width: 56, height: 26),
-                    center: CGPoint(x: -1, y: -35)
-                )
-            }
+            
+            GameData.shared.hiddenMembers[i].position = CGPoint(x: 20, y: 50)
+            GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
+                rectangleOf: CGSize(width: 56, height: 27),
+                center: CGPoint(x: 0, y: -36)
+            )
+//>>>>>>> Stashed changes
 
             GameData.shared.hiddenMembers[i].physicsBody?.isDynamic = true
             GameData.shared.hiddenMembers[i].physicsBody?.affectedByGravity = false
@@ -98,10 +94,11 @@ class GameScene1_3: SKScene {
 
             scene.addChild(GameData.shared.hiddenMembers[i])
         }
+            
     }
     
     override func update(_ currentTime: TimeInterval) {
-        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
+//        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
 //        GameData.shared.moveFoundMembers(self, hiddenMembers: hiddenMembers)
         GameData.shared.moveFoundMembers(self)
         GameData.shared.updateFoundMembersLabel(camera!)
@@ -110,6 +107,10 @@ class GameScene1_3: SKScene {
         camera?.position.y = GameData.shared.player.position.y
 
         if GameData.shared.isPressed {
+            print("YEAHHASDHASDB")
+            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+
             GameData.shared.rotatePlayer(
                 self,
                 GameData.shared.location,
@@ -117,10 +118,14 @@ class GameScene1_3: SKScene {
                 GameData.shared.angle
             )
             
-//            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
-//            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
+            GameData.shared.moveFoundMembers(self)
             
-            GameData.shared.disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
+//            GameData.shared.disk.position = CGPoint(
+//                x: GameData.shared.location.x,
+//                y: GameData.shared.location.y
+//            )
+            
+//            GameData.shared.location.x
         }
 
         // AUDIO

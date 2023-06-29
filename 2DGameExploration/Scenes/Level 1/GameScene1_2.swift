@@ -29,7 +29,7 @@ class GameScene1_2: SKScene {
         physicsWorld.contactDelegate = self
         
         GameData.shared.setupJoystick(self)
-        GameData.shared.setupPlayer(self)
+        GameData.shared.setupPlayer(self, playerSpawnPosition: CGPoint(x: 20, y: 281))
         GameData.shared.setupPortalLevel1(self)
         GameData.shared.setupTile(self)
         generatefoundMembersLabel()
@@ -69,31 +69,43 @@ class GameScene1_2: SKScene {
     }
     
     func spawnHiddenMembers(_ scene: SKScene) {
-        let i = 2
-            
-        GameData.shared.hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
-        GameData.shared.hiddenMembers[i].name = "hidden member"
-        GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
-        GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        let i = 1
         
-        GameData.shared.hiddenMembers[i].position = CGPoint(x: -165, y: 116)
-        GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
-            rectangleOf: CGSize(width: 56, height: 27),
-            center: CGPoint(x: 0, y: -36)
-        )
+//<<<<<<< Updated upstream
+//        GameData.shared.hiddenMembers[i].position = CGPoint(x: 15, y: -2.501)
 
-        GameData.shared.hiddenMembers[i].physicsBody?.isDynamic = true
-        GameData.shared.hiddenMembers[i].physicsBody?.affectedByGravity = false
-        GameData.shared.hiddenMembers[i].physicsBody?.allowsRotation = false
-        GameData.shared.hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
-        GameData.shared.hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.wall
-        GameData.shared.hiddenMembers[i].physicsBody?.collisionBitMask = PhysicsCategory.wall
+//        GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
+//            rectangleOf: CGSize(width: 56, height: 27),
+//            center: CGPoint(x: 0, y: -36)
+//        )
+//=======
+        if !GameData.shared.foundStatusOfFoundMembers[i]{
+            GameData.shared.hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
+            GameData.shared.hiddenMembers[i].name = "hidden member"
+            GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
+            GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            
+            GameData.shared.hiddenMembers[i].position = CGPoint(x: 20, y: 50)
+            GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
+                rectangleOf: CGSize(width: 56, height: 27),
+                center: CGPoint(x: 0, y: -36)
+            )
+//>>>>>>> Stashed changes
 
-        scene.addChild(GameData.shared.hiddenMembers[i])
+            GameData.shared.hiddenMembers[i].physicsBody?.isDynamic = true
+            GameData.shared.hiddenMembers[i].physicsBody?.affectedByGravity = false
+            GameData.shared.hiddenMembers[i].physicsBody?.allowsRotation = false
+            GameData.shared.hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
+            GameData.shared.hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.wall
+            GameData.shared.hiddenMembers[i].physicsBody?.collisionBitMask = PhysicsCategory.wall
+
+            scene.addChild(GameData.shared.hiddenMembers[i])
+        }
+            
     }
     
     override func update(_ currentTime: TimeInterval) {
-        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
+//        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
 //        GameData.shared.moveFoundMembers(self, hiddenMembers: hiddenMembers)
         GameData.shared.moveFoundMembers(self)
         GameData.shared.updateFoundMembersLabel(camera!)
@@ -102,6 +114,10 @@ class GameScene1_2: SKScene {
         camera?.position.y = GameData.shared.player.position.y
 
         if GameData.shared.isPressed {
+            print("YEAHHASDHASDB")
+            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+
             GameData.shared.rotatePlayer(
                 self,
                 GameData.shared.location,
@@ -109,10 +125,14 @@ class GameScene1_2: SKScene {
                 GameData.shared.angle
             )
             
-//            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
-//            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
+            GameData.shared.moveFoundMembers(self)
             
-            GameData.shared.disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
+//            GameData.shared.disk.position = CGPoint(
+//                x: GameData.shared.location.x,
+//                y: GameData.shared.location.y
+//            )
+            
+//            GameData.shared.location.x
         }
 
         // AUDIO

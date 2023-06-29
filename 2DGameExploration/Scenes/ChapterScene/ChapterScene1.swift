@@ -7,6 +7,7 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class ChapterScene1: SKScene {
  
@@ -69,6 +70,7 @@ class ChapterScene1: SKScene {
 
             if tile.contains(location) && GameData.shared.chapterHelper.currLevels[idx].isUnlocked {
                 levelName.text = GameData.shared.chapterHelper.currLevels[idx].titleName
+                
                 moveToNextChapterByDisapearing(player: player, location: tile.position)
                 break
             }
@@ -122,19 +124,17 @@ class ChapterScene1: SKScene {
         let fadeShowAction = SKAction.fadeAlpha(to: 1, duration: fadeDuration)
 
         let sequence = SKAction.sequence([fadeDisappearAction, moveAction,fadeShowAction])
-        player.run(sequence)
-        
-        //Start game
-        startGame()
-       
-        
+        player.run(sequence, completion: { [self] in
+            startGame()
+        })
+
     }
     
     func startGame() {
-        guard let layer1 = GameScene1_1(fileNamed: "GameScene1_1") else { return }
-        let transition = SKTransition.fade(withDuration: 0.5)
-
-        view?.presentScene(layer1, transition: transition)
+//        guard let layer1 = GameScene1_1(fileNamed: "GameScene1_1") else { return }
+//        let transition = SKTransition.fade(withDuration: 0.5)
+//
+//        view?.presentScene(layer1, transition: transition)
         
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
