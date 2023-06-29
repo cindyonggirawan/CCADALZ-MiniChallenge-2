@@ -7,10 +7,10 @@
 
 import Foundation
 struct Chapter {
-    var chapterNo: Int
-    var chapterName: String
-    var levels: [Level]
-    var lastUnlockedLevel: Int
-    var isUnlocked: Bool
-    var sceneName: String
+    var chapterNo: Int = 0
+    var chapterName: String = ""
+    var levels: [Level] = []
+    var lastUnlockedLevel: Int = 0
+    var isUnlocked: Bool = false
+    var sceneName: String = ""
 }

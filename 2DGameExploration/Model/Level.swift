@@ -8,15 +8,16 @@
 import Foundation
 
 struct Level {
-    var levelNo: Int
-    var titleName: String
-    var isUnlocked: Bool
+    var levelNo: Int = 0
+    var titleName: String = ""
+    var isUnlocked: Bool = false
 
-    var tileName: String
-    var sceneName: String
+    var tileName: String = ""
+    var bridgeName: String = ""
+    var sceneName: String = ""
     
     // for image textures
-    var lockedTileName: String
-    var unlockedTileName: String
-    var unlockedBridgeName: String
+    var lockedTileName: String = ""
+    var unlockedTileName: String = ""
+    var unlockedBridgeName: String = ""
 }
