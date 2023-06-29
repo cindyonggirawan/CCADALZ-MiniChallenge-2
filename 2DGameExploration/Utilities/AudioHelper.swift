@@ -84,7 +84,7 @@ class AudioHelper {
                 audioPlayer.volume = 1.0
             } else {
                 audioPlayer.volume = 0.0
-                adjustVolume()
+                AudioHelper.adjustVolume()
             }
             audioPlayer.play()
         }
@@ -97,7 +97,7 @@ class AudioHelper {
         }
     }
 
-    func adjustVolume() {
+    static func adjustVolume() {
     //    print("found members = \(GameData.shared.indexOrderOfFoundMembers)")
     //    print("audio nodes = \(GameData.shared.audioPlayers)")
         if GameData.shared.indexOrderOfFoundMembers.count > 0 && GameData.shared.audioPlayers.count > 1 {
