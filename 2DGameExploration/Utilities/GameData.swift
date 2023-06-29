@@ -22,6 +22,9 @@ class GameData {
     var isEnded: Bool = false
 //    var isFinishGateOpenned
     
+    // chapter
+    var chapterHelper = ChapterHelper()
+    
     // audio
     var audioHelper = AudioHelper()
     var audioPlayers: [AVAudioPlayer] = [] //kalo bisa dipindah ke arr di audio helper, ada kusiapin arr namanya "gamePlayMusicPlayer"

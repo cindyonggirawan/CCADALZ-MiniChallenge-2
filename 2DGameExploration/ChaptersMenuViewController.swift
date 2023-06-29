@@ -6,18 +6,25 @@
 //
 
 import UIKit
+import SpriteKit
 
 class ChaptersMenuViewController: UIViewController {
-
-
-    @IBOutlet weak var chapterTitleLbl: UILabel!
-    @IBOutlet weak var chapterCaptionLbl: UILabel!
+    
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    
+    var currChapter = GameData.shared.chapterHelper.activeChapter
+    
+    override func loadView() {
+        self.view = SKView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        self.view.backgroundColor = .clear
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-//        chapterTitleLbl.isHidden = false
-//        chapterCaptionLbl.isHidden = false
+        
+        loadScene()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -25,7 +32,6 @@ class ChaptersMenuViewController: UIViewController {
         if !GameData.shared.audioHelper.isMusicOn {
             GameData.shared.audioHelper.playBgMusic()
         }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -33,7 +39,37 @@ class ChaptersMenuViewController: UIViewController {
         GameData.shared.audioHelper.stopBgMusic()
     }
     
-    @IBAction func playBtnClicked(_ sender: Any) {
+    func loadScene() {
+        if let view = self.view as! SKView? {
+            // Load the SKScene from '.sks' file
+            if let scene = SKScene(fileNamed: "\(currChapter!.sceneName)") {
+                // Set the scale mode to scale to fit the window
+//                scene.scaleMode = .aspectFill
+                scene.backgroundColor = .clear
+                
+                // Present the scene
+                view.presentScene(scene)
+            }
+            
+//            view.ignoresSiblingOrder = true
+            
+//            view.showsFPS = true
+//            view.showsNodeCount = true
+//            view.addSubview(menuBtn)
+//            view.showsPhysics = true
+//            moveToNextChapter()
+        }
+    }
+    
+   
+//    func moveToNextChapter() {
+//        var targetPosition = CGPoint(x: 85.391, y: 209)
+//        var actionDuration = 0.3
+//        var moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+////        moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
+//    }
+//
+    func playBtnClicked() {
         if let gameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
             
             //Edit transition +  presentation style (spy full screen)
@@ -73,5 +109,16 @@ class ChaptersMenuViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
+        } else {
+            return .all
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
 }
