@@ -143,12 +143,11 @@
 				37D9EF942A4C21F700AB73BA /* Assets.xcassets */,
 				8F1B557A2A454124007C2BC6 /* TilesSet.sks */,
 				37D9EF892A4BDE7900AB73BA /* Particle.sks */,
-<<<<<<< HEAD
 				8F82E7A12A4C228300CDEBE5 /* ChapterScene */,
-=======
+
 				37C29BA02A400F0E001C2335 /* GameViewController.swift */,
 				652ADE5C2A45B15C00ADD08A /* GameScenePhysics.swift */,
->>>>>>> f6da49a (sudah refactor ke GameData, setiap portal sudah mengarah ke layer sesuai skenario Lepel Disain. tapi player nya masih belum nge spawn di depan portalnya (ON PROGRESS))
+
 				37078E622A406C7400292BE8 /* Level 1 */,
 				37078E6C2A406F1B00292BE8 /* Level 2 */,
 				37078E6D2A406F2300292BE8 /* Level 3 */,
