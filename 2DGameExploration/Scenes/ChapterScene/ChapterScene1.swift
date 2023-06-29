@@ -15,6 +15,9 @@ class ChapterScene1: SKScene {
     var chapterLevelTiles:[SKSpriteNode] = []
     var chapterName: SKLabelNode!
     var levelName: SKLabelNode!
+    var blinkingStars: SKSpriteNode!
+    var blinkingStarsTexture: [SKTexture] = []
+    var blinkingStarsAnimation: SKAction!
     
     //Temporary var
     var chapterTile = SKSpriteNode()
@@ -23,6 +26,21 @@ class ChapterScene1: SKScene {
     var idx = 0
     
     override func didMove(to view: SKView) {
+        //set up blinking stars animation
+        blinkingStars = childNode(withName: "blinkingStars") as? SKSpriteNode
+        
+        for idx in 1...3 {
+            blinkingStarsTexture.append(SKTexture(imageNamed: "blinkingStars\(idx)"))
+            print("blinkingStars\(idx)")
+        }
+        blinkingStarsTexture.append(blinkingStarsTexture[2])
+        blinkingStarsTexture.append(blinkingStarsTexture[1])
+        
+        
+        blinkingStarsAnimation = SKAction.animate(withNormalTextures: blinkingStarsTexture, timePerFrame: 0.3)
+        
+        blinkingStars.run(SKAction.repeatForever(blinkingStarsAnimation))
+
         //set up chapter title
         chapterName = childNode(withName: "chapterName") as? SKLabelNode
         chapterName.text = GameData.shared.chapterHelper.currChapter.chapterName
@@ -47,7 +65,6 @@ class ChapterScene1: SKScene {
         }
         
     }
-    
 
    
     
