@@ -76,7 +76,8 @@ class GameScene1_2: SKScene {
         GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
         GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        GameData.shared.hiddenMembers[i].position = CGPoint(x: 20, y: 50)
+        GameData.shared.hiddenMembers[i].position = CGPoint(x: 15, y: -2.501)
+
         GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 27),
             center: CGPoint(x: 0, y: -36)
@@ -102,6 +103,10 @@ class GameScene1_2: SKScene {
         camera?.position.y = GameData.shared.player.position.y
 
         if GameData.shared.isPressed {
+            print("YEAHHASDHASDB")
+            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+
             GameData.shared.rotatePlayer(
                 self,
                 GameData.shared.location,
@@ -109,10 +114,14 @@ class GameScene1_2: SKScene {
                 GameData.shared.angle
             )
             
-//            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
-//            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
+            GameData.shared.moveFoundMembers(self)
             
-            GameData.shared.disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
+//            GameData.shared.disk.position = CGPoint(
+//                x: GameData.shared.location.x,
+//                y: GameData.shared.location.y
+//            )
+            
+//            GameData.shared.location.x
         }
 
         // AUDIO

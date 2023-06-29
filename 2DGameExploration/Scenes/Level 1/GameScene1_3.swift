@@ -35,8 +35,7 @@ class GameScene1_3: SKScene {
 
         generatefoundMembersLabel()
         
-        
-        spawnHiddenMembers(self) // MEMBER DI LAYER 3 KOSONG. BELUM SESUAI SKENARIO -DANIEL
+        spawnHiddenMembers(self)
         
         // CAMERA
         camera = cameraNode
@@ -72,16 +71,16 @@ class GameScene1_3: SKScene {
     
     func spawnHiddenMembers(_ scene: SKScene) {
         let i = 2
-            
+
         GameData.shared.hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
         GameData.shared.hiddenMembers[i].name = "hidden member"
         GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
         GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        GameData.shared.hiddenMembers[i].position = CGPoint(x: -100, y: 290)
+        GameData.shared.hiddenMembers[i].position = CGPoint(x: -97, y: 254.869)
         GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
-            rectangleOf: CGSize(width: 56, height: 27),
-            center: CGPoint(x: 0, y: -36)
+            rectangleOf: CGSize(width: 56, height: 26),
+            center: CGPoint(x: -1, y: -35)
         )
 
         GameData.shared.hiddenMembers[i].physicsBody?.isDynamic = true
@@ -104,6 +103,10 @@ class GameScene1_3: SKScene {
         camera?.position.y = GameData.shared.player.position.y
 
         if GameData.shared.isPressed {
+            print("YEAHHASDHASDB")
+            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+
             GameData.shared.rotatePlayer(
                 self,
                 GameData.shared.location,
@@ -111,10 +114,14 @@ class GameScene1_3: SKScene {
                 GameData.shared.angle
             )
             
-//            disk.position.x = CGFloat(disk.position.x + diskLocation.x * 0.015)
-//            disk.position.y = CGFloat(disk.position.y + diskLocation.y * 0.015)
+            GameData.shared.moveFoundMembers(self)
             
-            GameData.shared.disk.position = CGPoint(x: camera!.position.x, y: camera!.position.y - 250)
+//            GameData.shared.disk.position = CGPoint(
+//                x: GameData.shared.location.x,
+//                y: GameData.shared.location.y
+//            )
+            
+//            GameData.shared.location.x
         }
 
         // AUDIO
