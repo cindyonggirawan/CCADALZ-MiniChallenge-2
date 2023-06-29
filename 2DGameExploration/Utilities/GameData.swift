@@ -21,6 +21,7 @@ class GameData {
     var indexOrderOfFoundMembers: [Int] = []
     var isEnded: Bool = false
     var gamefirstStarted: Bool = true
+    var playerPosition: [CGPoint] = []
 //    var isFinishGateOpenned
     
     // chapter
@@ -165,6 +166,11 @@ class GameData {
         diskLocation = touch.location(in: disk)
 
         rotatePlayer(scene, location, diskLocation, angle)
+        
+        if playerPosition.count == 100 {
+            playerPosition.removeFirst()
+        }
+        playerPosition.append(CGPoint(x: player.position.x, y: player.position.y))
     }
     
     func updateFoundMembersLabel(_ camera: SKCameraNode) {
@@ -333,6 +339,10 @@ class GameData {
             CGPoint(x: -tileSize.width, y: 0)
         ]
         var memberName = ""
+        
+        if playerPosition.count > 80 {
+            targetPosition = self.playerPosition[80]
+        }
 
         scene.enumerateChildNodes(withName: "found member") { node, stop in
             if !node.hasActions() {
@@ -341,29 +351,44 @@ class GameData {
                 for i in 0..<self.hiddenMembers.count {
                     if member == self.hiddenMembers[i] {
                         memberName = "member\(i)"
+                        
+                        
+                        //ATUR INJEK INJEKANNYA
+                        self.player.zPosition = 100
+                        setupZPosition(choirMember: member)
+                        
+                        if i == 0 {
+                            targetPosition = self.playerPosition[80]
+                        }else if i == 1 {
+                            targetPosition = self.playerPosition[70]
+                        }else {
+                            targetPosition = self.playerPosition[60]
+                        }
+                        
                         break
                     }
                 }
-
+                
+                if self.playerPosition.count >= 99{
+                    moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+                }
+                
+                
                 if self.lastDragGesture == "up" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0
                     member.texture = SKTexture(imageNamed: "\(memberName)_up")
-                    moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
                 } else if self.lastDragGesture == "left" {
 //                    node.zRotation = CGFloat(Double.pi) / 1.0
                     member.texture = SKTexture(imageNamed: "\(memberName)_left")
-                    moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
                 } else if self.lastDragGesture == "down" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
                     member.texture = SKTexture(imageNamed: "\(memberName)_down")
-                    moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
                 } else if self.lastDragGesture == "right" {
 //                    node.zRotation = 0
                     member.texture = SKTexture(imageNamed: "\(memberName)_right")
-                    moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
 //                    moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
                 }
 
@@ -372,6 +397,14 @@ class GameData {
 
             // member selanjutnya berada dibelakang member pertama
             targetPosition = node.position
+        }
+        
+        func setupZPosition(choirMember: SKSpriteNode){
+            if choirMember.position.y > self.player.position.y{
+                choirMember.zPosition = 90
+            }else{
+                choirMember.zPosition = 110
+            }
         }
     }
     

@@ -89,7 +89,7 @@ class ChapterScene1: SKScene {
         
         if chapterTileLevel.contains(location) {
             
-            guard let layer1 = GameScene1_1(fileNamed: "GameScene1_1_Temp") else { return }
+            guard let layer1 = GameScene1_1(fileNamed: "GameScene1_1") else { return }
             let transition = SKTransition.fade(withDuration: 0.5)
             view?.presentScene(layer1, transition: transition)
             
