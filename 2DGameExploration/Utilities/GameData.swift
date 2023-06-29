@@ -54,7 +54,8 @@ class GameData {
     
     // PLAYER
     var player: SKSpriteNode
-    let playerScaler: Double = 0.035
+//    let playerScaler: Double = 0.035
+    let playerScaler: Double = 0.010
     var playerAnimation: SKAction!
     
     // CHOIR
@@ -207,7 +208,7 @@ class GameData {
         } else {
             knob.position = CGPoint(x: diskRadius * cos(angle), y: diskRadius * sin(angle))
             // code joystick pertama kali
-             disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
+//             disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
         }
 
 //        disk.position.x = camera!.position.x + (location.x - camera!.position.x)
