@@ -9,18 +9,7 @@ import Foundation
 import SpriteKit
 
 class GameScene1_3: SKScene {
-    var player: SKSpriteNode!
-    var playerAnimation: SKAction!
-    
-    var didContactWall: Bool = false
-    
     var cameraNode = SKCameraNode()
-    var hiddenMembers: [SKSpriteNode] = []
-    var foundMembers: [SKSpriteNode] = []
-    var memberAnimation: SKAction!
-    
-    var layerTile: SKTileMapNode!
-    var particle: SKEmitterNode!
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
     
@@ -36,6 +25,8 @@ class GameScene1_3: SKScene {
         generatefoundMembersLabel()
         
         spawnHiddenMembers(self)
+        
+        GameData.shared.initPlayerAndMemberAnimation()
         
         // CAMERA
         camera = cameraNode
@@ -100,7 +91,7 @@ class GameScene1_3: SKScene {
     override func update(_ currentTime: TimeInterval) {
 //        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
 //        GameData.shared.moveFoundMembers(self, hiddenMembers: hiddenMembers)
-        GameData.shared.moveFoundMembers(self)
+//        GameData.shared.moveFoundMembers(self)
         GameData.shared.updateFoundMembersLabel(camera!)
 
         camera?.position.x = GameData.shared.player.position.x
@@ -108,7 +99,6 @@ class GameScene1_3: SKScene {
         foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
 
         if GameData.shared.isPressed {
-            print("YEAHHASDHASDB")
             GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
             GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
 

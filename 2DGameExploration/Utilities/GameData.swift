@@ -81,6 +81,9 @@ class GameData {
     // TILEMAP
     var layerTile: SKTileMapNode
     
+    // PARTICLE NYANYI
+    var particle: SKEmitterNode!
+    
     private init() {
         self.disk = SKSpriteNode()
         self.knob = SKSpriteNode()
@@ -285,7 +288,6 @@ class GameData {
         diskLocation = .zero
         
         self.stopPlayerAnimation()
-        print("HAHA")
         
         scene.enumerateChildNodes(withName: "found member") { node, stop in
             if node.hasActions() {
@@ -376,10 +378,15 @@ class GameData {
         member.name = "found member"
 
         for i in 0 ..< hiddenMembers.count {
+            print(hiddenMembers.count)
             if member == hiddenMembers[i] {
 //                numberOfFoundMembers += 1
-                foundStatusOfFoundMembers[i] = true
-                indexOrderOfFoundMembers.append(i)
+                
+                if foundStatusOfFoundMembers[i] == false {
+                    foundStatusOfFoundMembers[i] = true
+                    indexOrderOfFoundMembers.append(i)
+                    addParticleToMember(index: i)
+                }
 
                 AudioHelper.adjustVolume()
             }
@@ -555,6 +562,12 @@ class GameData {
         player.removeAction(forKey: "playerAnimation")
     }
     
+    func addParticleToPlayer() {
+        particle = SKEmitterNode(fileNamed: "Particle")
+        particle.position = CGPoint(x: 0, y: player.size.height / 2)
+        player.addChild(particle)
+    }
+    
     func startMemberAnimation(member: SKSpriteNode, index: Int) {
         if member.action(forKey: "member\(index)Animation") == nil {
             member.run(SKAction.repeatForever(memberAnimation),
@@ -564,6 +577,32 @@ class GameData {
 
     func stopMemberAnimation(member: SKSpriteNode, index: Int) {
         member.removeAction(forKey: "member\(index)Animation")
+    }
+    
+    func initPlayerAndMemberAnimation() {
+        addParticleToPlayer()
+        
+        // animasi player
+        var textures: [SKTexture] = []
+        for i in 0..<2 {
+            textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
+        }
+        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+        // animasi member
+        for i in 0..<3 {
+            textures = []
+            for j in 0..<2 {
+                textures.append(SKTexture(imageNamed: "member\(i)_down_animation\(j)"))
+            }
+            memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+        }
+    }
+    
+    func addParticleToMember(index: Int) {
+        particle = SKEmitterNode(fileNamed: "Particle")
+        particle.position = CGPoint(x: 0, y: hiddenMembers[index].size.height / 2)
+        hiddenMembers[index].addChild(particle)
     }
 }
 

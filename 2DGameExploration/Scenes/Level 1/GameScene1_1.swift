@@ -9,19 +9,7 @@ import Foundation
 import SpriteKit
 
 class GameScene1_1: SKScene {
-    var player: SKSpriteNode!
-    var playerAnimation: SKAction!
-    
-    var didContactWall: Bool = false
-    
     var cameraNode = SKCameraNode()
-    var hiddenMembers: [SKSpriteNode] = []
-    var foundMembers: [SKSpriteNode] = []
-    var memberAnimation: SKAction!
-    var membersAnimation: [SKAction] = []
-    
-    var layerTile: SKTileMapNode!
-    var particle: SKEmitterNode!
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
     
@@ -38,25 +26,7 @@ class GameScene1_1: SKScene {
         
         spawnHiddenMembers(self)
         
-        // animasi player
-        var textures: [SKTexture] = []
-        for i in 0..<2 {
-            textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
-        }
-        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-
-//        spawnHiddenMembers()
-
-        // animasi member
-        for i in 0..<3 {
-            textures = []
-            for j in 0..<2 {
-                textures.append(SKTexture(imageNamed: "member\(i)_down_animation\(j)"))
-            }
-            GameData.shared.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//            membersAnimation.append(memberAnimation)
-        }
-
+        GameData.shared.initPlayerAndMemberAnimation()
         
         // CAMERA
         camera = cameraNode
@@ -199,12 +169,4 @@ class GameScene1_1: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         GameData.shared.joystickEnded(self)
     }
-
-    func debugDrawPlayableArea() {
-        let shape = SKShapeNode()
-        shape.strokeColor = SKColor.red
-        shape.lineWidth = 4.0
-        addChild(shape)
-    }
 }
-
