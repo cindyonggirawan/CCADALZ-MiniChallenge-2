@@ -167,7 +167,7 @@ class GameData {
 
         rotatePlayer(scene, location, diskLocation, angle)
         
-        if playerPosition.count == 100 {
+        if playerPosition.count == 60 {
             playerPosition.removeFirst()
         }
         playerPosition.append(CGPoint(x: player.position.x, y: player.position.y))
@@ -340,8 +340,8 @@ class GameData {
         ]
         var memberName = ""
         
-        if playerPosition.count > 80 {
-            targetPosition = self.playerPosition[80]
+        if playerPosition.count > 40 {
+            targetPosition = self.playerPosition[40]
         }
 
         scene.enumerateChildNodes(withName: "found member") { node, stop in
@@ -356,20 +356,21 @@ class GameData {
                         //ATUR INJEK INJEKANNYA
                         self.player.zPosition = 100
                         setupZPosition(choirMember: member)
-                        
-                        if i == 0 {
-                            targetPosition = self.playerPosition[80]
-                        }else if i == 1 {
-                            targetPosition = self.playerPosition[70]
-                        }else {
-                            targetPosition = self.playerPosition[60]
+                        if self.playerPosition.count > 40{
+                            if i == 0 {
+                                targetPosition = self.playerPosition[40]
+                            }else if i == 1 {
+                                targetPosition = self.playerPosition[30]
+                            }else {
+                                targetPosition = self.playerPosition[20]
+                            }
                         }
                         
                         break
                     }
                 }
                 
-                if self.playerPosition.count >= 99{
+                if self.playerPosition.count >= 59{
                     moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
                 }
                 

@@ -69,14 +69,14 @@ class GameScene1_2: SKScene {
     }
     
     func spawnHiddenMembers(_ scene: SKScene) {
-        let i = 2
+        let i = 1
             
         GameData.shared.hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
         GameData.shared.hiddenMembers[i].name = "hidden member"
         GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
         GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        GameData.shared.hiddenMembers[i].position = CGPoint(x: -165, y: 116)
+        GameData.shared.hiddenMembers[i].position = CGPoint(x: 20, y: 50)
         GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 27),
             center: CGPoint(x: 0, y: -36)

@@ -144,10 +144,8 @@
 				8F1B557A2A454124007C2BC6 /* TilesSet.sks */,
 				37D9EF892A4BDE7900AB73BA /* Particle.sks */,
 				8F82E7A12A4C228300CDEBE5 /* ChapterScene */,
-
 				37C29BA02A400F0E001C2335 /* GameViewController.swift */,
 				652ADE5C2A45B15C00ADD08A /* GameScenePhysics.swift */,
-
 				37078E622A406C7400292BE8 /* Level 1 */,
 				37078E6C2A406F1B00292BE8 /* Level 2 */,
 				37078E6D2A406F2300292BE8 /* Level 3 */,
@@ -437,7 +435,6 @@
 				8F82E7A52A4C231C00CDEBE5 /* ChapterScene1.swift in Sources */,
 				A561EE982A443596000A2042 /* GameData.swift in Sources */,
 				8F82E7CB2A4CA08500CDEBE5 /* Level.swift in Sources */,
-				37078E732A40728F00292BE8 /* temp3.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +581,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8NCUCPRPQ;
+				DEVELOPMENT_TEAM = Q7JL2KYFKQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
