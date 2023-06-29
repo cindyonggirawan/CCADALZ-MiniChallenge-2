@@ -88,10 +88,16 @@ class ChapterScene1: SKScene {
         chapterTileLevel = childNode(withName: "\(GameData.shared.chapterHelper.getLevel(level: 1).tileName)") as? SKSpriteNode
         
         if chapterTileLevel.contains(location) {
-            guard let newLayer = GameScene(fileNamed: "GameScene") else {
-                return
-            }
-            view?.presentScene(newLayer, transition: .crossFade(withDuration: 1))
+            
+            guard let layer1 = GameScene1_1(fileNamed: "GameScene1_1_Temp") else { return }
+            let transition = SKTransition.fade(withDuration: 0.5)
+            view?.presentScene(layer1, transition: transition)
+            
+            
+//            guard let newLayer = GameScene1_1(fileNamed: "GameScene1_1") else {
+//                return
+//            }
+//            view?.presentScene(newLayer, transition: .crossFade(withDuration: 1))
 
             print("\(GameData.shared.chapterHelper.getLevel(level: 1).tileName)")
         }
