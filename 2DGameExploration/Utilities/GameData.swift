@@ -20,6 +20,7 @@ class GameData {
     var foundStatusOfFoundMembers: [Bool] = [false, false, false]
     var indexOrderOfFoundMembers: [Int] = []
     var isEnded: Bool = false
+    var gamefirstStarted: Bool = true
 //    var isFinishGateOpenned
     
     // chapter
@@ -62,8 +63,14 @@ class GameData {
     
     var didContactWall: Bool = false
     
-    // PORTAL
-    var portalA: SKSpriteNode
+    // PORTAL LEVEL 1 AJA               -daniel
+    var portal1: SKSpriteNode?
+    var portal2: SKSpriteNode?
+    var portal3: SKSpriteNode?
+    
+    // PORTAL LEVEL 2 DISINI            -daniel
+    // ada 9 portal kayaknya ya? -daniel
+    // var portal....
     
     // TILEMAP
     var layerTile: SKTileMapNode
@@ -74,7 +81,10 @@ class GameData {
         self.player = SKSpriteNode()
         self.foundMembersLabel = SKLabelNode()
         self.layerTile = SKTileMapNode()
-        self.portalA = SKSpriteNode()
+        
+        self.portal1 = SKSpriteNode()
+        self.portal2 = SKSpriteNode()
+        self.portal3 = SKSpriteNode()
     }
     
     func setupJoystick(_ scene: SKScene) {
@@ -86,7 +96,12 @@ class GameData {
     
     func setupPlayer(_ scene: SKScene) {
         player = scene.childNode(withName: "player") as! SKSpriteNode
-
+//        player = SKSpriteNode(imageNamed: "player_down")
+//        player.texture = SKTexture(imageNamed: "player_down")
+        
+        player.name = "player"
+//        player.position = CGPoint(x: -795 + 80, y: -25.105)
+             
         player.physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 26),
             center: CGPoint(x: 0, y: -30)
@@ -94,24 +109,44 @@ class GameData {
         player.physicsBody?.isDynamic = true
         player.physicsBody?.affectedByGravity = false
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
-        player.physicsBody?.contactTestBitMask = PhysicsCategory.portalA | PhysicsCategory.wall
+        player.physicsBody?.contactTestBitMask = PhysicsCategory.portal | PhysicsCategory.wall
         player.physicsBody?.collisionBitMask = PhysicsCategory.wall
         player.physicsBody?.allowsRotation = false
-//        player.physicsBody?.restitution = 0
-//        player.physicsBody?.angularDamping = 0
-//        player.physicsBody?.linearDamping = 1
+        player.physicsBody?.restitution = 0
+        player.physicsBody?.angularDamping = 1
+        player.physicsBody?.linearDamping = 1
+        
+//        scene.addChild(player)
     }
     
-    func setupPortal(_ scene: SKScene) {
-        var portalA = scene.childNode(withName: "portalA") as? SKSpriteNode
-        guard let portalA else { print("\nNO PORTAL A"); return }
+    func setupPortalLevel1(_ scene: SKScene) {
+        portal1 = scene.childNode(withName: "portal1") as? SKSpriteNode
+        portal2 = scene.childNode(withName: "portal2") as? SKSpriteNode
+        portal3 = scene.childNode(withName: "portal3") as? SKSpriteNode
         
-        portalA.physicsBody = SKPhysicsBody(rectangleOf: portalA.size)
-        portalA.physicsBody?.isDynamic = true
-        portalA.physicsBody?.categoryBitMask = PhysicsCategory.portalA
-        portalA.physicsBody?.contactTestBitMask = PhysicsCategory.player
-        portalA.physicsBody?.collisionBitMask = PhysicsCategory.none// hidden members position
-
+        if let portal1 {
+            portal1.physicsBody = SKPhysicsBody(rectangleOf: portal1.size)
+            portal1.physicsBody?.isDynamic = false
+            portal1.physicsBody?.categoryBitMask = PhysicsCategory.portal
+            portal1.physicsBody?.contactTestBitMask = PhysicsCategory.player
+            portal1.physicsBody?.collisionBitMask = PhysicsCategory.none
+        }
+        
+        if let portal2 {
+            portal2.physicsBody = SKPhysicsBody(rectangleOf: portal2.size)
+            portal2.physicsBody?.isDynamic = false
+            portal2.physicsBody?.categoryBitMask = PhysicsCategory.portal
+            portal2.physicsBody?.contactTestBitMask = PhysicsCategory.player
+            portal2.physicsBody?.collisionBitMask = PhysicsCategory.none
+        }
+        
+        if let portal3 {
+            portal3.physicsBody = SKPhysicsBody(rectangleOf: portal3.size)
+            portal3.physicsBody?.isDynamic = false
+            portal3.physicsBody?.categoryBitMask = PhysicsCategory.portal
+            portal3.physicsBody?.contactTestBitMask = PhysicsCategory.player
+            portal3.physicsBody?.collisionBitMask = PhysicsCategory.none
+        }
     }
     
     func joystickBegan(_ scene: SKScene, _ touch: UITouch) {
@@ -240,9 +275,9 @@ class GameData {
                     tembok.physicsBody?.contactTestBitMask = PhysicsCategory.player
                     tembok.physicsBody?.isDynamic = false
                     tembok.physicsBody?.allowsRotation = false
-//                    tembok.physicsBody?.restitution = 1
-//                    tembok.physicsBody?.angularDamping = 0
-//                    tembok.physicsBody?.linearDamping = 1
+                    tembok.physicsBody?.restitution = 0
+                    tembok.physicsBody?.angularDamping = 1
+                    tembok.physicsBody?.linearDamping = 1
                     scene.addChild(tembok)
                 }
             }
@@ -250,7 +285,7 @@ class GameData {
     }
     
 //    func checkCollisions(_ scene: SKScene, hiddenMembers: [SKSpriteNode]) {
-    func checkCollisions(_ scene: SKScene) {
+    func checkCollisions(_ scene: SKScene, _ foundMembersLabel: SKLabelNode) {
         var foundMembers: [SKSpriteNode] = []
         scene.enumerateChildNodes(withName: "hidden member") { node, _ in
             let member = node as! SKSpriteNode
@@ -262,12 +297,12 @@ class GameData {
         for member in foundMembers {
 //            print("a member is found")
 //            findHiddenMember(member: member, hiddenMembers: hiddenMembers)
-            findHiddenMember(member: member)
+            findHiddenMember(member: member, foundMembersLabel)
         }
     }
     
 //    func findHiddenMember(member: SKSpriteNode, hiddenMembers: [SKSpriteNode]) {
-    func findHiddenMember(member: SKSpriteNode) {
+    func findHiddenMember(member: SKSpriteNode, _ foundMembersLabel: SKLabelNode) {
         member.name = "found member"
 
         for i in 0 ..< hiddenMembers.count {
@@ -347,7 +382,7 @@ struct PhysicsCategory {
     static let all: UInt32 = UInt32.max
 
     static let player: UInt32 = 0x1 << 1
-    static let portalA: UInt32 = 0x1 << 2
+    static let portal: UInt32 = 0x1 << 2
     
     static let hiddenMember: UInt32 = 0x1 << 3
     

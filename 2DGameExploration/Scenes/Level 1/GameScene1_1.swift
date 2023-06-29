@@ -22,12 +22,15 @@ class GameScene1_1: SKScene {
     var layerTile: SKTileMapNode!
     var particle: SKEmitterNode!
     
+    var foundMembersLabel: SKLabelNode = SKLabelNode()
+    
     override func didMove(to view: SKView) {
+        
         physicsWorld.contactDelegate = self
         
         GameData.shared.setupJoystick(self)
         GameData.shared.setupPlayer(self)
-        GameData.shared.setupPortal(self)
+        GameData.shared.setupPortalLevel1(self)
         GameData.shared.setupTile(self)
         generatefoundMembersLabel()
         
@@ -53,16 +56,16 @@ class GameScene1_1: SKScene {
     }
     
     func generatefoundMembersLabel() {
-        GameData.shared.foundMembersLabel.name = "foundMembersLabel"
-        GameData.shared.foundMembersLabel.text = "Members Found: 0"
-        GameData.shared.foundMembersLabel.fontColor = SKColor.lightGray
-        GameData.shared.foundMembersLabel.fontSize = 20
-        GameData.shared.foundMembersLabel.zPosition = 999
-        GameData.shared.foundMembersLabel.horizontalAlignmentMode = .left
-        GameData.shared.foundMembersLabel.verticalAlignmentMode = .bottom
-        GameData.shared.foundMembersLabel.position = CGPoint.zero
+        foundMembersLabel.name = "foundMembersLabel"
+        foundMembersLabel.text = "Members Found: 0"
+        foundMembersLabel.fontColor = SKColor.lightGray
+        foundMembersLabel.fontSize = 20
+        foundMembersLabel.zPosition = 999
+        foundMembersLabel.horizontalAlignmentMode = .left
+        foundMembersLabel.verticalAlignmentMode = .bottom
+        foundMembersLabel.position = CGPoint.zero
         
-        addChild(GameData.shared.foundMembersLabel)
+        addChild(foundMembersLabel)
     }
     
     func spawnHiddenMembers(_ scene: SKScene) {
@@ -88,6 +91,7 @@ class GameScene1_1: SKScene {
             }
 
             GameData.shared.hiddenMembers[i].physicsBody?.isDynamic = true
+            GameData.shared.hiddenMembers[i].physicsBody?.affectedByGravity = false
             GameData.shared.hiddenMembers[i].physicsBody?.allowsRotation = false
             GameData.shared.hiddenMembers[i].physicsBody?.categoryBitMask = PhysicsCategory.hiddenMember
             GameData.shared.hiddenMembers[i].physicsBody?.contactTestBitMask = PhysicsCategory.wall
@@ -98,7 +102,7 @@ class GameScene1_1: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
+//        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
 //        GameData.shared.moveFoundMembers(self, hiddenMembers: hiddenMembers)
         GameData.shared.moveFoundMembers(self)
         GameData.shared.updateFoundMembersLabel(camera!)
@@ -135,7 +139,7 @@ class GameScene1_1: SKScene {
     }
 
     override func didEvaluateActions() {
-        GameData.shared.checkCollisions(self)
+        GameData.shared.checkCollisions(self, foundMembersLabel)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
