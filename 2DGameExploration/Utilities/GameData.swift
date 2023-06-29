@@ -99,13 +99,16 @@ class GameData {
         disk.alpha = 0 // balikin ke 0
     }
     
-    func setupPlayer(_ scene: SKScene) {
-        player = scene.childNode(withName: "player") as! SKSpriteNode
-//        player = SKSpriteNode(imageNamed: "player_down")
+    func setupPlayer(_ scene: SKScene, playerSpawnPosition: CGPoint) {
+//        player = scene.childNode(withName: "player") as! SKSpriteNode
+        
+        player = SKSpriteNode(imageNamed: "player_down")
 //        player.texture = SKTexture(imageNamed: "player_down")
         
         player.name = "player"
-//        player.position = CGPoint(x: -795 + 80, y: -25.105)
+        player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        player.position = playerSpawnPosition
+        player.zPosition = 100
              
         player.physicsBody = SKPhysicsBody(
             rectangleOf: CGSize(width: 56, height: 26),
@@ -121,7 +124,11 @@ class GameData {
         player.physicsBody?.angularDamping = 1
         player.physicsBody?.linearDamping = 1
         
-//        scene.addChild(player)
+        for foundMember in foundMembers {
+            foundMember.removeFromParent()
+            scene.addChild(foundMember)
+        }
+        scene.addChild(player)
     }
     
     func setupPortalLevel1(_ scene: SKScene) {
@@ -187,7 +194,7 @@ class GameData {
     }
     
     func rotatePlayer(_ scene: SKScene, _ location: CGPoint, _ diskLocation: CGPoint, _ angle: CGFloat) -> Void {
-        player = scene.childNode(withName: "player") as! SKSpriteNode
+//        player = scene.childNode(withName: "player") as! SKSpriteNode
         
         let xDiskLoc: Double = diskLocation.x
         let yDiskLoc: Double = diskLocation.y
@@ -301,15 +308,15 @@ class GameData {
     
 //    func checkCollisions(_ scene: SKScene, hiddenMembers: [SKSpriteNode]) {
     func checkCollisions(_ scene: SKScene, _ foundMembersLabel: SKLabelNode) {
-        var foundMembers: [SKSpriteNode] = []
+//        var foundMembers: [SKSpriteNode] = []
         scene.enumerateChildNodes(withName: "hidden member") { node, _ in
             let member = node as! SKSpriteNode
             if CGRectIntersectsRect(member.frame, self.player.frame) {
-                foundMembers.append(member)
+                self.foundMembers.append(member)
             }
         }
 
-        for member in foundMembers {
+        for member in self.foundMembers {
 //            print("a member is found")
 //            findHiddenMember(member: member, hiddenMembers: hiddenMembers)
             findHiddenMember(member: member, foundMembersLabel)
