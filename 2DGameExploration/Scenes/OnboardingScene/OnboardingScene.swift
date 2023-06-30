@@ -64,5 +64,12 @@ class OnboardingScene: SKScene {
     }
     
     
+    override func willMove(from view: SKView) {
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.5)
+        self.run(fadeOutAction)
+        self.removeAllChildren()
+        
+    }
+    
     
 }

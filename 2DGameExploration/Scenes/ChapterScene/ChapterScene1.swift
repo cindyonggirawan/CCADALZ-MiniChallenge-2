@@ -80,6 +80,13 @@ class ChapterScene1: SKScene {
         }
     }
     
+    override func willMove(from view: SKView) {
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.5)
+        self.run(fadeOutAction)
+        self.removeAllChildren()
+        
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)

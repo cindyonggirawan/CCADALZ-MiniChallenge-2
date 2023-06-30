@@ -21,7 +21,6 @@ class PopUpMenuViewController: UIViewController {
         
         view.addSubview(blurEffectView)
         view.sendSubviewToBack(blurEffectView)
-
     }
     
     @IBAction func resumeBtnClicked(_ sender: Any) {

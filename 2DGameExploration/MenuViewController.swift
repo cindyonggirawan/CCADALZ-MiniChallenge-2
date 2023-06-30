@@ -43,11 +43,15 @@ class MenuViewController: UIViewController {
             //Play sound
             GameData.shared.audioHelper.playActiveButton()
         }), completion: {_ in
+                        
             if let chaptersMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
 
                 chaptersMenuViewController.modalTransitionStyle = .crossDissolve
                 chaptersMenuViewController.modalPresentationStyle = .fullScreen
-                self.present(chaptersMenuViewController, animated: true, completion: nil)
+                UIApplication.shared.keyWindow?.rootViewController = chaptersMenuViewController
+
+                self.present(chaptersMenuViewController, animated: true, completion: {
+                })
             }
             
         })

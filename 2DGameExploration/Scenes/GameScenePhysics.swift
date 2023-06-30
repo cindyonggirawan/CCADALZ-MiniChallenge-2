@@ -32,7 +32,9 @@ extension GameScene1_1: SKPhysicsContactDelegate {
                 GameData.shared.audioHelper.playTeleportSound()
                 GameData.shared.isPressed = false
                 GameData.shared.isMoved = false
-                view?.presentScene(layer2, transition: transition)
+                DispatchQueue.main.async {
+                    self.view?.presentScene(layer2, transition: transition)
+                }
             }
         }
         
