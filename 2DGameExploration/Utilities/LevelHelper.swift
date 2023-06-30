@@ -7,10 +7,10 @@
 
 import Foundation
 class LevelHelper {
-    var levelList: [Level] = []
+    var dummyLevelList: [Level] = []
     
     init() {
-        levelList = generateLevels()
+        dummyLevelList = generateLevels()
     }
     
     func addLevel(levelNo:Int, title: String, isUnlocked:Bool, tileName: String, bridgeName: String, sceneName:String, lockedTileName: String, unlockedTileName: String, unlockedBridgeName:String) -> Level {
