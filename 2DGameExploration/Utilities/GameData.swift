@@ -42,15 +42,18 @@ class GameData {
     let foundSound: SKAction = SKAction.playSoundFileNamed("found.mp3", waitForCompletion: false)
     
     // JOYSTEAK 21
-    var location: CGPoint = .zero
-    var diskLocation: CGPoint = .zero
-    var angle: CGFloat = 0.0
-    var isPressed: Bool = false
     var disk: SKSpriteNode
     var knob: SKSpriteNode
     var diskRadius: CGFloat {
-        CGFloat(disk.size.width / 2.0) // CONVERT PIXEL TO POINT
+        CGFloat(disk.size.width / 2.0)
     }
+    
+    var location: CGPoint = .zero
+    var diskLocation: CGPoint = .zero
+    var angle: CGFloat = 0.0
+    
+    var isPressed: Bool = false
+    var isMoved: Bool = false
     
     // PLAYER
     var player: SKSpriteNode
@@ -59,7 +62,7 @@ class GameData {
     var playerAnimation: SKAction!
     
     // CHOIR
-    var lastDragGesture: String = ""
+    var lastDragGesture: String = "down"
     var beforeLastDragGesture: String = "down"
     var foundMembers: [SKSpriteNode] = []
     let foundMembersLabel: SKLabelNode
@@ -80,6 +83,9 @@ class GameData {
     
     // TILEMAP
     var layerTile: SKTileMapNode
+    
+    // PARTICLE NYANYI
+    var particle: SKEmitterNode!
     
     private init() {
         self.disk = SKSpriteNode()
@@ -164,29 +170,31 @@ class GameData {
     
     func joystickBegan(_ scene: SKScene, _ touch: UITouch) {
         location = touch.location(in: scene)
-        diskLocation = touch.location(in: disk) // diskLocation
-        knob.position = CGPoint(x: 0, y: 0)
-        
+        diskLocation = touch.location(in: disk)
         
 //        disk.position = CGPoint(x: scene.camera!.position.x, y: scene.camera!.position.y)
-        disk.position = CGPoint(x: GameData.shared.location.x, y: GameData.shared.location.y)
+        disk.position = location
+        knob.position = .zero
+        
         disk.alpha = 0.3
 
         self.isPressed = true
     }
     
     func joystickMoved(_ scene: SKScene, _ touch: UITouch) {
+        self.isMoved = true
         
         location = touch.location(in: scene)
         diskLocation = touch.location(in: disk)
 
         rotatePlayer(scene, location, diskLocation, angle)
+        moveFoundMembers(scene)
         
         if playerPosition.count == 60 {
             playerPosition.removeFirst()
         }
         playerPosition.append(CGPoint(x: player.position.x, y: player.position.y))
-        print(playerPosition.count)
+//        print(playerPosition.count)
     }
     
     func updateFoundMembersLabel(_ camera: SKCameraNode) {
@@ -206,60 +214,115 @@ class GameData {
         if radiusTemp < diskRadius {
             knob.position = diskLocation
         } else {
-            knob.position = CGPoint(x: diskRadius * cos(angle), y: diskRadius * sin(angle))
+//            knob.position = CGPoint(x: diskRadius * cos(angle), y: diskRadius * sin(angle))
             // code joystick pertama kali
 //             disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
+            // manusia silver
+            knob.position = diskLocation
+            disk.position = CGPoint(x: location.x - diskRadius * cos(angle), y: location.y - diskRadius * sin(angle))
         }
 
 //        disk.position.x = camera!.position.x + (location.x - camera!.position.x)
 //        disk.position.y = camera!.position.y + (location.y - camera!.position.y)
 
-        player.position.x += diskLocation.x * playerScaler
-        player.position.y += diskLocation.y * playerScaler
+        beforeLastDragGesture = lastDragGesture
+
+        player.position.x += scaleJoystickOutput(diskLocation.x)
+        player.position.y += scaleJoystickOutput(diskLocation.y)
 
         switch angle {
         // >>> UP
         case (Double.pi / 4) ..< (3 * Double.pi / 4):
-            player.texture = SKTexture(imageNamed: "player_up")
+//            player.texture = SKTexture(imageNamed: "player_up")
             lastDragGesture = "up"
 
         // >>> LEFT
         case (3 * Double.pi / 4) ... Double.pi:
-            player.texture = SKTexture(imageNamed: "player_left")
+//            player.texture = SKTexture(imageNamed: "player_left")
             lastDragGesture = "left"
         case (-1 * Double.pi) ... (-3 * Double.pi / 4):
-            player.texture = SKTexture(imageNamed: "player_left")
+//            player.texture = SKTexture(imageNamed: "player_left")
             lastDragGesture = "left"
 
         // >>> DOWN
         case (-3 * Double.pi / 4) ... (-1 * Double.pi / 4):
-            player.texture = SKTexture(imageNamed: "player_down")
+//            player.texture = SKTexture(imageNamed: "player_down")
             lastDragGesture = "down"
 
         // >>> RIGHT
         case (-1 * Double.pi / 4) ... 0 :
-            player.texture = SKTexture(imageNamed: "player_right")
+//            player.texture = SKTexture(imageNamed: "player_right")
             lastDragGesture = "right"
         case 0 ..< (Double.pi / 4):
-            player.texture = SKTexture(imageNamed: "player_right")
+//            player.texture = SKTexture(imageNamed: "player_right")
             lastDragGesture = "right"
 
         default:
             lastDragGesture = ""
         }
+        
+        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
+        
+        if beforeLastDragGesture == lastDragGesture {
+            var textures: [SKTexture] = []
+            for i in 0..<2 {
+                textures.append(SKTexture(imageNamed: "player_\(beforeLastDragGesture)_animation\(i)"))
+            }
+            playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+            startPlayerAnimation()
+        } else {
+            stopPlayerAnimation()
+            
+            var textures: [SKTexture] = []
+            for i in 0..<2 {
+                textures.append(SKTexture(imageNamed: "player_\(lastDragGesture)_animation\(i)"))
+            }
+            playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+            startPlayerAnimation()
+        }
     }
     
     func joystickEnded(_ scene: SKScene) {
-        
-        var disk = scene.childNode(withName: "disk") as! SKSpriteNode
-        var knob = disk.childNode(withName: "knob") as! SKSpriteNode
-        
         disk.alpha = 0 // balikin ke 0
         disk.position = CGPoint(x: scene.camera!.position.x, y: scene.camera!.position.y - 250)
-        knob.position = CGPoint(x: 0, y: 0)
+        knob.position = .zero
 
         diskLocation = .zero
+        
+        self.stopPlayerAnimation()
+        
+        scene.enumerateChildNodes(withName: "found member") { node, stop in
+            if node.hasActions() {
+                let member = node as! SKSpriteNode
+                var index = 0
+                
+                for i in 0..<3 {
+                    if member == self.hiddenMembers[i] {
+                        index = i
+                        break
+                    }
+                }
+                
+                self.stopMemberAnimation(member: member, index: index)
+            }
+        }
+        
         self.isPressed = false
+        self.isMoved = false
+        diskLocation = .zero
+    }
+    
+    
+    func updateJoystickAndPlayer(_ scene: SKScene) {
+        if (self.isPressed && self.isMoved) {
+            rotatePlayer(scene, location, diskLocation, angle)
+            disk.position.x += scaleJoystickOutput(diskLocation.x)
+            disk.position.y += scaleJoystickOutput(diskLocation.y)
+            
+            moveFoundMembers(scene)
+        }
     }
     
     func setupTile(_ scene: SKScene) {
@@ -315,7 +378,10 @@ class GameData {
             if CGRectIntersectsRect(member.frame, self.player.frame) {
                 self.foundMembers.append(member)
             }
+            
+//            print("x")
         }
+//        print("b")
 
         for member in self.foundMembers {
 //            print("a member is found")
@@ -329,16 +395,21 @@ class GameData {
         member.name = "found member"
 
         for i in 0 ..< hiddenMembers.count {
+            print(hiddenMembers.count)
             if member == hiddenMembers[i] {
-                numberOfFoundMembers += 1
-                foundStatusOfFoundMembers[i] = true
-                indexOrderOfFoundMembers.append(i)
+//                numberOfFoundMembers += 1
+                
+                if foundStatusOfFoundMembers[i] == false {
+                    foundStatusOfFoundMembers[i] = true
+                    indexOrderOfFoundMembers.append(i)
+                    addParticleToMember(index: i)
+                }
 
                 AudioHelper.adjustVolume()
             }
         }
 
-        foundMembersLabel.text = "Members Found: \(GameData.shared.numberOfFoundMembers)"
+        foundMembersLabel.text = "\(GameData.shared.foundMembers.count)/3"
 
 //        let turnGreen = SKAction.colorize(with: SKColor.green, colorBlendFactor: 1.0, duration: 0.2)
 //        member.run(turnGreen)
@@ -349,153 +420,169 @@ class GameData {
         var targetPosition = player.position
         let actionDuration = 0.3
         var moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
-        let offset = [
-            CGPoint(x: 0, y: -tileSize.height),
-            CGPoint(x: tileSize.width, y: 0),
-            CGPoint(x: 0, y: tileSize.height),
-            CGPoint(x: -tileSize.width, y: 0)
-        ]
-        var memberName = ""
+//        let offset = [
+//            CGPoint(x: 0, y: -tileSize.height),
+//            CGPoint(x: tileSize.width, y: 0),
+//            CGPoint(x: 0, y: tileSize.height),
+//            CGPoint(x: -tileSize.width, y: 0)
+//        ]
         
         if playerPosition.count > 40 {
             targetPosition = self.playerPosition[40]
         }
+        
+        scene.enumerateChildNodes(withName: "found member") { node, stop in
+            let member = node as! SKSpriteNode
+            var index = 0
+            
+            for i in 0..<3 {
+                if member == self.hiddenMembers[i] {
+                    index = i
+                    break
+                }
+            }
+            
+            if self.beforeLastDragGesture == self.lastDragGesture {
+                var textures: [SKTexture] = []
+                for i in 0..<2 {
+                    textures.append(SKTexture(imageNamed: "member\(index)_\(self.beforeLastDragGesture)_animation\(i)"))
+                }
+                self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+                self.startMemberAnimation(member: member, index: index)
+            } else {
+                self.stopMemberAnimation(member: member, index: index)
+
+                var textures: [SKTexture] = []
+                for i in 0..<2 {
+                    textures.append(SKTexture(imageNamed: "member\(index)_\(self.lastDragGesture)_animation\(i)"))
+                }
+                self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+                self.startMemberAnimation(member: member, index: index)
+            }
+        }
 
         scene.enumerateChildNodes(withName: "found member") { node, stop in
-                let member = node as! SKSpriteNode
-                var index = 0
+            let member = node as! SKSpriteNode
+            var index = 0
 
-                for i in 0..<self.hiddenMembers.count {
-                    if member == self.hiddenMembers[i] {
-                        var index = 0
-                        
-                        //ATUR INJEK INJEKANNYA
-                        self.player.zPosition = 100
-                        setupZPosition(choirMember: member)
-                        
-                        if self.playerPosition.count > 40{
-                            if i == 0 {
-                                targetPosition = self.playerPosition[40]
-                            }else if i == 1 {
-                                targetPosition = self.playerPosition[30]
-                            }else {
-                                targetPosition = self.playerPosition[20]
-                            }
+            for i in 0..<self.hiddenMembers.count {
+                if member == self.hiddenMembers[i] {
+//                    index = 0
+                    
+                    //ATUR INJEK INJEKANNYA
+                    self.player.zPosition = 100
+                    self.setupZPosition(choirMember: member)
+                    
+                    if self.playerPosition.count > 40{
+                        if i == 0 {
+                            targetPosition = self.playerPosition[40]
+                        } else if i == 1 {
+                            targetPosition = self.playerPosition[30]
+                        } else {
+                            targetPosition = self.playerPosition[20]
                         }
-                        
-                        break
                     }
+                    
+                    break
                 }
-                
-                if self.playerPosition.count >= 59{
-                    moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
-                }
-                
-                
-                if self.lastDragGesture == "up" {
+            }
+            
+            if self.playerPosition.count >= 59{
+                moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+            }
+            
+            if self.lastDragGesture == "up" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0
-                    self.player.zPosition = 0
-                    
-                    if self.hiddenMembers.count == 1 {
-                        self.hiddenMembers[0].zPosition = 10
-                    }
-                    
-                    if self.hiddenMembers.count == 2 {
-                        self.hiddenMembers[0].zPosition = 10
-                        self.hiddenMembers[1].zPosition = 20
-                    }
-                    
-                    if self.hiddenMembers.count == 3 {
-                        self.hiddenMembers[0].zPosition = 10
-                        self.hiddenMembers[1].zPosition = 20
-                        self.hiddenMembers[2].zPosition = 30
-                    }
-                    
-                    member.texture = SKTexture(imageNamed: "member\(index)_up")
+                self.player.zPosition = 0
+                
+                if self.hiddenMembers.count == 1 {
+                    self.hiddenMembers[0].zPosition = 10
+                }
+                
+                if self.hiddenMembers.count == 2 {
+                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[1].zPosition = 20
+                }
+                
+                if self.hiddenMembers.count == 3 {
+                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[1].zPosition = 20
+                    self.hiddenMembers[2].zPosition = 30
+                }
+                
+//                member.texture = SKTexture(imageNamed: "member\(index)_up")
 //                    member.texture = SKTexture(imageNamed: "\(memberName)_up")
 //                    moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
-                } else if self.lastDragGesture == "left" {
+            } else if self.lastDragGesture == "left" {
 //                    node.zRotation = CGFloat(Double.pi) / 1.0
-                    self.player.zPosition = 100.0
-                    member.texture = SKTexture(imageNamed: "member\(index)_left")
+                self.player.zPosition = 100.0
+//                member.texture = SKTexture(imageNamed: "member\(index)_left")
 //                    member.texture = SKTexture(imageNamed: "\(memberName)_left")
 //                    moveAction = SKAction.move(to: targetPosition + offset[1], duration: actionDuration)
-                } else if self.lastDragGesture == "down" {
-                    self.player.zPosition = 100.0
+            } else if self.lastDragGesture == "down" {
+                self.player.zPosition = 100.0
 //                    self.hiddenMembers[0].zPosition = 30
 //                    self.hiddenMembers[1].zPosition = 20
 //                    self.hiddenMembers[2].zPosition = 10
-                    
-                    if self.hiddenMembers.count == 1 {
-                        self.hiddenMembers[0].zPosition = 10
-                    }
-                    
-                    if self.hiddenMembers.count == 2 {
-                        self.hiddenMembers[0].zPosition = 10
-                        self.hiddenMembers[1].zPosition = 20
-                    }
-                    
-                    if self.hiddenMembers.count == 3 {
-                        self.hiddenMembers[0].zPosition = 10
-                        self.hiddenMembers[1].zPosition = 20
-                        self.hiddenMembers[2].zPosition = 30
-                    }
-                    
+                
+                if self.hiddenMembers.count == 1 {
+                    self.hiddenMembers[0].zPosition = 10
+                }
+                
+                if self.hiddenMembers.count == 2 {
+                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[1].zPosition = 20
+                }
+                
+                if self.hiddenMembers.count == 3 {
+                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[1].zPosition = 20
+                    self.hiddenMembers[2].zPosition = 30
+                }
+                
 //                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)
 //                    member.texture = SKTexture(imageNamed: "\(memberName)_down")
-                    member.texture = SKTexture(imageNamed: "member\(index)_down")
+//                member.texture = SKTexture(imageNamed: "member\(index)_down")
 //                    moveAction = SKAction.move(to: targetPosition + offset[2], duration: actionDuration)
-                } else if self.lastDragGesture == "right" {
+            } else if self.lastDragGesture == "right" {
 //                    node.zRotation = 0
 //                    member.texture = SKTexture(imageNamed: "\(memberName)_right")
-                    member.texture = SKTexture(imageNamed: "member\(index)_right")
+//                member.texture = SKTexture(imageNamed: "member\(index)_right")
 //                    moveAction = SKAction.move(to: targetPosition + offset[3], duration: actionDuration)
-                }
+            }
 
-                node.run(moveAction)
-                
-                if self.beforeLastDragGesture == self.lastDragGesture {
-                    var textures: [SKTexture] = []
-                    for i in 0..<2 {
-                        textures.append(SKTexture(imageNamed: "member\(index)_\(self.beforeLastDragGesture)_animation\(i)"))
-                    }
-                    self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//                    self.membersAnimation.append(self.memberAnimation)
-                    self.startMemberAnimation(member: member, index: index)
-                } else {
-                    self.stopMemberAnimation(member: member, index: index)
-
-                    var textures: [SKTexture] = []
-                    for i in 0..<2 {
-                        textures.append(SKTexture(imageNamed: "member\(index)_\(self.lastDragGesture)_animation\(i)"))
-                    }
-                    self.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//                    self.membersAnimation.append(self.memberAnimation)
-                    self.startMemberAnimation(member: member, index: index)
-                }
-
+            node.run(moveAction)
+        
             // member selanjutnya berada dibelakang member pertama
             targetPosition = node.position
         }
-        
-        func setupZPosition(choirMember: SKSpriteNode){
-            if choirMember.position.y > self.player.position.y{
-                choirMember.zPosition = 90
-            }else{
-                choirMember.zPosition = 110
-            }
+    }
+    
+    func setupZPosition(choirMember: SKSpriteNode){
+        if choirMember.position.y > self.player.position.y{
+            choirMember.zPosition = 90
+        } else {
+            choirMember.zPosition = 110
         }
     }
     
     func startPlayerAnimation() {
         if player.action(forKey: "playerAnimation") == nil {
             player.run(SKAction.repeatForever(playerAnimation),
-                        withKey: "animation")
+                        withKey: "playerAnimation")
         }
     }
     
     func stopPlayerAnimation() {
         player.removeAction(forKey: "playerAnimation")
+    }
+    
+    func addParticleToPlayer() {
+        particle = SKEmitterNode(fileNamed: "Particle")
+        particle.position = CGPoint(x: 0, y: player.size.height / 2)
+        player.addChild(particle)
     }
     
     func startMemberAnimation(member: SKSpriteNode, index: Int) {
@@ -509,8 +596,36 @@ class GameData {
         member.removeAction(forKey: "member\(index)Animation")
     }
     
+    func initPlayerAndMemberAnimation() {
+        addParticleToPlayer()
+        
+        // animasi player
+        var textures: [SKTexture] = []
+        for i in 0..<2 {
+            textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
+        }
+        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+
+        // animasi member
+        for i in 0..<3 {
+            textures = []
+            for j in 0..<2 {
+                textures.append(SKTexture(imageNamed: "member\(i)_down_animation\(j)"))
+            }
+            memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+        }
+    }
     
-    
+    func addParticleToMember(index: Int) {
+        particle = SKEmitterNode(fileNamed: "Particle")
+        particle.position = CGPoint(x: 0, y: hiddenMembers[index].size.height / 2)
+        hiddenMembers[index].addChild(particle)
+    }
+
+    func scaleJoystickOutput(_ value: Double) -> Double {
+//        return (1 / (0.25 + pow(2, -0.7 * value))) - 2.0
+        return (1 / (0.25 + pow(2, -0.2 * (value + 10)))) - 2.0
+    }
 }
 
 struct PhysicsCategory {

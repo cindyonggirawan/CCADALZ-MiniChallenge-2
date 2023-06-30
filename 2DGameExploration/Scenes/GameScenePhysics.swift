@@ -30,6 +30,8 @@ extension GameScene1_1: SKPhysicsContactDelegate {
                 guard let layer2 = GameScene1_2(fileNamed: "GameScene1_2") else { return }
                 let transition = SKTransition.fade(withDuration: 1)
                 GameData.shared.audioHelper.playTeleportSound()
+                GameData.shared.isPressed = false
+                GameData.shared.isMoved = false
                 view?.presentScene(layer2, transition: transition)
             }
         }
@@ -57,7 +59,8 @@ extension GameScene1_2: SKPhysicsContactDelegate {
                 
                 let transition = SKTransition.fade(withDuration: 1)
                 GameData.shared.audioHelper.playTeleportSound()
-                
+                GameData.shared.isPressed = false
+                GameData.shared.isMoved = false
                 if let portalName = second.name {
                     if portalName == "portal1" {
 //                        GameData.shared.gamefirstStarted = false
@@ -94,7 +97,8 @@ extension GameScene1_3: SKPhysicsContactDelegate {
                 
                 let transition = SKTransition.fade(withDuration: 1)
                 GameData.shared.audioHelper.playTeleportSound()
-                
+                GameData.shared.isPressed = false
+                GameData.shared.isMoved = false
                 if let portalName = second.name {
                     if portalName == "portal2" {
 //                        GameData.shared.gamefirstStarted = false

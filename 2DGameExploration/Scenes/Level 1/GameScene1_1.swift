@@ -3,25 +3,13 @@
 //  2DGameExploration
 //
 //  Created by Daniel Bernard Sahala Simamora on 24/06/23.
-//
+// hello gais
 
 import Foundation
 import SpriteKit
 
 class GameScene1_1: SKScene {
-    var player: SKSpriteNode!
-    var playerAnimation: SKAction!
-    
-    var didContactWall: Bool = false
-    
     var cameraNode = SKCameraNode()
-    var hiddenMembers: [SKSpriteNode] = []
-    var foundMembers: [SKSpriteNode] = []
-    var memberAnimation: SKAction!
-    var membersAnimation: [SKAction] = []
-    
-    var layerTile: SKTileMapNode!
-    var particle: SKEmitterNode!
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
     
@@ -38,25 +26,7 @@ class GameScene1_1: SKScene {
         
         spawnHiddenMembers(self)
         
-        // animasi player
-        var textures: [SKTexture] = []
-        for i in 0..<2 {
-            textures.append(SKTexture(imageNamed: "player_down_animation\(i)"))
-        }
-        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-
-//        spawnHiddenMembers()
-
-        // animasi member
-        for i in 0..<3 {
-            textures = []
-            for j in 0..<2 {
-                textures.append(SKTexture(imageNamed: "member\(i)_down_animation\(j)"))
-            }
-            GameData.shared.memberAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-//            membersAnimation.append(memberAnimation)
-        }
-
+        GameData.shared.initPlayerAndMemberAnimation()
         
         // CAMERA
         camera = cameraNode
@@ -79,13 +49,13 @@ class GameScene1_1: SKScene {
     
     func generatefoundMembersLabel() {
         foundMembersLabel.name = "foundMembersLabel"
-        foundMembersLabel.text = "Members Found: 0"
-        foundMembersLabel.fontColor = SKColor.lightGray
-        foundMembersLabel.fontSize = 20
+        foundMembersLabel.text = "0/3"
+        foundMembersLabel.fontColor = SKColor.white
+        foundMembersLabel.fontSize = 30
         foundMembersLabel.zPosition = 999
-        foundMembersLabel.horizontalAlignmentMode = .left
+        foundMembersLabel.horizontalAlignmentMode = .center
         foundMembersLabel.verticalAlignmentMode = .bottom
-        foundMembersLabel.position = CGPoint.zero
+        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
         
         addChild(foundMembersLabel)
     }
@@ -137,52 +107,25 @@ class GameScene1_1: SKScene {
     override func update(_ currentTime: TimeInterval) {
 //        print("JUMLAH MEMBER:", GameData.shared.foundMembersLabel)
 //        GameData.shared.moveFoundMembers(self, hiddenMembers: hiddenMembers)
-        GameData.shared.moveFoundMembers(self)
+//        GameData.shared.moveFoundMembers(self)
         GameData.shared.updateFoundMembersLabel(camera!)
 
         camera?.position.x = GameData.shared.player.position.x
         camera?.position.y = GameData.shared.player.position.y
+        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
 
-        if GameData.shared.isPressed {
-//            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
-//            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
-
-            GameData.shared.rotatePlayer(
-                self,
-                GameData.shared.location,
-                GameData.shared.diskLocation,
-                GameData.shared.angle
-            )
-            
-            GameData.shared.moveFoundMembers(self)
-            
-//            GameData.shared.disk.position = CGPoint(
-//                x: GameData.shared.location.x,
-//                y: GameData.shared.location.y
-//            )
-            
-//            GameData.shared.location.x
-        }
+        GameData.shared.updateJoystickAndPlayer(self)
         
-        GameData.shared.stopPlayerAnimation()
-
-        enumerateChildNodes(withName: "found member") { node, stop in
-            if node.hasActions() {
-                let member = node as! SKSpriteNode
-                var index = 0
-
-                if self.hiddenMembers.count != 0 {
-                    for i in 0..<3 {
-                        if member == self.hiddenMembers[i] {
-                            index = i
-                            break
-                        }
-                    }                    
-                }
-
-                GameData.shared.stopMemberAnimation(member: member, index: index)
-            }
-        }
+//        if GameData.shared.isPressed {
+////            GameData.shared.disk.position.x = CGFloat(GameData.shared.disk.position.x + GameData.shared.diskLocation.x * (GameData.shared.playerScaler))
+////            GameData.shared.disk.position.y = CGFloat(GameData.shared.disk.position.y + GameData.shared.diskLocation.y * (GameData.shared.playerScaler))
+//
+//            GameData.shared.rotatePlayer(
+//                self,
+//                GameData.shared.location,
+//                GameData.shared.diskLocation,
+//                GameData.shared.angle
+//            )
 
         // AUDIO
 //        if GameData.shared.isEnded == false {
@@ -218,15 +161,4 @@ class GameScene1_1: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         GameData.shared.joystickEnded(self)
     }
-
-    func debugDrawPlayableArea() {
-        let shape = SKShapeNode()
-        shape.strokeColor = SKColor.red
-        shape.lineWidth = 4.0
-        addChild(shape)
-    }
-        
-    
-
 }
-
