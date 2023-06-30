@@ -13,13 +13,13 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController storyboardIdentifier="GameViewController" wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV1-FR-VrT" customClass="GameViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                <viewController storyboardIdentifier="GameViewController" wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV1-FR-VrT" customClass="GameViewController" customModule="Lost_Choir" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFY-fL-pRP">
-                                <rect key="frame" x="297" y="85" width="64" height="64"/>
+                                <rect key="frame" x="297" y="64" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="KTi-Ey-kmf"/>
                                     <constraint firstAttribute="height" constant="64" id="Pxv-o7-U6Z"/>
@@ -33,7 +33,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                         <constraints>
-                            <constraint firstItem="zFY-fL-pRP" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="26" id="Nt1-7V-Uz2"/>
+                            <constraint firstItem="zFY-fL-pRP" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="5" id="Nt1-7V-Uz2"/>
                             <constraint firstItem="zFY-fL-pRP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4qk-I5-YsI" secondAttribute="leading" symbolic="YES" id="Qbf-Jd-eSi"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="zFY-fL-pRP" secondAttribute="trailing" constant="32" id="lao-om-fCT"/>
                         </constraints>
@@ -47,8 +47,8 @@
         <!--Pop Up Menu View Controller-->
         <scene sceneID="2xO-hn-ZaY">
             <objects>
-                <viewController storyboardIdentifier="PopUpMenuViewController" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FvN-ZQ-QRr" customClass="PopUpMenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ygg-Qt-Mee">
+                <viewController storyboardIdentifier="PopUpMenuViewController" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FvN-ZQ-QRr" customClass="PopUpMenuViewController" customModule="Lost_Choir" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="ygg-Qt-Mee">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -108,19 +108,16 @@
         <!--Menu View Controller-->
         <scene sceneID="Eg1-cW-D2q">
             <objects>
-                <viewController storyboardIdentifier="MenuViewController" wantsFullScreenLayout="YES" id="uXZ-fr-k0G" customClass="MenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pBW-5M-Ec5">
+                <viewController storyboardIdentifier="MenuViewController" wantsFullScreenLayout="YES" id="uXZ-fr-k0G" customClass="MenuViewController" customModule="Lost_Choir" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="pBW-5M-Ec5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BGstartMenu" translatesAutoresizingMaskIntoConstraints="NO" id="oph-Z5-FcI">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHq-fb-ztB">
-                                <rect key="frame" x="131.66666666666666" y="628" width="129.99999999999997" height="130"/>
+                                <rect key="frame" x="156.66666666666666" y="718" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="gYi-2s-qVO"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="iUs-JW-cBZ"/>
+                                    <constraint firstAttribute="height" constant="80" id="gYi-2s-qVO"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="iUs-JW-cBZ"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="separatorColor"/>
                                 <state key="normal" title="Button"/>
@@ -129,27 +126,11 @@
                                     <action selector="startMenuBtnClicked:" destination="uXZ-fr-k0G" eventType="touchUpInside" id="SCU-16-DeA"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="sBa-Um-pXN">
-                                <rect key="frame" x="76.666666666666686" y="185" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="IWo-dX-hnI"/>
-                                    <constraint firstAttribute="height" constant="128" id="cBF-Wa-VmH"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Sfq-ER-cyv"/>
-                        <color key="backgroundColor" red="0.85098040100000005" green="0.84705877299999999" blue="0.85098040100000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="oph-Z5-FcI" firstAttribute="centerX" secondItem="pBW-5M-Ec5" secondAttribute="centerX" id="3T4-dd-1EC"/>
-                            <constraint firstItem="oph-Z5-FcI" firstAttribute="centerY" secondItem="pBW-5M-Ec5" secondAttribute="centerY" id="R3a-oi-Bih"/>
-                            <constraint firstItem="sBa-Um-pXN" firstAttribute="centerX" secondItem="pBW-5M-Ec5" secondAttribute="centerX" id="SGH-VU-3qx"/>
-                            <constraint firstItem="oph-Z5-FcI" firstAttribute="trailing" secondItem="Sfq-ER-cyv" secondAttribute="trailing" id="Wpx-cp-HYs"/>
                             <constraint firstItem="nHq-fb-ztB" firstAttribute="centerX" secondItem="pBW-5M-Ec5" secondAttribute="centerX" id="Z2V-lN-DPR"/>
-                            <constraint firstItem="oph-Z5-FcI" firstAttribute="top" secondItem="pBW-5M-Ec5" secondAttribute="top" id="cbW-hm-E7q"/>
-                            <constraint firstItem="Sfq-ER-cyv" firstAttribute="bottom" secondItem="nHq-fb-ztB" secondAttribute="bottom" constant="60" id="pb2-Ah-30J"/>
-                            <constraint firstAttribute="bottom" secondItem="oph-Z5-FcI" secondAttribute="bottom" id="rCk-8p-1Rz"/>
-                            <constraint firstItem="oph-Z5-FcI" firstAttribute="leading" secondItem="Sfq-ER-cyv" secondAttribute="leading" id="xjf-5A-fdW"/>
-                            <constraint firstItem="sBa-Um-pXN" firstAttribute="top" secondItem="Sfq-ER-cyv" secondAttribute="top" constant="126" id="yEl-uI-Tuk"/>
+                            <constraint firstItem="Sfq-ER-cyv" firstAttribute="bottom" secondItem="nHq-fb-ztB" secondAttribute="bottom" constant="20" id="pb2-Ah-30J"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Jx8-tQ-qPj"/>
@@ -164,13 +145,13 @@
         <!--Chapters Menu View Controller-->
         <scene sceneID="iWo-Gg-QYu">
             <objects>
-                <viewController storyboardIdentifier="ChaptersMenuViewController" wantsFullScreenLayout="YES" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XWR-7W-PhY" customClass="ChaptersMenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChaptersMenuViewController" wantsFullScreenLayout="YES" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XWR-7W-PhY" customClass="ChaptersMenuViewController" customModule="Lost_Choir" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleAspectFill" id="65N-Tx-4oa">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVe-h3-oMQ">
-                                <rect key="frame" x="283" y="85" width="78" height="64"/>
+                                <rect key="frame" x="283" y="64" width="78" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="OfT-dQ-BGp"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="vzV-7O-gVd"/>
@@ -185,7 +166,7 @@
                         <viewLayoutGuide key="safeArea" id="Uo8-1e-pQ9"/>
                         <constraints>
                             <constraint firstItem="Uo8-1e-pQ9" firstAttribute="trailing" secondItem="RVe-h3-oMQ" secondAttribute="trailing" constant="32" id="gId-Pj-8K8"/>
-                            <constraint firstItem="RVe-h3-oMQ" firstAttribute="top" secondItem="Uo8-1e-pQ9" secondAttribute="top" constant="26" id="lnf-kO-OgS"/>
+                            <constraint firstItem="RVe-h3-oMQ" firstAttribute="top" secondItem="Uo8-1e-pQ9" secondAttribute="top" constant="5" id="lnf-kO-OgS"/>
                             <constraint firstItem="RVe-h3-oMQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Uo8-1e-pQ9" secondAttribute="leading" symbolic="YES" id="pxM-Xc-mY1"/>
                         </constraints>
                     </view>
@@ -201,15 +182,15 @@
         <!--Pop Up Settings View Controller-->
         <scene sceneID="EkK-nn-0gb">
             <objects>
-                <viewController storyboardIdentifier="PopUpSettingsViewController" wantsFullScreenLayout="YES" id="09c-xI-jSJ" customClass="PopUpSettingsViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="fkR-7e-Exy">
+                <viewController storyboardIdentifier="PopUpSettingsViewController" wantsFullScreenLayout="YES" id="09c-xI-jSJ" customClass="PopUpSettingsViewController" customModule="Lost_Choir" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="fkR-7e-Exy">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laI-IX-rvW">
                                 <rect key="frame" x="32" y="85" width="64" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="0Tl-rU-oRc"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="0Tl-rU-oRc"/>
                                     <constraint firstAttribute="height" constant="64" id="93Y-si-OAf"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
@@ -312,11 +293,12 @@
                             <constraint firstItem="rLu-jJ-hcG" firstAttribute="centerX" secondItem="fkR-7e-Exy" secondAttribute="centerX" id="0Kf-Tx-9jK"/>
                             <constraint firstItem="Qan-OO-grJ" firstAttribute="top" secondItem="laI-IX-rvW" secondAttribute="bottom" constant="100" id="9F9-xK-Ev2"/>
                             <constraint firstItem="Qan-OO-grJ" firstAttribute="centerX" secondItem="fkR-7e-Exy" secondAttribute="centerX" id="Dfy-sl-AXn"/>
-                            <constraint firstItem="laI-IX-rvW" firstAttribute="leading" secondItem="f2y-PS-jy1" secondAttribute="leading" constant="32" id="GfN-1a-5de"/>
+                            <constraint firstItem="laI-IX-rvW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f2y-PS-jy1" secondAttribute="leading" id="GfN-1a-5de"/>
                             <constraint firstItem="rLu-jJ-hcG" firstAttribute="top" secondItem="Qan-OO-grJ" secondAttribute="bottom" constant="80" id="MbQ-yP-jw2"/>
                             <constraint firstItem="f2y-PS-jy1" firstAttribute="trailing" secondItem="rLu-jJ-hcG" secondAttribute="trailing" constant="48" id="TcF-fu-rQ5"/>
                             <constraint firstItem="laI-IX-rvW" firstAttribute="top" secondItem="f2y-PS-jy1" secondAttribute="top" constant="26" id="W4m-fs-WK5"/>
                             <constraint firstItem="rLu-jJ-hcG" firstAttribute="leading" secondItem="f2y-PS-jy1" secondAttribute="leading" constant="48" id="eof-bf-sCp"/>
+                            <constraint firstItem="f2y-PS-jy1" firstAttribute="trailing" secondItem="laI-IX-rvW" secondAttribute="trailing" constant="297" id="xmV-Yy-hpB"/>
                         </constraints>
                     </view>
                     <connections>
@@ -332,8 +314,8 @@
         <!--Winning Screen View Controller-->
         <scene sceneID="Gej-Mp-XAU">
             <objects>
-                <viewController storyboardIdentifier="FinishScreenViewController" title="Winning Screen View Controller" id="7iv-V0-Ypl" customClass="FinishScreenViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="G6P-cM-W7u">
+                <viewController storyboardIdentifier="FinishScreenViewController" title="Winning Screen View Controller" id="7iv-V0-Ypl" customClass="FinishScreenViewController" customModule="Lost_Choir" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="G6P-cM-W7u">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -400,14 +382,12 @@
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="1-GameplayBG" width="390" height="844"/>
-        <image name="BGstartMenu" width="390" height="844"/>
         <image name="iconExit" width="54" height="54"/>
         <image name="iconMenu" width="40" height="40"/>
         <image name="iconPlay" width="54" height="54"/>
         <image name="iconSetting" width="54" height="54"/>
         <image name="iconToggleOff" width="72" height="36"/>
         <image name="iconToggleOn" width="72" height="36"/>
-        <image name="title" width="217" height="124"/>
         <image name="winningScreenChoir" width="326" height="169"/>
         <image name="winningScreenNextButton" width="122" height="122"/>
         <image name="winningScreenSpotlight" width="394" height="844"/>
