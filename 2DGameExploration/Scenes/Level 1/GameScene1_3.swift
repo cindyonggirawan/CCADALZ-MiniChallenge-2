@@ -13,6 +13,7 @@ class GameScene1_3: SKScene {
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
     var backgroundImage: SKSpriteNode!
+    var topiCountMember: SKSpriteNode!
     var playerSpawnPosition: CGPoint = CGPoint(x: -205, y: -20)
     
     override func didMove(to view: SKView) {
@@ -54,13 +55,19 @@ class GameScene1_3: SKScene {
         foundMembersLabel.name = "foundMembersLabel"
         foundMembersLabel.text = "0/3"
         foundMembersLabel.fontColor = SKColor.white
-        foundMembersLabel.fontSize = 30
+        foundMembersLabel.fontName = "HelveticaNeue-Light"
+        foundMembersLabel.fontSize = 22
         foundMembersLabel.zPosition = 999
         foundMembersLabel.horizontalAlignmentMode = .center
         foundMembersLabel.verticalAlignmentMode = .bottom
-        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
+        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x + 20, y: GameData.shared.player.position.y + 300)
+        
+        topiCountMember = SKSpriteNode(imageNamed: "topiCountChoir")
+        topiCountMember.zPosition = 999
+        topiCountMember.position = CGPoint(x: GameData.shared.player.position.x - 20, y: GameData.shared.player.position.y + 310)
         
         addChild(foundMembersLabel)
+        addChild(topiCountMember)
     }
     
     func spawnHiddenMembers(_ scene: SKScene) {
@@ -100,7 +107,8 @@ class GameScene1_3: SKScene {
         camera?.position.y = GameData.shared.player.position.y
         backgroundImage.position.x = GameData.shared.player.position.x
         backgroundImage.position.y = GameData.shared.player.position.y
-        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
+        foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x + 20, y: GameData.shared.player.position.y + 300)
+        topiCountMember.position = CGPoint(x: GameData.shared.player.position.x - 20, y: GameData.shared.player.position.y + 310)
         
         GameData.shared.updateJoystickAndPlayer(self)
     }
