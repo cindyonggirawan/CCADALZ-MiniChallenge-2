@@ -601,7 +601,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q7JL2KYFKQ;
+				DEVELOPMENT_TEAM = NQ6K7G8J8Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lost Choir";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
@@ -616,7 +616,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CCADALZ.lostchoir;
+				PRODUCT_BUNDLE_IDENTIFIER = CCADALZ.lostchoir.try;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -634,7 +634,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8NCUCPRPQ;
+				DEVELOPMENT_TEAM = NQ6K7G8J8Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lost Choir";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
