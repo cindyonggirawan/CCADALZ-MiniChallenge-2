@@ -5,9 +5,7 @@
 //  Created by Celine Margaretha on 28/06/23.
 //
 
-import UIKit
 import SpriteKit
-import AVFoundation
 
 class ChapterScene1: SKScene {
  
@@ -46,7 +44,6 @@ class ChapterScene1: SKScene {
             
             
             blinkingStarsAnimationSeq.append(SKAction.sequence([fadeOutAction, setTextureAction, fadeInAction]))
-            print("blinkingStars\(idx)")
         }
         blinkingStarsTexture.append(blinkingStarsTexture[1])
         blinkingStarsAnimation = SKAction.repeatForever(SKAction.sequence(blinkingStarsAnimationSeq))
@@ -92,9 +89,9 @@ class ChapterScene1: SKScene {
         
         idx = 0
         for tile in chapterLevelTiles {
-            print(tile.name!)
-            print(GameData.shared.chapterHelper.currLevels[idx].tileName)
-            print(GameData.shared.chapterHelper.currLevels[idx].isUnlocked)
+//            print(tile.name!)
+//            print(GameData.shared.chapterHelper.currLevels[idx].tileName)
+//            print(GameData.shared.chapterHelper.currLevels[idx].isUnlocked)
 
             if tile.contains(location) && GameData.shared.chapterHelper.currLevels[idx].isUnlocked {
                 levelName.text = GameData.shared.chapterHelper.currLevels[idx].titleName
