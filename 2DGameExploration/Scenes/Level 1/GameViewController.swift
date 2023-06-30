@@ -7,7 +7,7 @@
 
 import UIKit
 import SpriteKit
-import GameplayKit
+//import GameplayKit
 
 class GameViewController: UIViewController {
 
@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "GameScene1_1") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 scene.backgroundColor = .darkGray

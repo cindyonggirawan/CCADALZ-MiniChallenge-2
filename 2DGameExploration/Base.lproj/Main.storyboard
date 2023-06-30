@@ -13,7 +13,7 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController storyboardIdentifier="GameViewController" wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BV1-FR-VrT" customClass="GameViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" wantsFullScreenLayout="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV1-FR-VrT" customClass="GameViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,7 +47,7 @@
         <!--Pop Up Menu View Controller-->
         <scene sceneID="2xO-hn-ZaY">
             <objects>
-                <viewController storyboardIdentifier="PopUpMenuViewController" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="FvN-ZQ-QRr" customClass="PopUpMenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PopUpMenuViewController" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FvN-ZQ-QRr" customClass="PopUpMenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="ygg-Qt-Mee">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -120,7 +120,7 @@
                                 <rect key="frame" x="131.66666666666666" y="628" width="129.99999999999997" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="gYi-2s-qVO"/>
-                                    <constraint firstAttribute="width" constant="130" id="iUs-JW-cBZ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="iUs-JW-cBZ"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="separatorColor"/>
                                 <state key="normal" title="Button"/>
@@ -164,8 +164,8 @@
         <!--Chapters Menu View Controller-->
         <scene sceneID="iWo-Gg-QYu">
             <objects>
-                <viewController storyboardIdentifier="ChaptersMenuViewController" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="XWR-7W-PhY" customClass="ChaptersMenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="65N-Tx-4oa">
+                <viewController storyboardIdentifier="ChaptersMenuViewController" wantsFullScreenLayout="YES" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XWR-7W-PhY" customClass="ChaptersMenuViewController" customModule="_DGameExploration" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleAspectFill" id="65N-Tx-4oa">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -178,7 +178,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="iconSetting"/>
                                 <connections>
-                                    <action selector="settingsBtnClicked:" destination="XWR-7W-PhY" eventType="touchUpInside" id="HhU-zp-54o"/>
+                                    <action selector="settingsBtnClicked:" destination="XWR-7W-PhY" eventType="touchUpInside" id="HEr-zY-qd6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -190,10 +190,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mR9-mz-j5N"/>
+                    <connections>
+                        <outlet property="settingsBtn" destination="RVe-h3-oMQ" id="VOe-tM-8eC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lvm-fa-jnk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="105" y="-2"/>
+            <point key="canvasLocation" x="104.58015267175573" y="-2.1126760563380285"/>
         </scene>
         <!--Pop Up Settings View Controller-->
         <scene sceneID="EkK-nn-0gb">

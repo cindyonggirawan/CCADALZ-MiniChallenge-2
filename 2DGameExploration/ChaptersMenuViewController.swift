@@ -10,21 +10,42 @@ import SpriteKit
 
 class ChaptersMenuViewController: UIViewController {
     
+    @IBOutlet weak var settingsBtn: UIButton!
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
-    var currChapter = GameData.shared.chapterHelper.activeChapter
+//    var currChapter = ChapterHelper.shared.getActiveChapter()
     
     override func loadView() {
         self.view = SKView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
         self.view.backgroundColor = .clear
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         loadScene()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(startGameplay), name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
+    }
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        // Do any additional setup after loading the view.
+//
+//        loadScene()
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(startGameplay), name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
+//    }
+    
+    @objc
+    func startGameplay(){
+        if let gameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
+            
+            //Edit transition +  presentation style (spy full screen)
+            gameViewController.modalTransitionStyle = .crossDissolve
+            gameViewController.modalPresentationStyle = .fullScreen
+            
+            //Pindah/panggil gameViewController
+            self.present(gameViewController, animated: true, completion: nil)
+        }
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,46 +63,22 @@ class ChaptersMenuViewController: UIViewController {
     func loadScene() {
         if let view = self.view as! SKView? {
             // Load the SKScene from '.sks' file
-            if let scene = SKScene(fileNamed: "\(currChapter!.sceneName)") {
+            if let scene = SKScene(fileNamed: "ChapterScene1") {
                 // Set the scale mode to scale to fit the window
-//                scene.scaleMode = .aspectFill
+                scene.scaleMode = .aspectFill
                 scene.backgroundColor = .clear
                 
                 // Present the scene
                 view.presentScene(scene)
             }
             
-//            view.ignoresSiblingOrder = true
-            
-//            view.showsFPS = true
-//            view.showsNodeCount = true
-//            view.addSubview(menuBtn)
-//            view.showsPhysics = true
-//            moveToNextChapter()
         }
+        
     }
     
-   
-//    func moveToNextChapter() {
-//        var targetPosition = CGPoint(x: 85.391, y: 209)
-//        var actionDuration = 0.3
-//        var moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
-////        moveAction = SKAction.move(to: targetPosition + offset[0], duration: actionDuration)
-//    }
-//
-    func playBtnClicked() {
-        if let gameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
-            
-            //Edit transition +  presentation style (spy full screen)
-            gameViewController.modalTransitionStyle = .crossDissolve
-            gameViewController.modalPresentationStyle = .fullScreen
-            
-            //Pindah/panggil gameViewController
-            self.present(gameViewController, animated: true, completion: nil)
-        }
-    }
     
-    @IBAction func settingsBtnClicked(_ sender: UIButton) {
+    @IBAction func settingsBtnClicked(_ sender: Any) {
+        
         if let popUpSettingsViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpSettingsViewController") as? PopUpSettingsViewController {
 
             //Edit transition +  presentation style (spy full screen)
