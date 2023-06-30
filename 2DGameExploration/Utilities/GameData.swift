@@ -72,11 +72,8 @@ class GameData {
     var portal1: SKSpriteNode?
     var portal2: SKSpriteNode?
     var portal3: SKSpriteNode?
+    var finishGate: SKSpriteNode?
     var currentPortal: String
-    
-    // PORTAL LEVEL 2 DISINI            -daniel
-    // ada 9 portal kayaknya ya? -daniel
-    // var portal....
     
     // TILEMAP
     var layerTile: SKTileMapNode
@@ -140,6 +137,7 @@ class GameData {
         portal1 = scene.childNode(withName: "portal1") as? SKSpriteNode
         portal2 = scene.childNode(withName: "portal2") as? SKSpriteNode
         portal3 = scene.childNode(withName: "portal3") as? SKSpriteNode
+        finishGate = scene.childNode(withName: "finishGate") as? SKSpriteNode
         
         if let portal1 {
             portal1.physicsBody = SKPhysicsBody(rectangleOf: portal1.size)
@@ -163,6 +161,14 @@ class GameData {
             portal3.physicsBody?.categoryBitMask = PhysicsCategory.portal
             portal3.physicsBody?.contactTestBitMask = PhysicsCategory.player
             portal3.physicsBody?.collisionBitMask = PhysicsCategory.none
+        }
+        
+        if let finishGate {
+            finishGate.physicsBody = SKPhysicsBody(rectangleOf: finishGate.size)
+            finishGate.physicsBody?.isDynamic = false
+            finishGate.physicsBody?.categoryBitMask = PhysicsCategory.finishGate
+            finishGate.physicsBody?.contactTestBitMask = PhysicsCategory.player
+            finishGate.physicsBody?.collisionBitMask = PhysicsCategory.none
         }
     }
     
@@ -259,7 +265,7 @@ class GameData {
             lastDragGesture = ""
         }
         
-        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
+//        print("b: \(beforeLastDragGesture) | l: \(lastDragGesture)")
         
         if beforeLastDragGesture == lastDragGesture {
             var textures: [SKTexture] = []

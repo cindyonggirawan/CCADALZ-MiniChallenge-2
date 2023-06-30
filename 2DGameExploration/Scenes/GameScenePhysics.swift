@@ -50,6 +50,7 @@ extension GameScene1_1: SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.finishGate != 0)) {
             if let _ = firstBody.node as? SKSpriteNode,
                let _ = secondBody.node as? SKSpriteNode {
+                print("afdsfawfe")
                 NotificationCenter.default.post(name: NSNotification.Name("onGameFinish"), object: nil)
             }
         }
