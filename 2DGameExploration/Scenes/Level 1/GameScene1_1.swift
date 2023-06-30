@@ -47,6 +47,7 @@ class GameScene1_1: SKScene {
         foundMembersLabel.name = "foundMembersLabel"
         foundMembersLabel.text = "0/3"
         foundMembersLabel.fontColor = SKColor.white
+        foundMembersLabel.fontName = "HelveticaNeue-Light"
         foundMembersLabel.fontSize = 22
         foundMembersLabel.zPosition = 999
         foundMembersLabel.horizontalAlignmentMode = .center

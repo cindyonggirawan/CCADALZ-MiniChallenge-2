@@ -428,6 +428,8 @@ class GameData {
         
         scene.enumerateChildNodes(withName: "found member") { node, stop in
             let member = node as! SKSpriteNode
+            
+            //TODO: INDEX INI BIKIN CHARACTER YANG NGIKUT SELALU CHARACTER KE 0 (ASSETNYA)
             var index = 0
             
             for i in 0..<3 {
