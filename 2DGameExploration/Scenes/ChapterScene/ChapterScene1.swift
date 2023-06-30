@@ -55,7 +55,7 @@ class ChapterScene1: SKScene {
         
         //set up level title
         levelName = childNode(withName: "levelName") as? SKLabelNode
-        levelName.text = "\"\(GameData.shared.chapterHelper.currLevel.titleName)\""
+        levelName.text = "\" \(GameData.shared.chapterHelper.currLevel.titleName) \""
         
         //set up player
         player = childNode(withName: "player") as? SKSpriteNode
@@ -94,7 +94,7 @@ class ChapterScene1: SKScene {
 //            print(GameData.shared.chapterHelper.currLevels[idx].isUnlocked)
 
             if tile.contains(location) && GameData.shared.chapterHelper.currLevels[idx].isUnlocked {
-                levelName.text = GameData.shared.chapterHelper.currLevels[idx].titleName
+                levelName.text = "\" \(GameData.shared.chapterHelper.currLevels[idx].titleName) \""
                 
                 moveToNextChapterByDisapearing(player: player, location: tile.position)
                 break
@@ -150,9 +150,20 @@ class ChapterScene1: SKScene {
 
         let sequence = SKAction.sequence([fadeDisappearAction, moveAction,fadeShowAction])
         player.run(sequence, completion: { [self] in
+            moveToGamePlayByTeleport(player: player)
+        })
+        
+    }
+    
+    // move to another unlocked level
+    func moveToGamePlayByTeleport(player: SKSpriteNode) {
+        let fadeDuration = 0.3
+        let fadeDisappearAction = SKAction.fadeAlpha(to: 0, duration: fadeDuration)
+        
+        GameData.shared.audioHelper.playTeleportSound()
+        player.run(fadeDisappearAction, completion: { [self] in
             startGame()
         })
-
     }
     
     func startGame() {
@@ -160,7 +171,6 @@ class ChapterScene1: SKScene {
 //        let transition = SKTransition.fade(withDuration: 0.5)
 //
 //        view?.presentScene(layer1, transition: transition)
-        
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
 
