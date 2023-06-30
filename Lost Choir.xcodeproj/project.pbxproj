@@ -48,10 +48,10 @@
 		8F82E7CD2A4CA18900CDEBE5 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7CC2A4CA18900CDEBE5 /* Chapter.swift */; };
 		8F82E7CF2A4CA74800CDEBE5 /* ChapterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7CE2A4CA74800CDEBE5 /* ChapterHelper.swift */; };
 		8F82E7D72A4D865700CDEBE5 /* LevelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E7D62A4D865700CDEBE5 /* LevelHelper.swift */; };
-		8F82E7DC2A4E563C00CDEBE5 /* GameScene2_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7D82A4E563C00CDEBE5 /* GameScene2_1.sks */; };
-		8F82E7DD2A4E563C00CDEBE5 /* GameScene2_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7D92A4E563C00CDEBE5 /* GameScene2_2.sks */; };
-		8F82E7DE2A4E563C00CDEBE5 /* GameScene2_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7DA2A4E563C00CDEBE5 /* GameScene2_3.sks */; };
-		8F82E7DF2A4E563C00CDEBE5 /* GameScene2_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7DB2A4E563C00CDEBE5 /* GameScene2_4.sks */; };
+		8F82E7E42A4E582800CDEBE5 /* GameScene2_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7E02A4E582800CDEBE5 /* GameScene2_1.sks */; };
+		8F82E7E52A4E582800CDEBE5 /* GameScene2_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7E12A4E582800CDEBE5 /* GameScene2_2.sks */; };
+		8F82E7E62A4E582800CDEBE5 /* GameScene2_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7E22A4E582800CDEBE5 /* GameScene2_3.sks */; };
+		8F82E7E72A4E582800CDEBE5 /* GameScene2_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F82E7E32A4E582800CDEBE5 /* GameScene2_4.sks */; };
 		8F93FC0A2A489DE4008E0FA8 /* ChaptersMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */; };
 		A561EE982A443596000A2042 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561EE972A443596000A2042 /* GameData.swift */; };
 		A5C2FDBE2A45069700237D71 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C2FDBD2A45069700237D71 /* MenuViewController.swift */; };
@@ -101,10 +101,10 @@
 		8F82E7CC2A4CA18900CDEBE5 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		8F82E7CE2A4CA74800CDEBE5 /* ChapterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterHelper.swift; sourceTree = "<group>"; };
 		8F82E7D62A4D865700CDEBE5 /* LevelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelHelper.swift; sourceTree = "<group>"; };
-		8F82E7D82A4E563C00CDEBE5 /* GameScene2_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_1.sks; sourceTree = "<group>"; };
-		8F82E7D92A4E563C00CDEBE5 /* GameScene2_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_2.sks; sourceTree = "<group>"; };
-		8F82E7DA2A4E563C00CDEBE5 /* GameScene2_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_3.sks; sourceTree = "<group>"; };
-		8F82E7DB2A4E563C00CDEBE5 /* GameScene2_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_4.sks; sourceTree = "<group>"; };
+		8F82E7E02A4E582800CDEBE5 /* GameScene2_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_1.sks; sourceTree = "<group>"; };
+		8F82E7E12A4E582800CDEBE5 /* GameScene2_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_2.sks; sourceTree = "<group>"; };
+		8F82E7E22A4E582800CDEBE5 /* GameScene2_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_3.sks; sourceTree = "<group>"; };
+		8F82E7E32A4E582800CDEBE5 /* GameScene2_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene2_4.sks; sourceTree = "<group>"; };
 		8F93FC092A489DE4008E0FA8 /* ChaptersMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersMenuViewController.swift; sourceTree = "<group>"; };
 		A561EE972A443596000A2042 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		A5C2FDBD2A45069700237D71 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -248,10 +248,10 @@
 		37078E6C2A406F1B00292BE8 /* Level 2 */ = {
 			isa = PBXGroup;
 			children = (
-				8F82E7D82A4E563C00CDEBE5 /* GameScene2_1.sks */,
-				8F82E7D92A4E563C00CDEBE5 /* GameScene2_2.sks */,
-				8F82E7DA2A4E563C00CDEBE5 /* GameScene2_3.sks */,
-				8F82E7DB2A4E563C00CDEBE5 /* GameScene2_4.sks */,
+				8F82E7E02A4E582800CDEBE5 /* GameScene2_1.sks */,
+				8F82E7E12A4E582800CDEBE5 /* GameScene2_2.sks */,
+				8F82E7E22A4E582800CDEBE5 /* GameScene2_3.sks */,
+				8F82E7E32A4E582800CDEBE5 /* GameScene2_4.sks */,
 			);
 			path = "Level 2";
 			sourceTree = "<group>";
@@ -385,9 +385,9 @@
 				8F82E7A32A4C22D200CDEBE5 /* ChapterScene1.sks in Resources */,
 				8F1B557B2A454124007C2BC6 /* TilesSet.sks in Resources */,
 				37C29BA42A400F0E001C2335 /* Main.storyboard in Resources */,
-				8F82E7DF2A4E563C00CDEBE5 /* GameScene2_4.sks in Resources */,
-				8F82E7DC2A4E563C00CDEBE5 /* GameScene2_1.sks in Resources */,
-				8F82E7DE2A4E563C00CDEBE5 /* GameScene2_3.sks in Resources */,
+				8F82E7E72A4E582800CDEBE5 /* GameScene2_4.sks in Resources */,
+				8F82E7E42A4E582800CDEBE5 /* GameScene2_1.sks in Resources */,
+				8F82E7E62A4E582800CDEBE5 /* GameScene2_3.sks in Resources */,
 				37D9EF7F2A4ACB2E00AB73BA /* level1_voice4.mp3 in Resources */,
 				37D9EF662A4A9B8800AB73BA /* found.mp3 in Resources */,
 				37C29B9B2A400F0E001C2335 /* GameScene.sks in Resources */,
@@ -403,7 +403,7 @@
 				37D9EF952A4C21F700AB73BA /* MyTileSet.sks in Resources */,
 				37D9EF772A4ACB2200AB73BA /* level1_bgm.mp3 in Resources */,
 				37D9EF962A4C21F700AB73BA /* Assets.xcassets in Resources */,
-				8F82E7DD2A4E563C00CDEBE5 /* GameScene2_2.sks in Resources */,
+				8F82E7E52A4E582800CDEBE5 /* GameScene2_2.sks in Resources */,
 				37D9EF7C2A4ACB2E00AB73BA /* level1_voice2.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
