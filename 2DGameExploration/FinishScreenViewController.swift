@@ -21,6 +21,7 @@ class FinishScreenViewController: UIViewController {
 
             chaptersMenuViewController.modalTransitionStyle = .crossDissolve
             chaptersMenuViewController.modalPresentationStyle = .fullScreen
+            GameData.shared.chapterHelper.unlockNewLevelStatus = true
             self.present(chaptersMenuViewController, animated: true, completion: nil)
         }
     }

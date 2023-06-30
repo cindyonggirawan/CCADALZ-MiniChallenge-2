@@ -71,21 +71,18 @@ class ChapterScene1: SKScene {
                 }
             }
         }
-        
     }
 
-   
+    override func update(_ currentTime: TimeInterval) {
+        //unlock new level animation after winning the game
+        if GameData.shared.chapterHelper.unlockNewLevelStatus {
+            unlockNewLevel()
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
-        
-//        for tile in chapterLevelTiles {
-//            if tile.contains(location) {
-//                unlockNewLevel()
-//                break
-//            }
-//        }
         
         idx = 0
         for tile in chapterLevelTiles {
@@ -113,6 +110,7 @@ class ChapterScene1: SKScene {
     }
     
     func unlockNewLevel() {
+
         GameData.shared.chapterHelper.unlockNewLevel()
         
         let lastUnlockedLevel = GameData.shared.chapterHelper.currlastUnlockedLevel
