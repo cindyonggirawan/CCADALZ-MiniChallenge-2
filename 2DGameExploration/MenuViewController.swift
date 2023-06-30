@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class MenuViewController: UIViewController {
 
@@ -13,30 +14,31 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let skView = SKView()
+        skView.frame = view.bounds
+        skView.backgroundColor = .white
+        skView.showsFPS = true
+        view.addSubview(skView)
 
-        // Do any additional setup after loading the view.
+        let scene = SKScene(fileNamed: "OnboardingScene")!
+        scene.scaleMode = .resizeFill
+        skView.presentScene(scene)
+        
+        view.addSubview(startMenuBtn)
+
         GameData.shared.audioHelper.playBgMusic()
     }
-    
-    let mainMenuAssets = ["iconMenu1.svg", "iconMenu2.svg", "iconMenu3.svg"]
-    
+        
     @IBAction func startMenuBtnClicked (_ sender: UIButton) {
         
-//        let newButtonWidth: CGFloat = 60
-        UIView.animate(withDuration: 0.4, //1
-            delay: 0.0, //2
-            usingSpringWithDamping: 0, //3
-            initialSpringVelocity: 0, //4
-            options: UIView.AnimationOptions.curveEaseInOut, //5
-            animations: ({ //6
+        UIView.animate(withDuration: 0.4,
+            delay: 0.0,
+            usingSpringWithDamping: 0,
+            initialSpringVelocity: 0,
+            options: UIView.AnimationOptions.curveEaseInOut,
+            animations: ({
             sender.layer.opacity = 0.1
-//            sender.setImage(UIImage(named: self.mainMenuAssets[2]), for: .normal)
-//
-//            sender.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth) //2
-                
-//                sender.frame = CGRect(x: 0, y: 0, width: newButtonWidth, height: newButtonWidth)
-//            sender.center = self.view.center
-            
             
             //Play sound
             GameData.shared.audioHelper.playActiveButton()

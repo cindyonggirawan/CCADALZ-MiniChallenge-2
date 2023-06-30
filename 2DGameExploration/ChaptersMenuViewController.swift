@@ -16,23 +16,30 @@ class ChaptersMenuViewController: UIViewController {
     
 //    var currChapter = ChapterHelper.shared.getActiveChapter()
     
-    override func loadView() {
-        self.view = SKView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-        self.view.backgroundColor = .clear
-        
-        loadScene()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(startGameplay), name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
-    }
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view.
-//
+//    override func loadView() {
+//        self.view = SKView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+//        self.view.backgroundColor = .clear
+//        
 //        loadScene()
-//
+//        
 //        NotificationCenter.default.addObserver(self, selector: #selector(startGameplay), name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
 //    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let skView = SKView()
+        skView.frame = view.bounds
+        skView.backgroundColor = .white
+        skView.showsFPS = true
+        view.addSubview(skView)
+
+        let scene = SKScene(fileNamed: "ChapterScene1")!
+        scene.scaleMode = .resizeFill
+        skView.presentScene(scene)
+        view.addSubview(settingsBtn)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(startGameplay), name: NSNotification.Name(rawValue: "startTheGame"), object: nil)
+    }
     
     @objc
     func startGameplay(){
@@ -60,21 +67,20 @@ class ChaptersMenuViewController: UIViewController {
         GameData.shared.audioHelper.stopBgMusic()
     }
     
-    func loadScene() {
-        if let view = self.view as! SKView? {
-            // Load the SKScene from '.sks' file
-            if let scene = SKScene(fileNamed: "ChapterScene1") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                scene.backgroundColor = .clear
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-        }
-        
-    }
+//    func loadScene() {
+//        if let view = self.view as! SKView? {
+//            // Load the SKScene from '.sks' file
+//            if let scene = SKScene(fileNamed: "ChapterScene1") {
+//                // Set the scale mode to scale to fit the window
+//                scene.scaleMode = .aspectFill
+//                scene.backgroundColor = .clear
+//
+//                // Present the scene
+//                view.presentScene(scene)
+//            }
+//
+//        }
+//    }
     
     
     @IBAction func settingsBtnClicked(_ sender: Any) {

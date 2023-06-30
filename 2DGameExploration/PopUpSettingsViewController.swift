@@ -23,7 +23,17 @@ class PopUpSettingsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = .black.withAlphaComponent(0.7)
+
+        //blur effect
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        view.addSubview(blurEffectView)
+        view.sendSubviewToBack(blurEffectView)
+
         setToggleIcon(button: musicToggleBtn, currState: GameData.shared.audioHelper.isMusicOn)
         setToggleIcon(button: soundToggleBtn, currState: GameData.shared.audioHelper.isSoundOn)
         setToggleIcon(button: colorBlindeModeBtn, currState: isOnColorBlindMode)
@@ -39,7 +49,6 @@ class PopUpSettingsViewController: UIViewController {
         GameData.shared.audioHelper.changeMusicState()
     }
     
-
     @IBAction func soundToggleBtnClicked(_ sender: UIButton) {
         changeSettingState(button: sender, currState: GameData.shared.audioHelper.isSoundOn)
         GameData.shared.audioHelper.changeSoundState()

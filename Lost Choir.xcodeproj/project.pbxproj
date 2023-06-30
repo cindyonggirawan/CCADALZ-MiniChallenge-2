@@ -38,6 +38,8 @@
 		65C75BDD2A4CF3CD004375D6 /* GameScene1_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 65C75BDB2A4CF3CD004375D6 /* GameScene1_3.sks */; };
 		65C75BDF2A4CF3DD004375D6 /* GameScene1_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C75BDE2A4CF3DD004375D6 /* GameScene1_3.swift */; };
 		8F1B557B2A454124007C2BC6 /* TilesSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F1B557A2A454124007C2BC6 /* TilesSet.sks */; };
+		8F2DF8E02A4E7DB3000C5450 /* OnboardingScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8F2DF8DF2A4E7DB3000C5450 /* OnboardingScene.sks */; };
+		8F2DF8E42A4E8526000C5450 /* OnboardingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2DF8E32A4E8526000C5450 /* OnboardingScene.swift */; };
 		8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */; };
 		8F48B8822A4929FE00D3FD13 /* PopUpMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */; };
 		8F82E7A02A4AF26500CDEBE5 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */; };
@@ -90,6 +92,8 @@
 		65C75BDB2A4CF3CD004375D6 /* GameScene1_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene1_3.sks; sourceTree = "<group>"; };
 		65C75BDE2A4CF3DD004375D6 /* GameScene1_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene1_3.swift; sourceTree = "<group>"; };
 		8F1B557A2A454124007C2BC6 /* TilesSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TilesSet.sks; sourceTree = "<group>"; };
+		8F2DF8DF2A4E7DB3000C5450 /* OnboardingScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OnboardingScene.sks; sourceTree = "<group>"; };
+		8F2DF8E32A4E8526000C5450 /* OnboardingScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScene.swift; sourceTree = "<group>"; };
 		8F36DAD62A496E4B006D6D13 /* PopUpSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpSettingsViewController.swift; sourceTree = "<group>"; };
 		8F48B8812A4929FE00D3FD13 /* PopUpMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpMenuViewController.swift; sourceTree = "<group>"; };
 		8F82E79F2A4AF26500CDEBE5 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				37D9EF942A4C21F700AB73BA /* Assets.xcassets */,
 				8F1B557A2A454124007C2BC6 /* TilesSet.sks */,
 				37D9EF892A4BDE7900AB73BA /* Particle.sks */,
+				8F82E7E82A4E594100CDEBE5 /* OnboardingScene */,
 				8F82E7A12A4C228300CDEBE5 /* ChapterScene */,
 				37C29BA02A400F0E001C2335 /* GameViewController.swift */,
 				652ADE5C2A45B15C00ADD08A /* GameScenePhysics.swift */,
@@ -319,6 +324,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8F82E7E82A4E594100CDEBE5 /* OnboardingScene */ = {
+			isa = PBXGroup;
+			children = (
+				8F2DF8DF2A4E7DB3000C5450 /* OnboardingScene.sks */,
+				8F2DF8E32A4E8526000C5450 /* OnboardingScene.swift */,
+			);
+			path = OnboardingScene;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -392,6 +406,7 @@
 				37C29B9B2A400F0E001C2335 /* GameScene.sks in Resources */,
 				65C75BDD2A4CF3CD004375D6 /* GameScene1_3.sks in Resources */,
 				65C75BD92A4CF346004375D6 /* GameScene1_1.sks in Resources */,
+				8F2DF8E02A4E7DB3000C5450 /* OnboardingScene.sks in Resources */,
 				37C29BA62A400F0F001C2335 /* Assets.xcassets in Resources */,
 				37D9EF672A4A9B8800AB73BA /* bgm.mp3 in Resources */,
 				37C29BA92A400F0F001C2335 /* LaunchScreen.storyboard in Resources */,
@@ -415,6 +430,7 @@
 				37078E762A4072C900292BE8 /* temp4.swift in Sources */,
 				8F82E7CF2A4CA74800CDEBE5 /* ChapterHelper.swift in Sources */,
 				37693AAC2A44561400317BAF /* Helper.swift in Sources */,
+				8F2DF8E42A4E8526000C5450 /* OnboardingScene.swift in Sources */,
 				8F82E7A02A4AF26500CDEBE5 /* AudioHelper.swift in Sources */,
 				A9C848DF2A4ADC45008FDE7C /* FinishScreenViewController.swift in Sources */,
 				8F36DAD72A496E4B006D6D13 /* PopUpSettingsViewController.swift in Sources */,
