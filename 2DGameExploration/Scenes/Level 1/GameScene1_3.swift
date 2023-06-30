@@ -12,9 +12,15 @@ class GameScene1_3: SKScene {
     var cameraNode = SKCameraNode()
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
+    var backgroundImage: SKSpriteNode!
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
+        
+        backgroundImage = scene?.childNode(withName: "bg") as? SKSpriteNode
+        backgroundImage.size = self.frame.size
+        backgroundImage.zPosition = -100
+        backgroundImage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         GameData.shared.setupJoystick(self)
         GameData.shared.setupPlayer(self, playerSpawnPosition: CGPoint(x: -205, y: -20))
@@ -84,6 +90,8 @@ class GameScene1_3: SKScene {
 
         camera?.position.x = GameData.shared.player.position.x
         camera?.position.y = GameData.shared.player.position.y
+        backgroundImage.position.x = GameData.shared.player.position.x
+        backgroundImage.position.y = GameData.shared.player.position.y
         foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x, y: GameData.shared.player.position.y + 300)
         
         GameData.shared.updateJoystickAndPlayer(self)
