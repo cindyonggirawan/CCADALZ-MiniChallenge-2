@@ -15,9 +15,11 @@ class ChapterScene1: SKScene {
     var chapterLevelTiles:[SKSpriteNode] = []
     var chapterName: SKLabelNode!
     var levelName: SKLabelNode!
+    
     var blinkingStars: SKSpriteNode!
     var blinkingStarsTexture: [SKTexture] = []
     var blinkingStarsAnimation: SKAction!
+    var blinkingStarsAnimationSeq: [SKAction] = []
     
     //Temporary var
     var chapterTile = SKSpriteNode()
@@ -29,16 +31,25 @@ class ChapterScene1: SKScene {
         //set up blinking stars animation
         blinkingStars = childNode(withName: "blinkingStars") as? SKSpriteNode
         
-        for idx in 1...3 {
+        let fadeDuration = 2.0
+
+        for idx in 1...4 {
             blinkingStarsTexture.append(SKTexture(imageNamed: "blinkingStars\(idx)"))
+            let fadeOutAction = SKAction.fadeOut(withDuration: fadeDuration)
+            var setTextureAction: SKAction!
+            if idx != 4 {
+                setTextureAction = SKAction.setTexture(blinkingStarsTexture[idx-1])
+            } else {
+                setTextureAction = SKAction.setTexture(blinkingStarsTexture[1])
+            }
+            let fadeInAction = SKAction.fadeIn(withDuration: fadeDuration)
+            
+            
+            blinkingStarsAnimationSeq.append(SKAction.sequence([fadeOutAction, setTextureAction, fadeInAction]))
             print("blinkingStars\(idx)")
         }
-        blinkingStarsTexture.append(blinkingStarsTexture[2])
         blinkingStarsTexture.append(blinkingStarsTexture[1])
-        
-        
-        blinkingStarsAnimation = SKAction.animate(withNormalTextures: blinkingStarsTexture, timePerFrame: 0.3)
-        
+        blinkingStarsAnimation = SKAction.repeatForever(SKAction.sequence(blinkingStarsAnimationSeq))
         blinkingStars.run(SKAction.repeatForever(blinkingStarsAnimation))
 
         //set up chapter title
