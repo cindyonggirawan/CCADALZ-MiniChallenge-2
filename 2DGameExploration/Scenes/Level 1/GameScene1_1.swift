@@ -12,6 +12,8 @@ class GameScene1_1: SKScene {
     var cameraNode = SKCameraNode()
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
+    var tutorLabel: SKLabelNode = SKLabelNode()
+    var tutorCount = 0
     var backgroundImage: SKSpriteNode!
     var topiCountMember: SKSpriteNode!
     
@@ -30,9 +32,12 @@ class GameScene1_1: SKScene {
         GameData.shared.setupTile(self)
         GameData.shared.playerPosition = []
         generatefoundMembersLabel()
-        
         spawnHiddenMembers(self)
-        
+        if tutorCount == 0 {
+            
+            generateTutorialLabel(text: "DRAG ANYWHERE \n        TO MOVE", x: 0, y: 200)
+            
+        }
         GameData.shared.initPlayerAndMemberAnimation()
         
         // CAMERA
@@ -119,6 +124,21 @@ class GameScene1_1: SKScene {
         foundMembersLabel.position = CGPoint(x: GameData.shared.player.position.x + 20, y: GameData.shared.player.position.y + 300)
         topiCountMember.position = CGPoint(x: GameData.shared.player.position.x - 20, y: GameData.shared.player.position.y + 310)
 
+        // TUTORIAL
+        updateTutorialLabel(x: 0, y: 200)
+        if GameData.shared.player.position.x >= -350.0 && tutorCount == 0 {
+            tutorCount = 1
+            deleteTutorialLabel()
+            generateTutorialLabel(text: "TAKE YOUR FRIEND \n           WITH YOU", x: 0, y: 200)
+            updateTutorialLabel(x: 0, y: 300)
+            
+        }
+        if GameData.shared.numberOfFoundMembers >= 0 && tutorCount > 0 {
+            tutorCount = 2
+            deleteTutorialLabel()
+            generateTutorialLabel(text: "EXPLORE AND FIND \n          THE EXIT", x: 0, y: 200)
+        }
+        print("\(GameData.shared.player.position.x)")
         GameData.shared.updateJoystickAndPlayer(self)
     }
 
@@ -142,4 +162,5 @@ class GameScene1_1: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         GameData.shared.joystickEnded(self)
     }
+    
 }
