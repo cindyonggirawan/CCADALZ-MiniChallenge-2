@@ -14,6 +14,7 @@ class GameScene1_2: SKScene {
     
     var foundMembersLabel: SKLabelNode = SKLabelNode()
     var backgroundImage: SKSpriteNode!
+    var playerSpawnPosition: CGPoint = CGPoint(x: 20, y: 281)
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -24,7 +25,15 @@ class GameScene1_2: SKScene {
         backgroundImage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         GameData.shared.setupJoystick(self)
-        GameData.shared.setupPlayer(self, playerSpawnPosition: CGPoint(x: 20, y: 281))
+        
+        
+        if GameData.shared.currentPortal == "portal2"{
+            playerSpawnPosition = CGPoint(x: 20, y: -200)
+        }else {
+            playerSpawnPosition = CGPoint(x: 20, y: 281)
+        }
+        GameData.shared.setupPlayer(self, playerSpawnPosition: playerSpawnPosition)
+        
         GameData.shared.setupPortalLevel1(self)
         GameData.shared.setupTile(self)
         generatefoundMembersLabel()

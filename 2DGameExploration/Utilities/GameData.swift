@@ -72,6 +72,7 @@ class GameData {
     var portal1: SKSpriteNode?
     var portal2: SKSpriteNode?
     var portal3: SKSpriteNode?
+    var currentPortal: String
     
     // PORTAL LEVEL 2 DISINI            -daniel
     // ada 9 portal kayaknya ya? -daniel
@@ -89,6 +90,7 @@ class GameData {
         self.player = SKSpriteNode()
         self.foundMembersLabel = SKLabelNode()
         self.layerTile = SKTileMapNode()
+        self.currentPortal = "noPortal"
         
         self.portal1 = SKSpriteNode()
         self.portal2 = SKSpriteNode()

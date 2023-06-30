@@ -14,6 +14,7 @@ class GameScene1_1: SKScene {
     var foundMembersLabel: SKLabelNode = SKLabelNode()
     var backgroundImage: SKSpriteNode!
     var topiCountMember: SKSpriteNode!
+    var playerSpawnPosition: CGPoint = CGPoint(x: -795, y: 10)
     
     override func didMove(to view: SKView) {
         
@@ -25,7 +26,16 @@ class GameScene1_1: SKScene {
         backgroundImage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         GameData.shared.setupJoystick(self)
-        GameData.shared.setupPlayer(self, playerSpawnPosition: CGPoint(x: -795, y: 10))
+        
+        if GameData.shared.currentPortal == "portal1"{
+            playerSpawnPosition = CGPoint(x: -270, y: 10)
+        }else if GameData.shared.currentPortal == "portal3"{
+            playerSpawnPosition = CGPoint(x: 160, y: 10)
+        }else {
+            playerSpawnPosition = CGPoint(x: -795, y: 10)
+        }
+        
+        GameData.shared.setupPlayer(self, playerSpawnPosition: playerSpawnPosition)
         GameData.shared.setupPortalLevel1(self)
         GameData.shared.setupTile(self)
         GameData.shared.playerPosition = []
@@ -67,12 +77,12 @@ class GameScene1_1: SKScene {
         
         let i = 0
         
-        if !GameData.shared.foundStatusOfFoundMembers[0]{
+        if !GameData.shared.foundStatusOfFoundMembers[i]{
             GameData.shared.hiddenMembers.append(SKSpriteNode(imageNamed: "member\(i)_down"))
             GameData.shared.hiddenMembers[i].name = "hidden member"
             GameData.shared.hiddenMembers[i].zPosition = CGFloat(i + 10)
             GameData.shared.hiddenMembers[i].anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            GameData.shared.hiddenMembers[0].position = CGPoint(x: -165, y: -20)
+            GameData.shared.hiddenMembers[i].position = CGPoint(x: -165, y: -20)
             GameData.shared.hiddenMembers[i].physicsBody = SKPhysicsBody(
                 rectangleOf: CGSize(width: 56, height: 26),
                 center: CGPoint(x: -1, y: -35)
