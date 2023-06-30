@@ -14,6 +14,7 @@ class ChapterHelper {
     var currLevels : [Level] = []
     var currLevel = Level()
     var currlastUnlockedLevel = 0
+    var unlockNewLevelStatus = false
     
     init() {
         currLevels = levelHelper.levelList
@@ -39,7 +40,7 @@ class ChapterHelper {
     }
     
     func unlockNewLevel() {
-        if !currChapter.levels.last!.isUnlocked {
+        if !currChapter.levels.last!.isUnlocked && unlockNewLevelStatus {
             currlastUnlockedLevel += 1
             currChapter.lastUnlockedLevel = currlastUnlockedLevel
             currChapter.levels[currChapter.lastUnlockedLevel].isUnlocked = true
@@ -50,7 +51,7 @@ class ChapterHelper {
             //update list value for current chapter
             chapterList[currChapter.chapterNo] = currChapter
             
-           
+           unlockNewLevelStatus = false
         }
            
     }
