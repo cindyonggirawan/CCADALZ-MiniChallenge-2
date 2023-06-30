@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		37078E762A4072C900292BE8 /* temp4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E752A4072C900292BE8 /* temp4.swift */; };
 		37078E782A4072D800292BE8 /* temp5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E772A4072D800292BE8 /* temp5.swift */; };
-		37078E7A2A4072E300292BE8 /* temp6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E792A4072E300292BE8 /* temp6.swift */; };
 		37078E822A40733400292BE8 /* temp10.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37078E812A40733400292BE8 /* temp10.swift */; };
 		37693AAC2A44561400317BAF /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37693AAB2A44561400317BAF /* Helper.swift */; };
 		37C29B992A400F0E001C2335 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C29B982A400F0E001C2335 /* AppDelegate.swift */; };
@@ -61,7 +60,6 @@
 /* Begin PBXFileReference section */
 		37078E752A4072C900292BE8 /* temp4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = temp4.swift; sourceTree = "<group>"; };
 		37078E772A4072D800292BE8 /* temp5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = temp5.swift; sourceTree = "<group>"; };
-		37078E792A4072E300292BE8 /* temp6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = temp6.swift; sourceTree = "<group>"; };
 		37078E812A40733400292BE8 /* temp10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = temp10.swift; sourceTree = "<group>"; };
 		37693AAB2A44561400317BAF /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		37C29B952A400F0E001C2335 /* Lost Choir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lost Choir.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,7 +215,6 @@
 		37078E682A406E0D00292BE8 /* Title Music */ = {
 			isa = PBXGroup;
 			children = (
-				37078E792A4072E300292BE8 /* temp6.swift */,
 			);
 			path = "Title Music";
 			sourceTree = "<group>";
@@ -431,7 +428,6 @@
 				37078E782A4072D800292BE8 /* temp5.swift in Sources */,
 				651F41272A4C46890037D4EE /* GameScene1_1.swift in Sources */,
 				A5C2FDBE2A45069700237D71 /* MenuViewController.swift in Sources */,
-				37078E7A2A4072E300292BE8 /* temp6.swift in Sources */,
 				6577CEF82A462C1D006FE200 /* GameScene1_2.swift in Sources */,
 				37C29B992A400F0E001C2335 /* AppDelegate.swift in Sources */,
 				8F48B8822A4929FE00D3FD13 /* PopUpMenuViewController.swift in Sources */,

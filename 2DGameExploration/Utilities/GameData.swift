@@ -35,11 +35,7 @@ class GameData {
     
     // AUDIO
     var audioHelper = AudioHelper()
-    let teleportSound: SKAction = SKAction.playSoundFileNamed("teleport.mp3", waitForCompletion: false)
-    var audioPlayers: [AVAudioPlayer] = [] //kalo bisa dipindah ke arr di audio helper, ada kusiapin arr namanya "gamePlayMusicPlayer"
-    
-//    let teleportSound: SKAction = SKAction.playSoundFileNamed("teleport.mp3", waitForCompletion: false)
-    let foundSound: SKAction = SKAction.playSoundFileNamed("found.mp3", waitForCompletion: false)
+    var audioPlayers: [AVAudioPlayer] = []
     
     // JOYSTEAK 21
     var disk: SKSpriteNode
@@ -397,15 +393,15 @@ class GameData {
         for i in 0 ..< hiddenMembers.count {
             print(hiddenMembers.count)
             if member == hiddenMembers[i] {
-//                numberOfFoundMembers += 1
+//                numberOfFoundMembers += 1 biar ga jadi sekabupaten
                 
                 if foundStatusOfFoundMembers[i] == false {
                     foundStatusOfFoundMembers[i] = true
                     indexOrderOfFoundMembers.append(i)
                     addParticleToMember(index: i)
+                    GameData.shared.audioHelper.playFoundSound()
+                    AudioHelper.adjustVolume()
                 }
-
-                AudioHelper.adjustVolume()
             }
         }
 
