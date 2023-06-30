@@ -43,6 +43,13 @@ class AudioHelper {
             playSound(fileName: soundEffectsFileNames[0], playerType: 0)
         }
     }
+    
+    func playFoundSound(){
+        if isSoundOn {
+            playSound(fileName: soundEffectsFileNames[2], playerType: 0)
+        }
+    }
+    
     func playTeleportSound(){
         if isSoundOn {
             playSound(fileName: soundEffectsFileNames[3], playerType: 0)
@@ -69,7 +76,7 @@ class AudioHelper {
         do {
             let url = URL(fileURLWithPath: filePath)
             let audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer.numberOfLoops = 0
+            audioPlayer.numberOfLoops = -1
             audioPlayer.prepareToPlay()
             return audioPlayer
         } catch {
@@ -77,8 +84,16 @@ class AudioHelper {
             return nil
         }
     }
+    
+    func appendAudioPlayer() {
+        for fileName in gameMusicFileNames {
+            if let audioPlayer = loadAudioPlayer(fileName: fileName) {
+                GameData.shared.audioPlayers.append(audioPlayer)
+            }
+        }
+    }
 
-    func playAllAudioTracks() {
+    func playAllAudioTracks() {        
         for (index, audioPlayer) in GameData.shared.audioPlayers.enumerated() {
             if index == 0 || index == 1 {
                 audioPlayer.volume = 1.0

@@ -32,6 +32,10 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
 //            view.addSubview(menuBtn)
 //            view.showsPhysics = true
+            
+            // AUDIO
+            GameData.shared.audioHelper.appendAudioPlayer()
+            GameData.shared.audioHelper.playAllAudioTracks()
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(onFinishGameScene), name: NSNotification.Name(rawValue: "onGameFinish"), object: nil)
