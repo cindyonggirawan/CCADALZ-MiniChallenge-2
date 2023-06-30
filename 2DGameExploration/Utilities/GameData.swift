@@ -391,7 +391,6 @@ class GameData {
         member.name = "found member"
 
         for i in 0 ..< hiddenMembers.count {
-            print(hiddenMembers.count)
             if member == hiddenMembers[i] {
 //                numberOfFoundMembers += 1 biar ga jadi sekabupaten
                 
