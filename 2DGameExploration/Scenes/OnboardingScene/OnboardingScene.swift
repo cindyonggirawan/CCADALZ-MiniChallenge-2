@@ -52,10 +52,10 @@ class OnboardingScene: SKScene {
         
         
         //set up breathing
-        let breatheOutAction = SKAction.scale(to: 1.01, duration: 3)
+        let breatheOutAction = SKAction.scale(to: 1.05, duration: 3)
         let breatheInAction = SKAction.scale(to: 1.0, duration: 3)
         
-        var breathActionSeq = SKAction.sequence([breatheOutAction, breatheInAction])
+        let breathActionSeq = SKAction.sequence([breatheOutAction, breatheInAction])
         for member in allMembers {
             member.run(SKAction.repeatForever(breathActionSeq))
         }
