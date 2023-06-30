@@ -50,7 +50,10 @@ class ChaptersMenuViewController: UIViewController {
             gameViewController.modalPresentationStyle = .fullScreen
             
             //Pindah/panggil gameViewController
-            self.present(gameViewController, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController = gameViewController
+            DispatchQueue.main.async {
+                self.present(gameViewController, animated: true, completion: nil)
+            }
         }
     
     }
