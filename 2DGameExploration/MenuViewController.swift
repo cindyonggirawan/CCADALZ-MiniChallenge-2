@@ -18,7 +18,7 @@ class MenuViewController: UIViewController {
         let skView = SKView()
         skView.frame = view.bounds
         skView.backgroundColor = .white
-        skView.showsFPS = true
+//        skView.showsFPS = true
         view.addSubview(skView)
 
         let scene = SKScene(fileNamed: "OnboardingScene")!
