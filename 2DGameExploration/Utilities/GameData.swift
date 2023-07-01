@@ -140,6 +140,8 @@ class GameData {
         
         for foundMember in foundMembers {
             foundMember.removeFromParent()
+            GameData.shared.playerPosition = []
+            foundMember.position = player.position
             scene.addChild(foundMember)
         }
         scene.addChild(player)
@@ -499,14 +501,33 @@ class GameData {
                         } else {
                             targetPosition = self.playerPosition[20]
                         }
+                    } else if self.playerPosition.count > 20 {
+                        if i == 0 {
+                            targetPosition = self.playerPosition[12]
+                        } else if i == 1 {
+                            targetPosition = self.playerPosition[8]
+                        } else {
+                            targetPosition = self.playerPosition[4]
+                        }
+                    }else if self.playerPosition.count > 5 {
+                        if i == 0 {
+                            targetPosition = self.playerPosition[3]
+                        } else if i == 1 {
+                            targetPosition = self.playerPosition[2]
+                        } else {
+                            targetPosition = self.playerPosition[1]
+                        }
                     }
+
                     
                     break
                 }
             }
             
-            if self.playerPosition.count >= 59{
+            if self.playerPosition.count > 5 {
                 moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+            } else {
+                moveAction = SKAction.move(to: targetPosition, duration: 0)
             }
             
             if self.lastDragGesture == "up" {

@@ -38,8 +38,6 @@ extension GameScene1_1: SKPhysicsContactDelegate {
                     if portalName == "portal1" {
 //                        GameData.shared.gamefirstStarted = false
                         GameData.shared.currentPortal = "portal1"
-                        GameData.shared.playerPosition = []
-                        GameData.shared.joystickEnded(self)
                         self.view?.presentScene(layer2, transition: transition)
                     } else if portalName == "portal3" {
                         GameData.shared.currentPortal = "portal3"
