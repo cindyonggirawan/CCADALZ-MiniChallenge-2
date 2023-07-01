@@ -81,6 +81,7 @@ class GameData {
     // PARTICLE NYANYI
     var particle: SKEmitterNode!
     
+    
     private init() {
         self.disk = SKSpriteNode()
         self.knob = SKSpriteNode()
@@ -92,6 +93,17 @@ class GameData {
         self.portal1 = SKSpriteNode()
         self.portal2 = SKSpriteNode()
         self.portal3 = SKSpriteNode()
+    }
+    
+    func resetGameData(){
+        numberOfFoundMembers = 0
+        foundStatusOfFoundMembers = [false, false, false]
+        indexOrderOfFoundMembers = []
+        isEnded = false
+        playerPosition = []
+        currentPortal = "noPortal"
+        foundMembers = []
+        hiddenMembers = []
     }
     
     func setupJoystick(_ scene: SKScene) {
@@ -502,18 +514,18 @@ class GameData {
                 self.player.zPosition = 0
                 
                 if self.hiddenMembers.count == 1 {
-                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[0].zPosition = 110
                 }
                 
                 if self.hiddenMembers.count == 2 {
-                    self.hiddenMembers[0].zPosition = 10
-                    self.hiddenMembers[1].zPosition = 20
+                    self.hiddenMembers[0].zPosition = 110
+                    self.hiddenMembers[1].zPosition = 120
                 }
                 
                 if self.hiddenMembers.count == 3 {
-                    self.hiddenMembers[0].zPosition = 10
-                    self.hiddenMembers[1].zPosition = 20
-                    self.hiddenMembers[2].zPosition = 30
+                    self.hiddenMembers[0].zPosition = 110
+                    self.hiddenMembers[1].zPosition = 120
+                    self.hiddenMembers[2].zPosition = 130
                 }
                 
 //                member.texture = SKTexture(imageNamed: "member\(index)_up")
@@ -532,18 +544,18 @@ class GameData {
 //                    self.hiddenMembers[2].zPosition = 10
                 
                 if self.hiddenMembers.count == 1 {
-                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[0].zPosition = 30
                 }
                 
                 if self.hiddenMembers.count == 2 {
-                    self.hiddenMembers[0].zPosition = 10
-                    self.hiddenMembers[1].zPosition = 20
+                    self.hiddenMembers[0].zPosition = 20
+                    self.hiddenMembers[1].zPosition = 10
                 }
                 
                 if self.hiddenMembers.count == 3 {
-                    self.hiddenMembers[0].zPosition = 10
+                    self.hiddenMembers[0].zPosition = 30
                     self.hiddenMembers[1].zPosition = 20
-                    self.hiddenMembers[2].zPosition = 30
+                    self.hiddenMembers[2].zPosition = 10
                 }
                 
 //                    node.zRotation = CGFloat(Double.pi) / 2.0 + CGFloat(Double.pi)

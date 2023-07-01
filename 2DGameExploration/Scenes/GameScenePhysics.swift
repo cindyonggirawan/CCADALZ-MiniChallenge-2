@@ -38,6 +38,8 @@ extension GameScene1_1: SKPhysicsContactDelegate {
                     if portalName == "portal1" {
 //                        GameData.shared.gamefirstStarted = false
                         GameData.shared.currentPortal = "portal1"
+                        GameData.shared.playerPosition = []
+                        GameData.shared.joystickEnded(self)
                         self.view?.presentScene(layer2, transition: transition)
                     } else if portalName == "portal3" {
                         GameData.shared.currentPortal = "portal3"
@@ -50,8 +52,11 @@ extension GameScene1_1: SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & PhysicsCategory.player != 0) && (secondBody.categoryBitMask & PhysicsCategory.finishGate != 0)) {
             if let _ = firstBody.node as? SKSpriteNode,
                let _ = secondBody.node as? SKSpriteNode {
-                print("afdsfawfe")
-                NotificationCenter.default.post(name: NSNotification.Name("onGameFinish"), object: nil)
+                if GameData.shared.foundMembers.count == 3 {
+                    NotificationCenter.default.post(name: NSNotification.Name("onGameFinish"), object: nil)
+                } else {
+                    
+                }
             }
         }
     }
