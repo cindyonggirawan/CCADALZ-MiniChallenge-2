@@ -56,6 +56,9 @@ class GameViewController: UIViewController {
     
     
     @IBAction func menuBtnClicked(_ sender: UIButton) {
+        //Play sound effect
+        GameData.shared.audioHelper.playActiveButton()
+        
         if let popUpMenuViewController = storyboard?.instantiateViewController(withIdentifier: "PopUpMenuViewController") as? PopUpMenuViewController {
 
             popUpMenuViewController.modalTransitionStyle = .crossDissolve
