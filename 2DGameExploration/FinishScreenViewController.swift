@@ -25,6 +25,8 @@ class FinishScreenViewController: UIViewController {
             // unlock new level
             GameData.shared.chapterHelper.unlockNewLevelStatus = true
             
+            GameData.shared.audioHelper.stopAllAudioTracks()
+            
             self.present(chaptersMenuViewController, animated: true, completion: nil)
         }
     }

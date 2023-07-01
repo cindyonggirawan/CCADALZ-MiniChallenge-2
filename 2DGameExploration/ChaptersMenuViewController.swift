@@ -60,8 +60,10 @@ class ChaptersMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //Play music
-        if !GameData.shared.audioHelper.isMusicOn {
+        if GameData.shared.audioHelper.isMusicOn && !GameData.shared.audioHelper.fromOnboarding {
             GameData.shared.audioHelper.playBgMusic()
+        } else {
+            GameData.shared.audioHelper.fromOnboarding = false
         }
     }
     

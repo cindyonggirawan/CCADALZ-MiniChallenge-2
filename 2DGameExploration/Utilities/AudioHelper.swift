@@ -11,6 +11,7 @@ class AudioHelper {
     
     var isSoundOn = true
     var isMusicOn = true
+    var fromOnboarding = true
     
     private var buttonEffectPlayer = AVAudioPlayer()
     
@@ -24,8 +25,10 @@ class AudioHelper {
     //MUSIC SETTINGS
     func changeMusicState(){
         if isMusicOn {
+            isMusicOn = false
             stopBgMusic()
         } else {
+            isMusicOn = true
             playBgMusic()
         }
     }
@@ -58,11 +61,11 @@ class AudioHelper {
     
     //BG Music
     func playBgMusic(){
-        isMusicOn = true
+//        isMusicOn = true
         playSound(fileName: soundEffectsFileNames[1], playerType: 1)
     }
     func stopBgMusic(){
-        isMusicOn = false
+//        isMusicOn = false
         stopSound(player: gameBackgroundMusicPlayer)
     }
     
@@ -86,30 +89,41 @@ class AudioHelper {
     }
     
     func appendAudioPlayer() {
-        for fileName in gameMusicFileNames {
-            if let audioPlayer = loadAudioPlayer(fileName: fileName) {
-                GameData.shared.audioPlayers.append(audioPlayer)
+        if isMusicOn {
+            for fileName in gameMusicFileNames {
+                if let audioPlayer = loadAudioPlayer(fileName: fileName) {
+                    GameData.shared.audioPlayers.append(audioPlayer)
+                }
             }
         }
+        print("append audio \(isMusicOn): \(GameData.shared.audioPlayers.count)")
     }
 
-    func playAllAudioTracks() {        
-        for (index, audioPlayer) in GameData.shared.audioPlayers.enumerated() {
-            if index == 0 || index == 1 {
-                audioPlayer.volume = 1.0
-            } else {
-                audioPlayer.volume = 0.0
-                AudioHelper.adjustVolume()
+    func playAllAudioTracks() {
+        if isMusicOn {
+            for (index, audioPlayer) in GameData.shared.audioPlayers.enumerated() {
+                if index == 0 || index == 1 {
+                    audioPlayer.volume = 1.0
+                } else {
+                    audioPlayer.volume = 0.0
+                    AudioHelper.adjustVolume()
+                }
+                audioPlayer.play()
             }
-            audioPlayer.play()
         }
-        
+        print("play all audio \(!GameData.shared.audioPlayers.isEmpty && isMusicOn): \(GameData.shared.audioPlayers.count)")
+
     }
 
     func stopAllAudioTracks() {
-        for audioPlayer in GameData.shared.audioPlayers {
-            audioPlayer.stop()
+        if isMusicOn {
+            for audioPlayer in GameData.shared.audioPlayers {
+                audioPlayer.stop()
+            }
+            GameData.shared.audioPlayers.removeAll()
         }
+        print("stop all audio \(!GameData.shared.audioPlayers.isEmpty && isMusicOn): \(GameData.shared.audioPlayers.count)")
+
     }
 
     static func adjustVolume() {

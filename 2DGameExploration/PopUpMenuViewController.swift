@@ -35,6 +35,7 @@ class PopUpMenuViewController: UIViewController {
         
             DispatchQueue.main.async {
                 self.dismiss(animated: true) {
+                    GameData.shared.audioHelper.stopAllAudioTracks()
                     UIApplication.shared.keyWindow?.rootViewController = chaptersMenuViewController
                 }
             }
