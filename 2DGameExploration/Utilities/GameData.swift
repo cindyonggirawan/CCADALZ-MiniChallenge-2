@@ -138,9 +138,10 @@ class GameData {
         player.physicsBody?.angularDamping = 1
         player.physicsBody?.linearDamping = 1
         
+        GameData.shared.playerPosition = []
+        
         for foundMember in foundMembers {
             foundMember.removeFromParent()
-            GameData.shared.playerPosition = []
             foundMember.position = player.position
             scene.addChild(foundMember)
         }
@@ -194,7 +195,7 @@ class GameData {
         disk.position = location
         knob.position = .zero
         
-        disk.alpha = 0.3
+        disk.alpha = 0.5
 
         self.isPressed = true
     }
@@ -533,7 +534,6 @@ class GameData {
             if self.lastDragGesture == "up" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0
                 self.player.zPosition = 0
-                
                 if self.hiddenMembers.count == 1 {
                     self.hiddenMembers[0].zPosition = 110
                 }
