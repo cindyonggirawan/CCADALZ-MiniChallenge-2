@@ -74,9 +74,25 @@ class ChapterScene1: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        idx = 0
+        for tile in chapterLevelTiles {
+            if idx > 0 {
+                chapterBridge = (childNode(withName: "chapterBridge\(idx+1)") as? SKSpriteNode)!
+            }
+
+            if GameData.shared.chapterHelper.currLevels[idx].isUnlocked {
+                tile.texture = SKTexture(imageNamed: "\(GameData.shared.chapterHelper.currLevels[idx].unlockedTileName)")
+                chapterBridge.isHidden = false
+            } else {
+                tile.texture = SKTexture(imageNamed: "\(GameData.shared.chapterHelper.currLevels[idx].lockedTileName)")
+                chapterBridge.isHidden = true
+            }
+            idx += 1
+        }
+        
         //unlock new level animation after winning the game
         if GameData.shared.chapterHelper.unlockNewLevelStatus {
-            unlockNewLevel()
+//            unlockNewLevel()
         }
     }
     
@@ -99,16 +115,24 @@ class ChapterScene1: SKScene {
 
             if tile.contains(location) {
                 GameData.shared.chapterHelper.currLevel = GameData.shared.chapterHelper.currLevels[idx]
-                if GameData.shared.chapterHelper.currLevels[idx].isUnlocked {
-                    levelName.text = "\" \(GameData.shared.chapterHelper.currLevels[idx].titleName) \""
-                    
-                    // brute if, karna level lain blm ada game scene-nya
-                    if idx == 0 {
-                        moveToNextChapterByDisapearingAndPlay(player: player, location: tile.position)
-                    } else {
-                        moveToNextChapterByDisapearing(player: player, location: tile.position)
-                    }
+                
+                levelName.text = "\" \(GameData.shared.chapterHelper.currLevels[idx].titleName) \""
+                
+                if idx == 0 {
+                    moveToChapterByDisapearingAndPlay(player: player, location: tile.position)
                 }
+                
+                // klo uda ada level lainnya baru bisa dipake
+//                if GameData.shared.chapterHelper.currLevels[idx].isUnlocked {
+//                    levelName.text = "\" \(GameData.shared.chapterHelper.currLevels[idx].titleName) \""
+//
+//                    // brute if, karna level lain blm ada game scene-nya
+//                    if idx == 0 {
+//                        moveToNextChapterByDisapearingAndPlay(player: player, location: tile.position)
+//                    } else {
+//                        moveToNextChapterByDisapearing(player: player, location: tile.position)
+//                    }
+//                }
                
                 break
             }
@@ -168,7 +192,7 @@ class ChapterScene1: SKScene {
     }
     
     // move to another unlocked level
-    func moveToNextChapterByDisapearingAndPlay(player: SKSpriteNode, location: CGPoint) {
+    func moveToChapterByDisapearingAndPlay(player: SKSpriteNode, location: CGPoint) {
         let targetPosition = CGPoint(x:location.x, y: location.y + 44)
         let actionDuration = 0.1
         let fadeDuration = 0.3
