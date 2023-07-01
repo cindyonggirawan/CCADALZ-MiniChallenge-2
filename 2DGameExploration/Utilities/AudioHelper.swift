@@ -151,7 +151,7 @@ class AudioHelper {
             case 0:
                 do {
                     try buttonEffectPlayer = AVAudioPlayer(contentsOf: filePath)
-                    buttonEffectPlayer.volume = 1.0
+                    buttonEffectPlayer.volume = 0.3
                     buttonEffectPlayer.numberOfLoops = 0
                     buttonEffectPlayer.prepareToPlay()
                     buttonEffectPlayer.play()
