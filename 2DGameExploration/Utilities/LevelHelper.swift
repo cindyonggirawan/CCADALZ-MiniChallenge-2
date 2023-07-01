@@ -33,7 +33,7 @@ class LevelHelper {
         )
         levels.append(
             addLevel(levelNo: 2,
-                     title: "Chapter 2 Title",
+                     title: "2 - Coming Soon",
                      isUnlocked: false,
                      tileName: "chapterTileLevel2", bridgeName: "chapterBridge2",
                      sceneName: "", lockedTileName: "1-chapterTileLockedLevel2",
@@ -42,7 +42,7 @@ class LevelHelper {
         )
         levels.append(
             addLevel(levelNo: 3,
-                     title: "Coming Soon",
+                     title: "3 - Coming Soon",
                      isUnlocked: false,
                      tileName: "chapterTileLevel3", bridgeName: "chapterBridge3",
                      sceneName: "", lockedTileName: "1-chapterTileLockedLevel3",
@@ -51,7 +51,7 @@ class LevelHelper {
         )
         levels.append(
             addLevel(levelNo: 4,
-                     title: "Coming Soon",
+                     title: "4 - Coming Soon",
                      isUnlocked: false,
                      tileName: "chapterTileLevel4", bridgeName: "chapterBridge4",
                      sceneName: "", lockedTileName: "1-chapterTileLockedLevel4",
@@ -60,7 +60,7 @@ class LevelHelper {
         )
         levels.append(
             addLevel(levelNo: 5,
-                     title: "Coming Soon",
+                     title: "5 - Coming Soon",
                      isUnlocked: false,
                      tileName: "chapterTileLevel5", bridgeName: "chapterBridge5",
                      sceneName: "", lockedTileName: "1-chapterTileLockedLevel5",
@@ -69,7 +69,7 @@ class LevelHelper {
         )
         levels.append(
             addLevel(levelNo: 6,
-                     title: "Coming Soon",
+                     title: "6 - Coming Soon",
                      isUnlocked: false,
                      tileName: "chapterTileLevel6", bridgeName: "chapterBridge6",
                      sceneName: "", lockedTileName: "1-chapterTileLockedLevel6",
