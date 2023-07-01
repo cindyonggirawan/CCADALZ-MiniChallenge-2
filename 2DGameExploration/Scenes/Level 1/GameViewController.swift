@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene1_1") {
                 // Set the scale mode to scale to fit the window
+                GameData.shared.resetGameData()
                 scene.scaleMode = .resizeFill
                 scene.backgroundColor = .darkGray
                 
@@ -28,8 +29,8 @@ class GameViewController: UIViewController {
             
             view.ignoresSiblingOrder = true
             
-            view.showsFPS = true
-            view.showsNodeCount = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
 //            view.addSubview(menuBtn)
 //            view.showsPhysics = true
             

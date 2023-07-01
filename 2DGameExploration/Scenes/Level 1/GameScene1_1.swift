@@ -141,16 +141,26 @@ class GameScene1_1: SKScene {
         if GameData.shared.player.position.x >= -350.0 && tutorCount == 0 {
             tutorCount = 1
             deleteTutorialLabel()
-            generateTutorialLabel(text: "TAKE YOUR FRIEND \n           WITH YOU", x: 0, y: 200)
-            updateTutorialLabel(x: 0, y: 300)
-            
+            generateTutorialLabel(text: "TAKE YOUR FRIEND \n        WITH YOU", x: 0, y: 200)
+//            updateTutorialLabel(x: 0, y: 300)
         }
-        if GameData.shared.numberOfFoundMembers >= 0 && tutorCount > 0 {
+        if GameData.shared.foundMembers.count > 0 && tutorCount == 1 {
             tutorCount = 2
             deleteTutorialLabel()
             generateTutorialLabel(text: "EXPLORE AND FIND \n          THE EXIT", x: 0, y: 200)
         }
+        
+        
+        if GameData.shared.foundMembers.count != 3 && tutorCount == 2 && GameData.shared.currentPortal == "portal3"{
+            tutorCount = 2
+            deleteTutorialLabel()
+            generateTutorialLabel(text: "SEARCH MORE FRIEND \n          TO FINISH", x: 0, y: 200)
+        }else if GameData.shared.currentPortal != "noPortal"{
+            deleteTutorialLabel()
+        }
 
+        
+        
         GameData.shared.updateJoystickAndPlayer(self)
     }
 
