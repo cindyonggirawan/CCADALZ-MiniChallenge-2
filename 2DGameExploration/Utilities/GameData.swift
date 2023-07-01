@@ -394,7 +394,7 @@ class GameData {
 //        var foundMembers: [SKSpriteNode] = []
         scene.enumerateChildNodes(withName: "hidden member") { node, _ in
             let member = node as! SKSpriteNode
-            if CGRectIntersectsRect(member.frame, self.player.frame) {
+            if CGRectIntersectsRect(CGRectInset(member.frame, 30, 30), CGRectInset(self.player.frame, 30, 30)) {
                 self.foundMembers.append(member)
             }
             
