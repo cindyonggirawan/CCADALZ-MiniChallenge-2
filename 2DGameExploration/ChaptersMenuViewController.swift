@@ -60,8 +60,10 @@ class ChaptersMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //Play music
-        if !GameData.shared.audioHelper.isMusicOn {
+        if GameData.shared.audioHelper.isMusicOn && !GameData.shared.audioHelper.fromOnboarding {
             GameData.shared.audioHelper.playBgMusic()
+        } else {
+            GameData.shared.audioHelper.fromOnboarding = false
         }
     }
     
@@ -103,18 +105,9 @@ class ChaptersMenuViewController: UIViewController {
     }
     
     
-    @IBAction func unwindSegue (sender: UIStoryboardSegue){
-    }
+//    @IBAction func unwindSegue (sender: UIStoryboardSegue){
+//    }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown

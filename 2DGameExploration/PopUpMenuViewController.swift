@@ -27,6 +27,21 @@ class PopUpMenuViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @IBAction func exitBtnClicked(_ sender: Any) {
+        if let chaptersMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
+
+            chaptersMenuViewController.modalTransitionStyle = .crossDissolve
+            chaptersMenuViewController.modalPresentationStyle = .fullScreen
+        
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) {
+                    GameData.shared.audioHelper.stopAllAudioTracks()
+                    UIApplication.shared.keyWindow?.rootViewController = chaptersMenuViewController
+                }
+            }
+            
+        }
+    }
     
     
     /*

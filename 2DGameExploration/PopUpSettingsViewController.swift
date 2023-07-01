@@ -10,7 +10,6 @@ import AVFAudio
 
 class PopUpSettingsViewController: UIViewController {
 
- 
     var isOnColorBlindMode = false
     
     var audioPlayers: [AVAudioPlayer] = []
