@@ -138,8 +138,11 @@ class GameData {
         player.physicsBody?.angularDamping = 1
         player.physicsBody?.linearDamping = 1
         
+        GameData.shared.playerPosition = []
+        
         for foundMember in foundMembers {
             foundMember.removeFromParent()
+            foundMember.position = player.position
             scene.addChild(foundMember)
         }
         scene.addChild(player)
@@ -192,7 +195,7 @@ class GameData {
         disk.position = location
         knob.position = .zero
         
-        disk.alpha = 0.3
+        disk.alpha = 0.5
 
         self.isPressed = true
     }
@@ -499,20 +502,38 @@ class GameData {
                         } else {
                             targetPosition = self.playerPosition[20]
                         }
+                    } else if self.playerPosition.count > 20 {
+                        if i == 0 {
+                            targetPosition = self.playerPosition[12]
+                        } else if i == 1 {
+                            targetPosition = self.playerPosition[8]
+                        } else {
+                            targetPosition = self.playerPosition[4]
+                        }
+                    }else if self.playerPosition.count > 5 {
+                        if i == 0 {
+                            targetPosition = self.playerPosition[3]
+                        } else if i == 1 {
+                            targetPosition = self.playerPosition[2]
+                        } else {
+                            targetPosition = self.playerPosition[1]
+                        }
                     }
+
                     
                     break
                 }
             }
             
-            if self.playerPosition.count >= 59{
+            if self.playerPosition.count > 5 {
                 moveAction = SKAction.move(to: targetPosition, duration: actionDuration)
+            } else {
+                moveAction = SKAction.move(to: targetPosition, duration: 0)
             }
             
             if self.lastDragGesture == "up" {
 //                    node.zRotation = CGFloat(Double.pi) / 2.0
                 self.player.zPosition = 0
-                
                 if self.hiddenMembers.count == 1 {
                     self.hiddenMembers[0].zPosition = 110
                 }
