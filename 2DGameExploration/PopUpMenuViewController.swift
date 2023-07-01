@@ -24,10 +24,16 @@ class PopUpMenuViewController: UIViewController {
     }
     
     @IBAction func resumeBtnClicked(_ sender: Any) {
+        //Play sound effect
+        GameData.shared.audioHelper.playActiveButton()
+        
         self.dismiss(animated: true)
     }
     
     @IBAction func exitBtnClicked(_ sender: Any) {
+        //Play sound effect
+        GameData.shared.audioHelper.playActiveButton()
+        
         if let chaptersMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "ChaptersMenuViewController") as? ChaptersMenuViewController {
 
             chaptersMenuViewController.modalTransitionStyle = .crossDissolve

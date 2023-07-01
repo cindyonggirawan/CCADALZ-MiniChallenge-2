@@ -37,6 +37,7 @@ class AudioHelper {
             isSoundOn = false
         } else {
             isSoundOn = true
+            playActiveButton()
         }
     }
     
