@@ -86,7 +86,7 @@
                                             <color key="baseForegroundColor" red="0.99541284399999996" green="0.99082568810000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="McI-Sh-sO9" kind="unwind" unwindAction="unwindSegueWithSender:" id="BI9-JO-qNd"/>
+                                            <action selector="exitBtnClicked:" destination="FvN-ZQ-QRr" eventType="touchUpInside" id="djW-hY-9hQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -101,7 +101,6 @@
                     <navigationItem key="navigationItem" id="KRc-KQ-Bfu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YK1-U9-fHA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="McI-Sh-sO9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1898" y="-2"/>
         </scene>
