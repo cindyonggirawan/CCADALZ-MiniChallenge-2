@@ -455,7 +455,7 @@ class GameData {
             var index = 0
             
             for i in 0..<3 {
-                if member == self.hiddenMembers[index] {
+                if member == self.hiddenMembers[i] {
                     index = i
                     break
                 }
