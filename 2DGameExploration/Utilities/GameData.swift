@@ -104,6 +104,13 @@ class GameData {
         currentPortal = "noPortal"
         foundMembers = []
         hiddenMembers = []
+        
+        location = .zero
+        diskLocation  = .zero
+        angle = 0.0
+        
+        isPressed = false
+        isMoved = false
     }
     
     func setupJoystick(_ scene: SKScene) {
